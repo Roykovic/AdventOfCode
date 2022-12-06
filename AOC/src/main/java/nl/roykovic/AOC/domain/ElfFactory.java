@@ -1,4 +1,4 @@
-package nl.roykovic.AOC;
+package nl.roykovic.AOC.domain;
 
 import nl.roykovic.AOC.domain.Elf;
 import org.apache.commons.lang3.math.NumberUtils;

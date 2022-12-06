@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RPSGameFactory {
-    public List<RPSGame> generateFromFile(File file) throws FileNotFoundException {
+    public List<RPSGame> generateFromFile(File file, boolean elvesSolution) throws FileNotFoundException {
 
         BufferedReader reader = new BufferedReader(new FileReader(file));
 
@@ -23,7 +23,13 @@ public class RPSGameFactory {
         for(String line: lines){
             char[] moves = StringUtils.deleteWhitespace(line).toCharArray();
 
-            RPSGame game = new RPSGame(moves[0], moves[1]);
+            RPSGame game;
+            if(elvesSolution){
+                game = new RPSGame(moves[0], moves[1], elvesSolution);
+            }
+            else {
+                game = new RPSGame(moves[0], moves[1]);
+            }
             gameList.add(game);
         }
         return gameList;

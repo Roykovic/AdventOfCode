@@ -1,12 +1,11 @@
 package nl.roykovic.AOC.domain.SupplyStacks;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class CrateStack {
 
-    private final List<Character> crates = new ArrayList<>();
+    private List<Character> crates = new ArrayList<>();
 
     public CrateStack(){
     }
@@ -15,7 +14,18 @@ public class CrateStack {
         return crates.remove(crates.size() -1);
     }
 
+    public List<Character> pop(int amount){
+
+        List<Character> returnList = new ArrayList<>(crates.subList(crates.size()-(amount), crates.size()));
+        crates = crates.subList(0, crates.size()-amount);
+        return returnList;
+    }
+
     public void push(Character crate){
         crates.add(crate);
+    }
+
+    public void push(List<Character> newCrates){
+        crates.addAll(newCrates);
     }
 }

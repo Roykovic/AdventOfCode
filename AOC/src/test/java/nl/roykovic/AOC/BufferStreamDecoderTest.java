@@ -13,7 +13,14 @@ public class BufferStreamDecoderTest {
     @Test
     void testFactory() throws IOException {
         File input = new ClassPathResource("BufferInput.txt").getFile();
-        int startOfPacket = new BufferStreamDecoder().findStartOfPacket(input);
+        int startOfPacket = new BufferStreamDecoder().findStartOfPacket(input, 4);
+        System.out.println(startOfPacket);
+    }
+
+    @Test
+    void testFactory2() throws IOException {
+        File input = new ClassPathResource("BufferInput.txt").getFile();
+        int startOfPacket = new BufferStreamDecoder().findStartOfPacket(input, 14);
         System.out.println(startOfPacket);
     }
 }

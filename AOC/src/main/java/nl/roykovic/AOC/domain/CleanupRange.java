@@ -12,4 +12,8 @@ public class CleanupRange {
     public boolean contains(CleanupRange otherRange){
         return start <= otherRange.start && end >= otherRange.end;
     }
+
+    public boolean overlaps(CleanupRange otherRange){
+        return (otherRange.start >= start && otherRange.start <= end) || (otherRange.end >= start && otherRange.end <= end);
+    }
 }

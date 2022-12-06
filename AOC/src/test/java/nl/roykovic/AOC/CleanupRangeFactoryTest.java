@@ -23,4 +23,14 @@ public class CleanupRangeFactoryTest {
 
         System.out.println(containingRanges);
     }
+
+    @Test
+    void testFactory2() throws IOException {
+        File input = new ClassPathResource("CleanupInput.txt").getFile();
+        Map<CleanupRange, CleanupRange> map = new CleanupRangeFactory().generateFromFile(input);
+
+        long overlappingRanges = map.entrySet().stream().filter(e -> (e.getValue().overlaps(e.getKey()) || e.getKey().overlaps(e.getValue()))).count();
+
+        System.out.println(overlappingRanges);
+    }
 }

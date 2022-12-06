@@ -22,6 +22,16 @@ public class Crane {
         }
     }
 
+    public void executeImprovedInstructions(){
+        for(CraneInstruction instruction : instructions){
+            CrateStack originStack = crateStacks.get(instruction.getOriginStack() -1);
+            CrateStack destinationStack = crateStacks.get(instruction.getDestinationStack() -1);
+
+            destinationStack.push(originStack.pop(instruction.getAmountOfCrates()));
+            int x = 0;
+        }
+    }
+
     public void printTopCrates(){
         for(CrateStack crateStack : crateStacks){
             System.out.print(crateStack.pop());

@@ -23,4 +23,15 @@ public class CraneFactoryTest {
         crane.printTopCrates();
 
     }
+    @Test
+    void testFactory2() throws IOException {
+        File input = new ClassPathResource("CrateInput.txt").getFile();
+        Crane crane = new CraneFactory().generateFromFile(input);
+
+        crane.executeImprovedInstructions();
+
+        crane.printTopCrates();
+
+    }
+
 }

@@ -1,5 +1,7 @@
 package nl.roykovic.AOC.domain;
 
+import org.apache.commons.lang3.ArrayUtils;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,6 +17,18 @@ public class Rucksack {
 
     public Character[] sharedItems(){
         return Arrays.stream(firstCompartment).filter(c -> Arrays.asList(secondCompartment).contains(c)).distinct().toArray(Character[]::new);
+    }
+
+    public Character[] sharedItems(Character[] otherCompartments){
+        return Arrays
+                .stream(ArrayUtils.addAll(firstCompartment, secondCompartment))
+                .filter(c -> Arrays.asList(otherCompartments)
+                        .contains(c))
+                .distinct().toArray(Character[]::new);
+    }
+
+    public Character[] sharedItems(Rucksack otherRucksack){
+        return sharedItems(ArrayUtils.addAll(otherRucksack.firstCompartment, otherRucksack.secondCompartment));
     }
 
     public static int charToPrio(Character character){

@@ -37,4 +37,14 @@ public enum RPSMove{
         }
         throw new IllegalArgumentException(String.valueOf(character));
     }
+
+    public static RPSMove getByOutcome(RPSMove opponentMove, RPSOutcome outcome){
+
+        return switch (outcome) {
+            case DRAW -> opponentMove;
+            case LOSS -> WINS.get(opponentMove);
+            case WIN -> WINS.entrySet().stream().filter(m -> m.getValue().equals(opponentMove)).map(Map.Entry::getKey).findFirst().get();
+        };
+
+    }
 }

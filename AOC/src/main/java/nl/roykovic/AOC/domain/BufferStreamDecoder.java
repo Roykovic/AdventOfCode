@@ -23,7 +23,7 @@ public class BufferStreamDecoder {
         while(!startOfPacketFound){
             char[] firstPacket = ArrayUtils.subarray(bufferStream, 0, packetLength);
             startOfPacketFound = firstPacket.length == new HashSet<Character>(Arrays.asList(ArrayUtils.toObject(firstPacket))).size();
-            bufferStream = ArrayUtils.subarray(bufferStream, 1, bufferStream.length-1);
+            bufferStream = ArrayUtils.subarray(bufferStream, 1, bufferStream.length);
             pos += 1;
         }
 

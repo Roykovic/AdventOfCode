@@ -17,6 +17,10 @@ public class FileSystemFactoryTest {
     void testFactory() throws IOException {
         File input = new ClassPathResource("FileSystemInput.txt").getFile();
         Directory root = new FileSystemFactory().generateFromFile(input);
+        List<Directory> directories= root.buildList();
 
+        Long i = directories.stream().map(Directory::getSize).filter(it -> it<100001).reduce(0L, Long::sum);
+
+        System.out.println(i);
     }
 }

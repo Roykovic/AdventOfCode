@@ -42,6 +42,32 @@ public class Directory implements FileSystemItem{
         }
     }
 
+    public long getSize(){
+        int size = 0;
+
+        for(Directory child: children){
+            size += child.getSize();
+        }
+        for(File file: files){
+            size += file.getSize();
+        }
+
+        return size;
+    }
+
+    public List<Directory> buildList(){
+
+        List<Directory> directories = new ArrayList<>();
+
+            directories.add(this);
+
+        for(Directory child: children){
+            directories.addAll(child.buildList());
+        }
+
+        return directories;
+    }
+
     public void addToParent(){
         this.parent.add(this);
     }

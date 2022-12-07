@@ -5,4 +5,6 @@ public interface FileSystemItem {
     public void setParent(Directory parent);
 
     public void addToParent();
+
+    public long getSize();
 }

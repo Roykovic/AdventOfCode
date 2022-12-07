@@ -7,8 +7,8 @@ public class Directory implements FileSystemItem{
 
     private Directory parent;
     private String name;
-    private List<Directory> children;
-    private List<File> files;
+    private final List<Directory> children;
+    private final List<File> files;
 
     public Directory(Directory parent, String name){
         this.children = new ArrayList<>();
@@ -30,7 +30,7 @@ public class Directory implements FileSystemItem{
     }
 
     private Directory getChild(String name){
-        return this.children.stream().filter(child -> child.getName().equals(name)).findFirst().get();
+        return this.children.stream().filter(child -> child.getName().equals(name)).findFirst().orElseThrow(IndexOutOfBoundsException::new);
     }
 
     public Directory cd(String name){

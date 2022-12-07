@@ -1,7 +1,5 @@
 package nl.roykovic.AOC;
 
-import nl.roykovic.AOC.domain.Elf;
-import nl.roykovic.AOC.domain.ElfFactory;
 import nl.roykovic.AOC.domain.RockPaperScissors.RPSGame;
 import nl.roykovic.AOC.domain.RockPaperScissors.RPSGameFactory;
 import org.junit.jupiter.api.Test;
@@ -9,7 +7,6 @@ import org.springframework.core.io.ClassPathResource;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
 
 public class RPSGameFactoryTest {

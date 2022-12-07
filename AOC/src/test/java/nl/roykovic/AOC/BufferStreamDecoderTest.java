@@ -1,8 +1,6 @@
 package nl.roykovic.AOC;
 
 import nl.roykovic.AOC.domain.BufferStreamDecoder;
-import nl.roykovic.AOC.domain.SupplyStacks.Crane;
-import nl.roykovic.AOC.domain.SupplyStacks.CraneFactory;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.io.ClassPathResource;
 

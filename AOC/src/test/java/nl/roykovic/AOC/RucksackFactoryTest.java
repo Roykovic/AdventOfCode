@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 public class RucksackFactoryTest {
     @Test
@@ -38,7 +37,7 @@ public class RucksackFactoryTest {
         int sum = groups.stream()
                 .flatMap(group -> Arrays.stream(group.get(2).sharedItems(group.get(0).sharedItems(group.get(1)))))
                 .map(Rucksack::charToPrio)
-                .reduce(0, Integer::sum);;
+                .reduce(0, Integer::sum);
 
         System.out.println(sum);
 

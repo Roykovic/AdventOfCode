@@ -19,7 +19,7 @@ public enum RPSOutcome {
 
     public static RPSOutcome getByChar(char character){
         for(RPSOutcome outcome : values()){
-            if(outcome.character == character || outcome.character == character){
+            if(outcome.character == character){
                 return outcome;
             }
         }

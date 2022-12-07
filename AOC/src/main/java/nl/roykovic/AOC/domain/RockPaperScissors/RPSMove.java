@@ -1,7 +1,5 @@
 package nl.roykovic.AOC.domain.RockPaperScissors;
 
-import nl.roykovic.AOC.domain.Elf;
-
 import java.util.Map;
 
 public enum RPSMove{
@@ -43,7 +41,7 @@ public enum RPSMove{
         return switch (outcome) {
             case DRAW -> opponentMove;
             case LOSS -> WINS.get(opponentMove);
-            case WIN -> WINS.entrySet().stream().filter(m -> m.getValue().equals(opponentMove)).map(Map.Entry::getKey).findFirst().get();
+            case WIN -> WINS.entrySet().stream().filter(m -> m.getValue().equals(opponentMove)).map(Map.Entry::getKey).findFirst().orElseThrow(IllegalArgumentException::new);
         };
 
     }

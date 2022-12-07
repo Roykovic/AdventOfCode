@@ -1,6 +1,5 @@
 package nl.roykovic.AOC.domain.FileSystem;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
 import java.io.BufferedReader;

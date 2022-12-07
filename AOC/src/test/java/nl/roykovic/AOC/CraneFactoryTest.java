@@ -1,7 +1,5 @@
 package nl.roykovic.AOC;
 
-import nl.roykovic.AOC.domain.Elf;
-import nl.roykovic.AOC.domain.ElfFactory;
 import nl.roykovic.AOC.domain.SupplyStacks.Crane;
 import nl.roykovic.AOC.domain.SupplyStacks.CraneFactory;
 import org.junit.jupiter.api.Test;
@@ -9,8 +7,6 @@ import org.springframework.core.io.ClassPathResource;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
 
 public class CraneFactoryTest {
     @Test

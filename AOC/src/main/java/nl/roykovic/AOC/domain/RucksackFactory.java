@@ -1,8 +1,6 @@
 package nl.roykovic.AOC.domain;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.math.NumberUtils;
 
 import java.io.BufferedReader;
 import java.io.File;

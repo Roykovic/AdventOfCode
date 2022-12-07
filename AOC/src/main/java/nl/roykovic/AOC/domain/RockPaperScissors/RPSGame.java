@@ -1,7 +1,5 @@
 package nl.roykovic.AOC.domain.RockPaperScissors;
 
-import java.util.Map;
-
 import static nl.roykovic.AOC.domain.RockPaperScissors.RPSMove.WINS;
 
 public class RPSGame {

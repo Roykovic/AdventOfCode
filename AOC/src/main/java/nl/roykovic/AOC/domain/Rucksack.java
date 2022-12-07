@@ -3,8 +3,6 @@ package nl.roykovic.AOC.domain;
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class Rucksack {
     private final Character[] firstCompartment;
@@ -32,8 +30,6 @@ public class Rucksack {
     }
 
     public static int charToPrio(Character character){
-        int hans = Character.getNumericValue(character);
-        int frits = Character.isUpperCase(character) ? 38 : 96;
         return character - (Character.isUpperCase(character) ? 38 : 96);
     }
 

@@ -1,10 +1,10 @@
 package nl.roykovic.AOC.domain.FileSystem;
 
 public interface FileSystemItem {
-    public void setName(String name);
-    public void setParent(Directory parent);
+    void setName(String name);
+    void setParent(Directory parent);
 
-    public void addToParent();
+    void addToParent();
 
-    public long getSize();
+    long getSize();
 }

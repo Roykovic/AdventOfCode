@@ -28,7 +28,6 @@ public class Crane {
             CrateStack destinationStack = crateStacks.get(instruction.getDestinationStack() -1);
 
             destinationStack.push(originStack.pop(instruction.getAmountOfCrates()));
-            int x = 0;
         }
     }
 

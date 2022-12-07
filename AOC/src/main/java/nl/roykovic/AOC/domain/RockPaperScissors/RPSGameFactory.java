@@ -1,8 +1,6 @@
 package nl.roykovic.AOC.domain.RockPaperScissors;
 
-import nl.roykovic.AOC.domain.Elf;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.math.NumberUtils;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -25,7 +23,7 @@ public class RPSGameFactory {
 
             RPSGame game;
             if(elvesSolution){
-                game = new RPSGame(moves[0], moves[1], elvesSolution);
+                game = new RPSGame(moves[0], moves[1], true);
             }
             else {
                 game = new RPSGame(moves[0], moves[1]);

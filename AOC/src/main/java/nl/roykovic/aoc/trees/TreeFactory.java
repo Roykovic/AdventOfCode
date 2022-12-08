@@ -23,7 +23,7 @@ public class TreeFactory {
             for(int xIndex = 0; xIndex < line.length(); xIndex++){
                 int height = line.charAt(xIndex) - '0';
 
-                trees[yIndex][xIndex] = new Tree(height);
+                trees[yIndex][xIndex] = new Tree(height, xIndex, yIndex);
             }
         }
         return new TreePatch(trees);

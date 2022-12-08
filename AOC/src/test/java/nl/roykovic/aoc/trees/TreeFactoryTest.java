@@ -18,4 +18,14 @@ public class TreeFactoryTest {
         System.out.println(visibleTrees.length);
 
     }
+
+    @Test
+    void testFactory2() throws IOException {
+        File input = new ClassPathResource("TreesInput.txt").getFile();
+        TreePatch trees = new TreeFactory().generateFromFile(input);
+
+        int highestScenicScore = Arrays.stream(trees.getPatch()).flatMap(Arrays::stream).mapToInt(Tree::getScenicScore).max().orElse(0);
+        System.out.println(highestScenicScore);
+
+    }
 }

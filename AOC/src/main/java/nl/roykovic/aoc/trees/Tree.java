@@ -4,8 +4,15 @@ public class Tree {
     private final int height;
     private boolean visible;
 
-    public Tree(int height) {
+    private final int x;
+    private final int y;
+
+    private int scenicScore;
+
+    public Tree(int height, int x, int y) {
         this.height = height;
+        this.x = x;
+        this.y = y;
     }
 
     public int getHeight() {
@@ -18,5 +25,21 @@ public class Tree {
 
     public void setVisible(boolean visible) {
         this.visible = visible;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public int getScenicScore() {
+        return scenicScore;
+    }
+
+    public void setScenicScore(int scenicScore) {
+        this.scenicScore = scenicScore;
     }
 }

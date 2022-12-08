@@ -43,7 +43,7 @@ public class CraneFactoryTest {
 
     }
     @Test
-    void testFactory2() throws IOException {
+    void test9001CrateExampleOutput() throws IOException {
         File input = new File("src/test/resources/CrateTestInput.txt");
         Crane crane = new CraneFactory().generateFromFile(input);
 

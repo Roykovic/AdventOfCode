@@ -16,7 +16,7 @@ public class ElfFactoryTest {
 
     @Test
     void testExampleCalories() throws IOException {
-        File input = new File("src/test/resources/elf/ElfTestInput.txt");
+        File input = new File("src/test/resources/ElfTestInput.txt");
         List<Elf> list = new ElfFactory().generateFromFile(input);
 
         Collections.sort(list);
@@ -39,7 +39,7 @@ public class ElfFactoryTest {
 
     @Test
     void testExampleTopThreeCalories() throws IOException {
-        File input = new File("src/test/resources/elf/ElfTestInput.txt");
+        File input = new File("src/test/resources/ElfTestInput.txt");
         List<Elf> list = new ElfFactory().generateFromFile(input);
 
         Collections.sort(list);

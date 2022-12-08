@@ -14,7 +14,13 @@ public class BufferStreamDecoder {
 
         BufferedReader reader = new BufferedReader(new FileReader(file));
 
-        char[] bufferStream = reader.lines().findFirst().orElseThrow(IndexOutOfBoundsException::new).toCharArray();
+        String bufferStream = reader.lines().findFirst().orElseThrow(IndexOutOfBoundsException::new);
+
+        return findStartOfPacket(bufferStream, packetLength);
+    }
+    public int findStartOfPacket(String input, int packetLength){
+
+        char[] bufferStream = input.toCharArray();
 
         boolean startOfPacketFound = false;
         int pos = packetLength -1;

@@ -9,20 +9,50 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class FileSystemFactoryTest {
     @Test
-    void testFactory() throws IOException {
+    void testSumExampleDirsOver100000() throws IOException {
+        File input = new File("src/test/resources/FileSystemTestInput.txt");
+        Directory root = new FileSystemFactory().generateFromFile(input);
+        List<Directory> directories= root.buildList();
+
+        Long sum = directories.stream().map(Directory::getSize).filter(it -> it<100001).reduce(0L, Long::sum);
+
+        assertEquals(95437, sum);
+    }
+
+    @Test
+    void testSumActualDirsOver100000() throws IOException {
         File input = new ClassPathResource("FileSystemInput.txt").getFile();
         Directory root = new FileSystemFactory().generateFromFile(input);
         List<Directory> directories= root.buildList();
 
-        Long i = directories.stream().map(Directory::getSize).filter(it -> it<100001).reduce(0L, Long::sum);
+        Long sum = directories.stream().map(Directory::getSize).filter(it -> it<100001).reduce(0L, Long::sum);
 
-        System.out.println(i);
+        assertEquals(1350966, sum);
     }
 
     @Test
-    void testFactory2() throws IOException {
+    void testExampleDirectoryToDeleteSize() throws IOException {
+        File input = new File("src/test/resources/FileSystemTestInput.txt");
+        Directory root = new FileSystemFactory().generateFromFile(input);
+        List<Directory> directories= root.buildList();
+
+        long neededSize = 30000000;
+        long totalSize = 70000000;
+        long usedSize = root.getSize();
+        long unusedSize = totalSize-usedSize;
+
+        long sizeToFreeUp = neededSize - unusedSize;
+
+        List<Long> bigEnoughDirs = directories.stream().map(Directory::getSize).filter(it -> it >= sizeToFreeUp).sorted().toList();
+        assertEquals(24933642, bigEnoughDirs.get(0));
+    }
+
+    @Test
+    void testActualDirectoryToDeleteSize() throws IOException {
         File input = new ClassPathResource("FileSystemInput.txt").getFile();
         Directory root = new FileSystemFactory().generateFromFile(input);
         List<Directory> directories= root.buildList();
@@ -35,6 +65,6 @@ public class FileSystemFactoryTest {
         long sizeToFreeUp = neededSize - unusedSize;
 
         List<Long> bigEnoughDirs = directories.stream().map(Directory::getSize).filter(it -> it >= sizeToFreeUp).sorted().toList();
-        System.out.println(bigEnoughDirs.get(0));
+        assertEquals(6296435, bigEnoughDirs.get(0));
     }
 }

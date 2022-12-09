@@ -25,9 +25,7 @@ public class RopeBridgeFactoryTest {
         File input = new ClassPathResource("RopeBridgeInput.txt").getFile();
         List<Map.Entry<Integer, Integer>> path = new RopeBridgeFactory().generateFromFile(input, 1);
 
-        List<Map.Entry<Integer, Integer>> distinctPath = path.stream().distinct().toList();
-
-        int distinctPathSize = distinctPath.size();
+        int distinctPathSize = path.stream().distinct().toList().size();
         assertEquals(5883, distinctPathSize);
     }
 

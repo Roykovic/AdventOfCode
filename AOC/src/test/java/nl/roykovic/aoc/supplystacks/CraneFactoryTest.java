@@ -14,7 +14,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class CraneFactoryTest {
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    private final PrintStream originalOut = System.out;
     @BeforeEach
     public void setUpStreams(){
         System.setOut(new PrintStream(outContent));
@@ -28,7 +27,6 @@ public class CraneFactoryTest {
 
         crane.printTopCrates();
         assertEquals("CMZ", outContent.toString());
-
     }
 
     @Test

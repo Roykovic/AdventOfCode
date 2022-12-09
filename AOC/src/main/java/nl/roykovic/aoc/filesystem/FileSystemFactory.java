@@ -42,7 +42,7 @@ public class FileSystemFactory {
         }
         else{
             long size = NumberUtils.createLong(prefix);
-            item = new nl.roykovic.aoc.filesystem.File(size,name, parent);
+            item = new nl.roykovic.aoc.filesystem.File(size, parent);
         }
 
         return item;

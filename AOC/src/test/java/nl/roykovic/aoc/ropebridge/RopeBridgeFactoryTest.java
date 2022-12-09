@@ -14,7 +14,7 @@ public class RopeBridgeFactoryTest {
     @Test
     void testExampleLocationsVisited() throws IOException {
         File input = new File("src/test/resources/RopeBridgeTestInput.txt");
-        List<Map.Entry<Integer, Integer>> path = new RopeBridgeFactory().generateFromFile(input);
+        List<Map.Entry<Integer, Integer>> path = new RopeBridgeFactory().generateFromFile(input, 1);
 
         int distinctPathSize = path.stream().distinct().toList().size();
         assertEquals(13, distinctPathSize);
@@ -23,13 +23,38 @@ public class RopeBridgeFactoryTest {
     @Test
     void testActualLocationsVisited() throws IOException {
         File input = new ClassPathResource("RopeBridgeInput.txt").getFile();
-        List<Map.Entry<Integer, Integer>> path = new RopeBridgeFactory().generateFromFile(input);
+        List<Map.Entry<Integer, Integer>> path = new RopeBridgeFactory().generateFromFile(input, 1);
 
         List<Map.Entry<Integer, Integer>> distinctPath = path.stream().distinct().toList();
 
-        System.out.println(distinctPath);
-
         int distinctPathSize = distinctPath.size();
         assertEquals(5883, distinctPathSize);
+    }
+
+    @Test
+    void testExampleLocationsVisitedLongRope() throws IOException {
+        File input = new File("src/test/resources/RopeBridgeTestInput.txt");
+        List<Map.Entry<Integer, Integer>> path = new RopeBridgeFactory().generateFromFile(input, 9);
+
+        int distinctPathSize = path.stream().distinct().toList().size();
+        assertEquals(1, distinctPathSize);
+    }
+
+    @Test
+    void testOtherExampleLocationsVisitedLongRope() throws IOException {
+        File input = new ClassPathResource("RopeBridgeInput.txt").getFile();
+        List<Map.Entry<Integer, Integer>> path = new RopeBridgeFactory().generateFromFile(input, 9);
+
+        int distinctPathSize = path.stream().distinct().toList().size();
+        assertEquals(2367, distinctPathSize);
+    }
+
+    @Test
+    void testActualLocationsVisitedLongRope() throws IOException {
+        File input = new File("src/test/resources/RopeBridgeLongRopeTestInput.txt");
+        List<Map.Entry<Integer, Integer>> path = new RopeBridgeFactory().generateFromFile(input, 9);
+
+        int distinctPathSize = path.stream().distinct().toList().size();
+        assertEquals(36, distinctPathSize);
     }
 }

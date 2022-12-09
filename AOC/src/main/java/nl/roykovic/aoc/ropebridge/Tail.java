@@ -7,22 +7,23 @@ public class Tail  extends RopeEnd{
         super(x, y);
     }
 
-    public void moveToHead(int headX, int headY){
+    public void moveToRopeEnd(RopeEnd end){
         int size = path.size();
 
-        int dX = x - headX;
-        int dY = y - headY;
+        int dX = x - end.x;
+        int dY = y - end.y;
 
-        if(Math.abs(dX) > 1 || Math.abs(dY) > 1) {
+        if(Math.abs(dX) > 1 || Math.abs(dY) > 1) {  // only move if you are more than 1 away from either x or y
 
             int newX;
             int newY;
-            if(Math.abs(dX) > 0 && Math.abs(dY) > 0){
-                newX = -(dX/Math.abs(dX));
+
+            if(Math.abs(dX) > 0 && Math.abs(dY) > 0){   //if you are away in both directions, move diagonally
+                newX = -(dX/Math.abs(dX));              //dividing by absolute normalizes the value, the - inverts it
                 newY = -(dY/Math.abs(dY));
             }
             else {
-                newX = (int) (dX * -0.5);
+                newX = (int) (dX * -0.5);   //dX or dY is (-)2 now. So normalize and invert to get the direction
                 newY = (int) (dY * -0.5);
             }
             move(Direction.getByCoords(newX,newY));
@@ -34,7 +35,6 @@ public class Tail  extends RopeEnd{
 
     @Override
     public void move(Direction direction){
-//        System.out.println("Moving " + direction);
         super.move(direction);
     }
 }

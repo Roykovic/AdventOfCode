@@ -1,7 +1,5 @@
 package nl.roykovic.aoc.rucksack;
 
-import nl.roykovic.aoc.rucksack.Rucksack;
-import nl.roykovic.aoc.rucksack.RucksackFactory;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.io.ClassPathResource;
 

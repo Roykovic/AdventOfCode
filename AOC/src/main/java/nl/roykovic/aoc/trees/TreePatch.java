@@ -4,18 +4,16 @@ import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.Arrays;
 
-public class TreePatch {
-    private final Tree[][] patch;
-
+public record TreePatch(Tree[][] patch) {
     public TreePatch(Tree[][] patch) {
         this.patch = patch;
         setVisible();
         setScenicScores();
     }
 
-    private void setVisible(){
+    private void setVisible() {
 
-        for(int rowIndex = 0; rowIndex < patch.length; rowIndex++){
+        for (int rowIndex = 0; rowIndex < patch.length; rowIndex++) {
             Tree[] row = getRow(rowIndex);
 
             checkVisibility(row);
@@ -24,7 +22,7 @@ public class TreePatch {
             ArrayUtils.reverse(row);
         }
 
-        for(int columnIndex = 0; columnIndex < patch[0].length; columnIndex++){
+        for (int columnIndex = 0; columnIndex < patch[0].length; columnIndex++) {
             Tree[] column = getColumn(columnIndex);
 
             checkVisibility(column);
@@ -34,7 +32,7 @@ public class TreePatch {
         }
     }
 
-    private void setScenicScores(){
+    private void setScenicScores() {
         for (Tree[] trees : patch) {
             for (Tree tree : trees) {
                 setScenicScore(tree);
@@ -43,24 +41,24 @@ public class TreePatch {
     }
 
     private Tree[] getColumn(int column) {
-         return Arrays.stream(patch).map(trees -> trees[column]).toArray(Tree[]::new);
+        return Arrays.stream(patch).map(trees -> trees[column]).toArray(Tree[]::new);
     }
 
-    private Tree[] getRow(int row){
+    private Tree[] getRow(int row) {
         return patch[row];
     }
 
-    private void checkVisibility(Tree[] sightLine){
+    private void checkVisibility(Tree[] sightLine) {
         int highestTree = -1;
-        for(Tree tree: sightLine){
-            if(tree.getHeight() > highestTree){
+        for (Tree tree : sightLine) {
+            if (tree.getHeight() > highestTree) {
                 tree.setVisible(true);
                 highestTree = tree.getHeight();
             }
         }
     }
 
-    private void setScenicScore(Tree tree){
+    private void setScenicScore(Tree tree) {
         int scenicScore = 1;
 
         Tree[] treeRow = getRow(tree.getY());
@@ -70,8 +68,8 @@ public class TreePatch {
 
         ArrayUtils.reverse(treeRow);
         ArrayUtils.reverse(treeCol);
-        scenicScore *= getViewDistance(treeRow, (treeRow.length - tree.getX()) -1, tree.getHeight());
-        scenicScore *= getViewDistance(treeCol, (treeRow.length - tree.getY()) -1, tree.getHeight());
+        scenicScore *= getViewDistance(treeRow, (treeRow.length - tree.getX()) - 1, tree.getHeight());
+        scenicScore *= getViewDistance(treeCol, (treeRow.length - tree.getY()) - 1, tree.getHeight());
 
         ArrayUtils.reverse(treeRow);
         ArrayUtils.reverse(treeCol);
@@ -79,19 +77,15 @@ public class TreePatch {
         tree.setScenicScore(scenicScore);
     }
 
-    private int getViewDistance(Tree[] treeline, int pos, int height){
+    private int getViewDistance(Tree[] treeline, int pos, int height) {
         int viewDistance = 0;
         int curTreeHeight = -1;
-        while(pos +1 < treeline.length && curTreeHeight < height ){
-            Tree curTree = treeline[pos+1];
+        while (pos + 1 < treeline.length && curTreeHeight < height) {
+            Tree curTree = treeline[pos + 1];
             curTreeHeight = curTree.getHeight();
             viewDistance++;
             pos++;
         }
         return viewDistance;
-    }
-
-    public Tree[][] getPatch() {
-        return patch;
     }
 }

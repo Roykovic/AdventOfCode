@@ -1,13 +1,11 @@
 package nl.roykovic.aoc.bufferstream;
 
-import nl.roykovic.aoc.bufferstream.BufferStreamDecoder;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.core.io.ClassPathResource;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

@@ -13,10 +13,10 @@ public class Crane {
 
     public void executeInstructions(){
         for(CraneInstruction instruction : instructions){
-            CrateStack originStack = crateStacks.get(instruction.getOriginStack() -1);
-            CrateStack destinationStack = crateStacks.get(instruction.getDestinationStack() -1);
+            CrateStack originStack = crateStacks.get(instruction.originStack() -1);
+            CrateStack destinationStack = crateStacks.get(instruction.destinationStack() -1);
 
-            for(int i = 0; i < instruction.getAmountOfCrates(); i++){
+            for(int i = 0; i < instruction.amountOfCrates(); i++){
                 destinationStack.push(originStack.pop());
             }
         }
@@ -24,10 +24,10 @@ public class Crane {
 
     public void executeImprovedInstructions(){
         for(CraneInstruction instruction : instructions){
-            CrateStack originStack = crateStacks.get(instruction.getOriginStack() -1);
-            CrateStack destinationStack = crateStacks.get(instruction.getDestinationStack() -1);
+            CrateStack originStack = crateStacks.get(instruction.originStack() -1);
+            CrateStack destinationStack = crateStacks.get(instruction.destinationStack() -1);
 
-            destinationStack.push(originStack.pop(instruction.getAmountOfCrates()));
+            destinationStack.push(originStack.pop(instruction.amountOfCrates()));
         }
     }
 

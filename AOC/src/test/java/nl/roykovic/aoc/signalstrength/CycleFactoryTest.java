@@ -2,11 +2,14 @@ package nl.roykovic.aoc.signalstrength;
 
 import nl.roykovic.aoc.rucksack.Rucksack;
 import nl.roykovic.aoc.rucksack.RucksackFactory;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.io.ClassPathResource;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +17,13 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CycleFactoryTest {
+
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+
+    @BeforeEach
+    public void setUpStreams(){
+        System.setOut(new PrintStream(outContent));
+    }
     @Test
     void testSmallExampleRegisterIncrease() throws IOException {
         File input = new File("src/test/resources/SignalStrengthSmallProgramInput.txt");
@@ -53,6 +63,36 @@ public class CycleFactoryTest {
         int sum = program.getSignalStrengthByCycles(20,60,100,140,180,220); //get (and sum) the signalstrengths from these cycles
 
         assertEquals(13760, sum);   //answer to day10 part 1
+    }
+
+    @Test
+    void testLargeExampleCRTOutput() throws IOException {
+        File input = new File("src/test/resources/SignalStrengthLargeProgramInput.txt");
+        Program program = new CycleFactory().generateFromFile(input);
+
+        program.run(); //run the program to print CRT output
+        assertEquals(
+                "##..##..##..##..##..##..##..##..##..##..\r\n" +
+                "###...###...###...###...###...###...###.\r\n" +
+                "####....####....####....####....####....\r\n" +
+                "#####.....#####.....#####.....#####.....\r\n" +
+                "######......######......######......####\r\n" +
+                "#######.......#######.......#######.....\r\n", outContent.toString()); //this is the output the example should give
+    }
+
+    @Test
+    void testActualCRTOutput() throws IOException {
+        File input = new ClassPathResource("SignalStrengthInput.txt").getFile();
+        Program program = new CycleFactory().generateFromFile(input);
+
+        program.run(); //run the program to print CRT output
+        assertEquals(
+                "###..####.#..#.####..##..###..####.####.\r\n" +
+                        "#..#.#....#.#.....#.#..#.#..#.#....#....\r\n" +
+                        "#..#.###..##.....#..#....#..#.###..###..\r\n" +
+                        "###..#....#.#...#...#....###..#....#....\r\n" +
+                        "#.#..#....#.#..#....#..#.#....#....#....\r\n" +
+                        "#..#.#....#..#.####..##..#....####.#....\r\n", outContent.toString()); //this is the output the example should give (reading RFKZCPEF)
     }
 
 }

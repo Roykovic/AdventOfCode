@@ -41,51 +41,51 @@ public class Monkey {
 //    Beter goed gejat dan slecht verzonnen https://www.reddit.com/r/adventofcode/comments/zihouc/comment/izrimjo/?utm_source=share&utm_medium=web2x&context=3
 
 
-    private BigInteger inspect(BigInteger old){
-        activity++;
-        String actualOperation = operation.split("=")[1];
-        actualOperation = actualOperation.replace("old", old.toString());
-
-        Engine engine = Engine.newBuilder()
-                .option("engine.WarnInterpreterOnly", "false")
-                .build();
-        Context ctx = Context.newBuilder("js").engine(engine).build();
-
-         BigDecimal outcome;
-        try {
-            outcome = new BigDecimal(ctx.eval("js", actualOperation).toString()); //this fixes parsing of exponential notation
-        }
-        catch (NumberFormatException e){
-            System.out.printf(ctx.eval("js", actualOperation).toString());
-            throw e;
-        }
-
-        return outcome.toBigInteger().mod(BigInteger.valueOf(M));
-    }
-
 //    private BigInteger inspect(BigInteger old){
 //        activity++;
 //        String actualOperation = operation.split("=")[1];
 //        actualOperation = actualOperation.replace("old", old.toString());
 //
-//        BigInteger outcome;
+//        Engine engine = Engine.newBuilder()
+//                .option("engine.WarnInterpreterOnly", "false")
+//                .build();
+//        Context ctx = Context.newBuilder("js").engine(engine).build();
 //
-//        String[] actualOperationParts = actualOperation.trim().split(" ");
+//         BigDecimal outcome;
+//        try {
+//            outcome = new BigDecimal(ctx.eval("js", actualOperation).toString()); //this fixes parsing of exponential notation
+//        }
+//        catch (NumberFormatException e){
+//            System.out.printf(ctx.eval("js", actualOperation).toString());
+//            throw e;
+//        }
 //
-//        BigInteger firstNumber = new BigInteger(actualOperationParts[0]);
-//        BigInteger secondNumber = new BigInteger(actualOperationParts[2]);
-//        String operator = actualOperationParts[1];
-//
-//        outcome = switch (operator) {
-//            case "+" -> firstNumber.add(secondNumber);
-//            case "-" -> firstNumber.subtract(secondNumber);
-//            case "*" -> firstNumber.multiply(secondNumber);
-//            case "/" -> firstNumber.divide(secondNumber);
-//            default -> throw new IllegalArgumentException(operator + " is not a valid operation");
-//        };
-//
-//       return outcome;
+//        return outcome.toBigInteger().mod(BigInteger.valueOf(M));
 //    }
+
+    private BigInteger inspect(BigInteger old){
+        activity++;
+        String actualOperation = operation.split("=")[1];
+        actualOperation = actualOperation.replace("old", old.toString());
+
+        BigInteger outcome;
+
+        String[] actualOperationParts = actualOperation.trim().split(" ");
+
+        BigInteger firstNumber = new BigInteger(actualOperationParts[0]);
+        BigInteger secondNumber = new BigInteger(actualOperationParts[2]);
+        String operator = actualOperationParts[1];
+
+        outcome = switch (operator) {
+            case "+" -> firstNumber.add(secondNumber);
+            case "-" -> firstNumber.subtract(secondNumber);
+            case "*" -> firstNumber.multiply(secondNumber);
+            case "/" -> firstNumber.divide(secondNumber);
+            default -> throw new IllegalArgumentException(operator + " is not a valid operation");
+        };
+
+       return outcome.mod(BigInteger.valueOf(M));
+    }
 
     private Monkey getCatcher(BigInteger item){
         boolean testResult;

@@ -84,6 +84,6 @@ public class MonkeyFactoryTest {
 
         Long monkeyBusiness = list.stream().map(Monkey::getActivity).sorted(Comparator.reverseOrder()).limit(2).reduce(1L, (a, b) -> a * b); //sort items high to low, get first two, multiply them
 
-        assertEquals(2713310158L, monkeyBusiness);
+        assertEquals(20151213744L, monkeyBusiness);
     }
 }

@@ -18,6 +18,16 @@ public class Monkey {
     private int testTrueNumber;
     private int testFalseNumber;
 
+    private Long inspect(Long old){
+        String actualOperation = operation.split("=")[1];
+        actualOperation = actualOperation.replace("old", old.toString());
+
+        Engine engine = Engine.newBuilder()
+                .option("engine.WarnInterpreterOnly", "false")
+                .build();
+        Context ctx = Context.newBuilder("js").engine(engine).build();
+        return Long.parseLong(ctx.eval("js",actualOperation).toString());
+    }
 
     //region Getters and setters
     public List<Long> getItems() {

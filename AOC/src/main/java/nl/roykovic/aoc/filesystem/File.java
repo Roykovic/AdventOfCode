@@ -16,8 +16,4 @@ public class File implements FileSystemItem{
     public long getSize() {
         return size;
     }
-
-    public void setParent(Directory parent) {
-        this.parent = parent;
-    }
 }

@@ -1,19 +1,13 @@
 package nl.roykovic.aoc.monkey;
 
-import nl.roykovic.aoc.rucksack.Rucksack;
-import nl.roykovic.aoc.rucksack.RucksackFactory;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.io.ClassPathResource;
 
-import javax.script.ScriptException;
 import java.io.File;
 import java.io.IOException;
-import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

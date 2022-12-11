@@ -6,14 +6,13 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MonkeyFactory {
-    List<Monkey> monkeyList = new ArrayList<>();
+    private final List<Monkey> monkeyList = new ArrayList<>();
 
     public List<Monkey> generateFromFile(File file) throws FileNotFoundException {
 

@@ -1,15 +1,8 @@
 package nl.roykovic.aoc.monkey;
 
 import org.apache.commons.lang3.math.NumberUtils;
-import org.graalvm.polyglot.Context;
-import org.graalvm.polyglot.Engine;
-
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Monkey {
     List<Long> items;
@@ -39,29 +32,6 @@ public class Monkey {
 //    Everything else is the same. We are exploiting the property that for all integers k: (a mod km) mod m = a mod m
 //
 //    Beter goed gejat dan slecht verzonnen https://www.reddit.com/r/adventofcode/comments/zihouc/comment/izrimjo/?utm_source=share&utm_medium=web2x&context=3
-
-
-//    private BigInteger inspect(BigInteger old){
-//        activity++;
-//        String actualOperation = operation.split("=")[1];
-//        actualOperation = actualOperation.replace("old", old.toString());
-//
-//        Engine engine = Engine.newBuilder()
-//                .option("engine.WarnInterpreterOnly", "false")
-//                .build();
-//        Context ctx = Context.newBuilder("js").engine(engine).build();
-//
-//         BigDecimal outcome;
-//        try {
-//            outcome = new BigDecimal(ctx.eval("js", actualOperation).toString()); //this fixes parsing of exponential notation
-//        }
-//        catch (NumberFormatException e){
-//            System.out.printf(ctx.eval("js", actualOperation).toString());
-//            throw e;
-//        }
-//
-//        return outcome.toBigInteger().mod(BigInteger.valueOf(M));
-//    }
 
     private Long inspect(Long old){
         activity++;
@@ -120,16 +90,8 @@ public class Monkey {
         this.items = items;
     }
 
-    public String getOperation() {
-        return operation;
-    }
-
     public void setOperation(String operation) {
         this.operation = operation;
-    }
-
-    public String getTest() {
-        return test;
     }
 
     public void setTest(String test) {
@@ -152,16 +114,8 @@ public class Monkey {
         this.testFalseNumber = testFalseNumber;
     }
 
-    public Monkey getTestTrue() {
-        return testTrue;
-    }
-
     public void setTestTrue(Monkey testTrue) {
         this.testTrue = testTrue;
-    }
-
-    public Monkey getTestFalse() {
-        return testFalse;
     }
 
     public void setTestFalse(Monkey testFalse) {
@@ -172,16 +126,8 @@ public class Monkey {
         return activity;
     }
 
-    public Long getM() {
-        return M;
-    }
-
     public void setM(Long m) {
         M = m;
-    }
-
-    public int getDivider() {
-        return divider;
     }
 
     public void setDivider(int divider) {

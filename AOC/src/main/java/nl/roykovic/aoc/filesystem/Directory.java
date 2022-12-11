@@ -72,15 +72,7 @@ public class Directory implements FileSystemItem{
         this.parent.add(this);
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setParent(Directory parent) {
-        this.parent = parent;
     }
 }

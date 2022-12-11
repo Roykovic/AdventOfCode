@@ -47,7 +47,7 @@ public class Program {
             System.out.print(".");  //if curPos is further away, draw a dark pixel (.)
         }
         if(cycle % 40 == 0){
-            System.out.println(""); //lines are 40px wide, so if curPos is divisble by 40, add linebreak
+            System.out.println(); //lines are 40px wide, so if curPos is divisble by 40, add linebreak
         }
     }
 

@@ -29,8 +29,8 @@ public class MonkeyFactoryTest {
             }
         }
 
-        assertEquals(list.get(0).getItems(), List.of(new BigInteger("10"), new BigInteger("12"), new BigInteger("14"), new BigInteger("26"), new BigInteger("34")));
-        assertEquals(list.get(1).getItems(), List.of(new BigInteger("245"), new BigInteger("93"), new BigInteger("53"), new BigInteger("199"), new BigInteger("115")));
+        assertEquals(list.get(0).getItems(), List.of(10L, 12L,  14L, 26L,34L));
+        assertEquals(list.get(1).getItems(), List.of(245L, 93L, 53L, 199L, 115L));
         assertEquals(list.get(2).getItems(), new ArrayList<>());
         assertEquals(list.get(3).getItems(), new ArrayList<>());
 

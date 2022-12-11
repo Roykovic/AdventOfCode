@@ -12,7 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Monkey {
-    List<BigInteger> items;
+    List<Long> items;
     private String operation;
     private String test;
 
@@ -63,34 +63,34 @@ public class Monkey {
 //        return outcome.toBigInteger().mod(BigInteger.valueOf(M));
 //    }
 
-    private BigInteger inspect(BigInteger old){
+    private Long inspect(Long old){
         activity++;
         String actualOperation = operation.split("=")[1];
         actualOperation = actualOperation.replace("old", old.toString());
 
-        BigInteger outcome;
+        Long outcome;
 
         String[] actualOperationParts = actualOperation.trim().split(" ");
 
-        BigInteger firstNumber = new BigInteger(actualOperationParts[0]);
-        BigInteger secondNumber = new BigInteger(actualOperationParts[2]);
+        Long firstNumber = NumberUtils.toLong(actualOperationParts[0]);
+        Long secondNumber = NumberUtils.toLong(actualOperationParts[2]);
         String operator = actualOperationParts[1];
 
         outcome = switch (operator) {
-            case "+" -> firstNumber.add(secondNumber);
-            case "-" -> firstNumber.subtract(secondNumber);
-            case "*" -> firstNumber.multiply(secondNumber);
-            case "/" -> firstNumber.divide(secondNumber);
+            case "+" -> firstNumber + secondNumber;
+            case "-" -> firstNumber - secondNumber;
+            case "*" -> firstNumber * secondNumber;
+            case "/" -> firstNumber / secondNumber;
             default -> throw new IllegalArgumentException(operator + " is not a valid operation");
         };
 
-       return outcome.mod(BigInteger.valueOf(M));
+       return outcome % M;
     }
 
-    private Monkey getCatcher(BigInteger item){
+    private Monkey getCatcher(Long item){
         boolean testResult;
         if(test.contains("divisible")){
-            testResult = item.mod(BigInteger.valueOf(divider)) == BigInteger.ZERO;
+            testResult = item % divider == 0;
         }
         else{
             throw new IllegalArgumentException();
@@ -100,23 +100,23 @@ public class Monkey {
     }
 
     public void act(int worryLevelDecrease){
-        for(BigInteger item: items){
+        for(Long item: items){
             item = inspect(item);   //inspect the item and do operation
-            item = item.divide(BigInteger.valueOf(worryLevelDecrease));          //monkey gets bored, so worry level /3
+            item = item / worryLevelDecrease;          //monkey gets bored, so worry level /3
 
             Monkey catcher = getCatcher(item);  //get the catcher from te test operation
-            List<BigInteger> catchList = catcher.getItems();
+            List<Long> catchList = catcher.getItems();
             catchList.add(item);                //add item to catchers list
         }
         items = new ArrayList<>();  //all items are now thrown, so make this list empty
     }
 
     //region Getters and setters
-    public List<BigInteger> getItems() {
+    public List<Long> getItems() {
         return items;
     }
 
-    public void setItems(List<BigInteger> items) {
+    public void setItems(List<Long> items) {
         this.items = items;
     }
 

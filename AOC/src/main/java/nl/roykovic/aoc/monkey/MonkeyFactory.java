@@ -31,13 +31,13 @@ public class MonkeyFactory {
                 monkeyList.add(curMonkey);
             }
             if(line.trim().startsWith("Starting items")){
-                List<BigInteger> startingItems = new ArrayList<>();
+                List<Long> startingItems = new ArrayList<>();
 
                 Pattern p = Pattern.compile("\\d+");
                 Matcher m = p.matcher(line);
 
                 while(m.find()){
-                    startingItems.add(new BigInteger(m.group()));
+                    startingItems.add(NumberUtils.toLong(m.group()));
                 }
 
                 curMonkey.setItems(startingItems);

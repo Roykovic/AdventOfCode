@@ -31,8 +31,9 @@ public class CycleFactoryTest {
 
        Map<Integer, Integer> steps = program.run();
 
-       assertEquals(5, steps.size());   //the test should have 5 steps
-       assertEquals(-1, steps.get(5));  //X should be -1 on step 5
+
+       assertEquals(6, steps.size());   //the test should have 6 steps
+       assertEquals(-1, steps.get(6));  //X should be -1 on step 6
     }
 
     @Test

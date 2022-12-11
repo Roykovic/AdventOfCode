@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -21,19 +22,22 @@ public class MonkeyFactory {
         List<String> lines = reader.lines().toList();
 
         Monkey curMonkey = null;
+
+        long M = 1L;
+
         for(String line: lines){
             if(line.trim().startsWith("Monkey")){
                 curMonkey = new Monkey();
                 monkeyList.add(curMonkey);
             }
             if(line.trim().startsWith("Starting items")){
-                List<Long> startingItems = new ArrayList<>();
+                List<BigInteger> startingItems = new ArrayList<>();
 
                 Pattern p = Pattern.compile("\\d+");
                 Matcher m = p.matcher(line);
 
                 while(m.find()){
-                    startingItems.add(NumberUtils.toLong(m.group()));
+                    startingItems.add(new BigInteger(m.group()));
                 }
 
                 curMonkey.setItems(startingItems);
@@ -42,7 +46,12 @@ public class MonkeyFactory {
                 curMonkey.setOperation(line.trim().split(" ", 2)[1]);
             }
             if(line.trim().startsWith("Test")){
-                curMonkey.setTest(line.trim().split(" ", 2)[1]);
+                String test = line.trim().split(" ", 2)[1];
+                int divider = NumberUtils.toInt(test.split(" ")[2]);
+                curMonkey.setTest(test);
+                curMonkey.setDivider(divider);
+
+                M *= divider;
             }
             if(line.trim().startsWith("If true")){
                 curMonkey.setTestTrueNumber(line.charAt(line.length() - 1) - '0');
@@ -54,6 +63,7 @@ public class MonkeyFactory {
 
         for(Monkey monkey: monkeyList){
             setTestTrueAndFalseMonkeys(monkey);
+            monkey.setM(M);
         }
         return monkeyList;
     }

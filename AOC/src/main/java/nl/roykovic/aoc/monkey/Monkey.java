@@ -29,6 +29,32 @@ public class Monkey {
         return Long.parseLong(ctx.eval("js",actualOperation).toString());
     }
 
+    private Monkey getCatcher(Long item){
+        boolean testResult;
+        if(test.contains("divisible")){
+            int divideBy = NumberUtils.toInt(test.split(" ")[2]);
+
+            testResult = item % divideBy == 0;
+        }
+        else{
+            throw new IllegalArgumentException();
+        }
+
+        return testResult? testTrue: testFalse;
+    }
+
+    public void act(){
+        for(Long item: items){
+            item = inspect(item);   //inspect the item and do operation
+            item = item/3;          //monkey gets bored, so worry level /3
+
+            Monkey catcher = getCatcher(item);  //get the catcher from te test operation
+            List<Long> catchList = catcher.getItems();
+            catchList.add(item);                //add item to catchers list
+        }
+        items = new ArrayList<>();  //all items are now thrown, so make this list empty
+    }
+
     //region Getters and setters
     public List<Long> getItems() {
         return items;

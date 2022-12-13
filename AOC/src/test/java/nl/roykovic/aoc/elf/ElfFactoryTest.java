@@ -45,7 +45,7 @@ public class ElfFactoryTest {
         Collections.sort(list);
         Collections.reverse(list);
 
-        long topThree = list.subList(0, 3).stream().mapToLong(Elf::getCalories).reduce(0, Long::sum);
+        long topThree = list.subList(0, 3).stream().mapToLong(Elf::getCalories).sum();
 
         assertEquals(45000, topThree);
     }
@@ -58,7 +58,7 @@ public class ElfFactoryTest {
         Collections.sort(list);
         Collections.reverse(list);
 
-        long topThree = list.subList(0, 3).stream().mapToLong(Elf::getCalories).reduce(0, Long::sum);
+        long topThree = list.subList(0, 3).stream().mapToLong(Elf::getCalories).sum();
 
         assertEquals(206582, topThree);
 

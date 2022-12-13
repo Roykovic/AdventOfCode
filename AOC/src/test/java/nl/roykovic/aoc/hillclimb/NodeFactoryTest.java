@@ -16,7 +16,7 @@ public class NodeFactoryTest {
     @Test
     void testExampleShortestPath() throws IOException {
         File input = new File("src/test/resources/HillClimbTestInput.txt");
-        List<Node> list = new NodeFactory().generateFromFile(input);
+        List<Node> list = new NodeFactory().generateFromFile(input, false);
 
         Node startNode = list.stream().filter(Node::isStart).findFirst().orElseThrow(IllegalArgumentException::new);
         Node endNode = list.stream().filter(Node::isEnd).findFirst().orElseThrow(IllegalArgumentException::new);
@@ -29,7 +29,7 @@ public class NodeFactoryTest {
     @Test
     void testActualShortestPath() throws IOException {
         File input = new ClassPathResource("HillClimbInput.txt").getFile();
-        List<Node> list = new NodeFactory().generateFromFile(input);
+        List<Node> list = new NodeFactory().generateFromFile(input, false);
 
         Node startNode = list.stream().filter(Node::isStart).findFirst().orElseThrow(IllegalArgumentException::new);
         Node endNode = list.stream().filter(Node::isEnd).findFirst().orElseThrow(IllegalArgumentException::new);
@@ -42,20 +42,18 @@ public class NodeFactoryTest {
     @Test
     void testExampleShortestPathFromLowestPoints() throws IOException {
         File input = new File("src/test/resources/HillClimbTestInput.txt");
-        List<Node> list = new NodeFactory().generateFromFile(input);
+        List<Node> list = new NodeFactory().generateFromFile(input, true);
 
         Node endNode = list.stream().filter(Node::isEnd).findFirst().orElseThrow(IllegalArgumentException::new);
 
+        DijkstraService.calculateShortestPathFromSource(endNode);
+
         List<Node> lowestNodes = list.stream().filter(it -> it.getElevation() == 0).toList();   //get all nodes with lowest elevation
+
         List<Integer> shortestPaths = new ArrayList<>();
 
         for(Node lowNode : lowestNodes){
-            DijkstraService.calculateShortestPathFromSource(lowNode);
-            shortestPaths.add(endNode.getShortestPath().size());
-
-            for(Node node : list){
-                node.reset();   //reset values for all nodes, so we can start fresh with the next low node
-            }
+            shortestPaths.add(lowNode.getShortestPath().size());
 
         }
 
@@ -65,20 +63,18 @@ public class NodeFactoryTest {
     @Test
     void testActualShortestPathFromLowestPoints() throws IOException {
         File input = new ClassPathResource("HillClimbInput.txt").getFile();
-        List<Node> list = new NodeFactory().generateFromFile(input);
+        List<Node> list = new NodeFactory().generateFromFile(input, true);
 
         Node endNode = list.stream().filter(Node::isEnd).findFirst().orElseThrow(IllegalArgumentException::new);
 
+        DijkstraService.calculateShortestPathFromSource(endNode);
+
         List<Node> lowestNodes = list.stream().filter(it -> it.getElevation() == 0).toList();   //get all nodes with lowest elevation
+
         List<Integer> shortestPaths = new ArrayList<>();
 
         for(Node lowNode : lowestNodes){
-            DijkstraService.calculateShortestPathFromSource(lowNode);   //calculate paths for all lownodes to the endnode
-            shortestPaths.add(endNode.getShortestPath().size());        //add pathsize to shortestPaths list
-
-            for(Node node : list){
-                node.reset();   //reset values for all nodes, so we can start fresh with the next low node
-            }
+            shortestPaths.add(lowNode.getShortestPath().size());
 
         }
 

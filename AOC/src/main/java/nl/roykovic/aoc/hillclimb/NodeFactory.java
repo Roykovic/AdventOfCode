@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 public class NodeFactory {
 
-    public List<Node> generateFromFile(File file) throws FileNotFoundException {
+    public List<Node> generateFromFile(File file, boolean reverse) throws FileNotFoundException {
 
         BufferedReader reader = new BufferedReader(new FileReader(file));
 
@@ -40,11 +40,11 @@ public class NodeFactory {
             }
         }
 
-        setNeighbours(nodeList);
+        setNeighbours(nodeList, reverse);
         return nodeList;
     }
 
-    public static void setNeighbours(List<Node> nodeList){
+    public static void setNeighbours(List<Node> nodeList, boolean reverse){
         for(Node node : nodeList){
             int curX = node.getX();
             int curY = node.getY();
@@ -57,6 +57,10 @@ public class NodeFactory {
                 int dXY = Math.abs(dX - dY);
 
                 int dElevation = n.getElevation() - curElevation;
+
+                if(reverse){
+                    dElevation = dElevation *-1;
+                }
 
                 return dX <= 1 && dY <= 1 && dXY > 0 && dElevation <=1; //if x and y are 1 or less away, but not both, and elevation is 1 higher or (any amount) lower, this is a neighbour
             }).collect((Collectors.toMap(Function.identity(), it -> 1)));

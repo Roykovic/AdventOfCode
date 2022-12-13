@@ -56,4 +56,50 @@ public class PacketFactoryTest {
 
         assertEquals(6568,sum);
     }
+
+    @Test
+    void testExamplesDecoderKey() throws IOException {
+
+        ArrayList dividerStartPacket = new ArrayList(new ArrayList(List.of(2)));
+        ArrayList dividerEndPacket = new ArrayList(new ArrayList(List.of(6)));
+
+        File input = new File("src/test/resources/PacketTestInput.txt");
+        LinkedHashMap<ArrayList, ArrayList> dataMap = new PacketFactory().generateFromFile(input);
+
+        List<ArrayList> dataList = new ArrayList<>(dataMap.keySet());
+        dataList.addAll(dataMap.values());
+        dataList.add(dividerStartPacket);
+        dataList.add(dividerEndPacket);
+
+        Collections.sort(dataList, new PacketComparator());
+        Collections.reverse(dataList);
+
+        int dividerStartPacketIndex = dataList.indexOf(dividerStartPacket) +1;
+        int dividerEndPacketIndex = dataList.indexOf(dividerEndPacket) +1;
+
+        assertEquals(140, dividerStartPacketIndex * dividerEndPacketIndex);
+    }
+
+    @Test
+    void testActualDecoderKey() throws IOException {
+
+        ArrayList dividerStartPacket = new ArrayList(new ArrayList(List.of(2)));
+        ArrayList dividerEndPacket = new ArrayList(new ArrayList(List.of(6)));
+
+        File input = new ClassPathResource("PacketInput.txt").getFile();
+        LinkedHashMap<ArrayList, ArrayList> dataMap = new PacketFactory().generateFromFile(input);
+
+        List<ArrayList> dataList = new ArrayList<>(dataMap.keySet());
+        dataList.addAll(dataMap.values());
+        dataList.add(dividerStartPacket);
+        dataList.add(dividerEndPacket);
+
+        Collections.sort(dataList, new PacketComparator());
+        Collections.reverse(dataList);
+
+        int dividerStartPacketIndex = dataList.indexOf(dividerStartPacket) +1;
+        int dividerEndPacketIndex = dataList.indexOf(dividerEndPacket) +1;
+
+        assertEquals(19493, dividerStartPacketIndex * dividerEndPacketIndex);
+    }
 }

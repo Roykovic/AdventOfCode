@@ -40,19 +40,18 @@ public class RopeBridgeFactoryTest {
 
     @Test
     void testOtherExampleLocationsVisitedLongRope() throws IOException {
-        File input = new ClassPathResource("RopeBridgeInput.txt").getFile();
-        List<Map.Entry<Integer, Integer>> path = new RopeBridgeFactory().generateFromFile(input, 9);
-
-        int distinctPathSize = path.stream().distinct().toList().size();
-        assertEquals(2367, distinctPathSize);
-    }
-
-    @Test
-    void testActualLocationsVisitedLongRope() throws IOException {
         File input = new File("src/test/resources/RopeBridgeLongRopeTestInput.txt");
         List<Map.Entry<Integer, Integer>> path = new RopeBridgeFactory().generateFromFile(input, 9);
 
         int distinctPathSize = path.stream().distinct().toList().size();
         assertEquals(36, distinctPathSize);
+    }
+    @Test
+    void testActualLocationsVisitedLongRope() throws IOException {
+        File input = new ClassPathResource("RopeBridgeInput.txt").getFile();
+        List<Map.Entry<Integer, Integer>> path = new RopeBridgeFactory().generateFromFile(input, 9);
+
+        int distinctPathSize = path.stream().distinct().toList().size();
+        assertEquals(2367, distinctPathSize);
     }
 }

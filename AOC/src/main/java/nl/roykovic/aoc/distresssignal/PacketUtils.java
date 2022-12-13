@@ -6,7 +6,7 @@ import java.util.*;
 
 public class PacketUtils{
 
-    public static int compare (ArrayList left, ArrayList right ){
+    public static int compare (ArrayList<Object> left, ArrayList<Object> right ){
         int smallestSize = Math.min(left.size(), right.size());
 
         int i = 0;
@@ -35,10 +35,11 @@ public class PacketUtils{
         }
     }
 
-    private static ArrayList toList(Object object){
+    private static ArrayList<Object> toList(Object object){
         if(object.getClass() != ArrayList.class){
-            return new ArrayList(List.of(object));  //if the object is not an Arraylist, make a list containing that item
+            return new ArrayList<>(List.of(object));  //if the object is not an Arraylist, make a list containing that item
         }
-        return (ArrayList) object;  //if the object was already a list, just return it.
+        //noinspection unchecked
+        return (ArrayList<Object>) object;  //if the object was already a list, just return it.
     }
 }

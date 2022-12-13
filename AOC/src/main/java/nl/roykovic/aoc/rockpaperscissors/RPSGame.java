@@ -8,7 +8,7 @@ public class RPSGame {
         this(RPSMove.getByChar(opponentsMove), RPSMove.getByChar(myMove));
     }
 
-    public RPSGame(char opponentsMove, char outcome, boolean placeHolder){   //elves solution, boolean just serves the purpose of differentiating between the two constructors
+    public RPSGame(char opponentsMove, char outcome, @SuppressWarnings("unused") boolean placeHolder){   //elves solution, boolean just serves the purpose of differentiating between the two constructors
         this(RPSMove.getByChar(opponentsMove), RPSMove.getByOutcome(RPSMove.getByChar(opponentsMove), RPSOutcome.getByChar(outcome)));
     }
 

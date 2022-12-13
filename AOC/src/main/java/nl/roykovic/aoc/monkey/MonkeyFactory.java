@@ -54,9 +54,11 @@ public class MonkeyFactory {
                 M *= divider;
             }
             if(line.trim().startsWith("If true")){
+                //noinspection DuplicateExpressions
                 curMonkey.setTestTrueNumber(line.charAt(line.length() - 1) - '0');
             }
             if(line.trim().startsWith("If false")){
+                //noinspection DuplicateExpressions
                 curMonkey.setTestFalseNumber(line.charAt(line.length() - 1) - '0');
             }
         }

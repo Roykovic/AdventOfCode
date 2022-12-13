@@ -12,21 +12,21 @@ import java.io.FileReader;
 import java.util.*;
 
 public class PacketFactory {
-    public LinkedHashMap<ArrayList, ArrayList> generateFromFile(File file) throws FileNotFoundException, JsonProcessingException {
+    public LinkedHashMap<ArrayList<Object>, ArrayList<Object>> generateFromFile(File file) throws FileNotFoundException, JsonProcessingException {
 
         BufferedReader reader = new BufferedReader(new FileReader(file));
 
         List<String> lines = reader.lines().toList();
 
-        LinkedHashMap<ArrayList, ArrayList> dataMap = new LinkedHashMap<>();
+        LinkedHashMap<ArrayList<Object>, ArrayList<Object>> dataMap = new LinkedHashMap<>();
 
-        ArrayList left = null;
+        ArrayList<Object> left = null;
 
         for(String line: lines){
 
             if(!StringUtils.isBlank(line)) {
                 ObjectMapper mapper = new ObjectMapper();
-                ArrayList packetData = mapper.readValue(line, new TypeReference<>() {});
+                ArrayList<Object> packetData = mapper.readValue(line, new TypeReference<>() {});
 
                 if(left == null){
                     left = packetData;

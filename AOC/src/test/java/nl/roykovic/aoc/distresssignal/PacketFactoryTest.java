@@ -17,10 +17,10 @@ public class PacketFactoryTest {
     @Test
     void testExamplesRightOrder() throws IOException {
         File input = new File("src/test/resources/PacketTestInput.txt");
-        LinkedHashMap<ArrayList, ArrayList> dataMap = new PacketFactory().generateFromFile(input);
+        LinkedHashMap<ArrayList<Object>, ArrayList<Object>> dataMap = new PacketFactory().generateFromFile(input);
 
         List<Integer> result = new ArrayList<>();
-        for(Map.Entry<ArrayList, ArrayList> entry : dataMap.entrySet()){
+        for(Map.Entry<ArrayList<Object>, ArrayList<Object>> entry : dataMap.entrySet()){
             result.add(PacketUtils.compare(entry.getKey(), entry.getValue()));
         }
 
@@ -35,10 +35,10 @@ public class PacketFactoryTest {
     @Test
     void testActualRightOrder() throws IOException {
         File input = new ClassPathResource("PacketInput.txt").getFile();
-        LinkedHashMap<ArrayList, ArrayList> dataMap = new PacketFactory().generateFromFile(input);
+        LinkedHashMap<ArrayList<Object>, ArrayList<Object>> dataMap = new PacketFactory().generateFromFile(input);
 
         List<Integer> result = new ArrayList<>();
-        for(Map.Entry<ArrayList, ArrayList> entry : dataMap.entrySet()){
+        for(Map.Entry<ArrayList<Object>, ArrayList<Object>> entry : dataMap.entrySet()){
             result.add(PacketUtils.compare(entry.getKey(), entry.getValue()));
         }
 
@@ -53,13 +53,13 @@ public class PacketFactoryTest {
     @Test
     void testExamplesDecoderKey() throws IOException {
 
-        ArrayList dividerStartPacket = new ArrayList(new ArrayList(List.of(2)));
-        ArrayList dividerEndPacket = new ArrayList(new ArrayList(List.of(6)));
+        ArrayList<Object> dividerStartPacket = new ArrayList<>(new ArrayList<Object>(List.of(2)));
+        ArrayList<Object> dividerEndPacket = new ArrayList<>(new ArrayList<Object>(List.of(6)));
 
         File input = new File("src/test/resources/PacketTestInput.txt");
-        LinkedHashMap<ArrayList, ArrayList> dataMap = new PacketFactory().generateFromFile(input);
+        LinkedHashMap<ArrayList<Object>, ArrayList<Object>> dataMap = new PacketFactory().generateFromFile(input);
 
-        List<ArrayList> dataList = new ArrayList<>(dataMap.keySet());
+        List<ArrayList<Object>> dataList = new ArrayList<>(dataMap.keySet());
         dataList.addAll(dataMap.values());
         dataList.add(dividerStartPacket);
         dataList.add(dividerEndPacket);
@@ -76,13 +76,13 @@ public class PacketFactoryTest {
     @Test
     void testActualDecoderKey() throws IOException {
 
-        ArrayList dividerStartPacket = new ArrayList(new ArrayList(List.of(2)));
-        ArrayList dividerEndPacket = new ArrayList(new ArrayList(List.of(6)));
+        ArrayList<Object> dividerStartPacket = new ArrayList<>(new ArrayList<Object>(List.of(2)));
+        ArrayList<Object> dividerEndPacket = new ArrayList<>(new ArrayList<Object>(List.of(6)));
 
         File input = new ClassPathResource("PacketInput.txt").getFile();
-        LinkedHashMap<ArrayList, ArrayList> dataMap = new PacketFactory().generateFromFile(input);
+        LinkedHashMap<ArrayList<Object>, ArrayList<Object>> dataMap = new PacketFactory().generateFromFile(input);
 
-        List<ArrayList> dataList = new ArrayList<>(dataMap.keySet());
+        List<ArrayList<Object>> dataList = new ArrayList<>(dataMap.keySet());
         dataList.addAll(dataMap.values());
         dataList.add(dividerStartPacket);
         dataList.add(dividerEndPacket);

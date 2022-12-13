@@ -1,5 +1,6 @@
 package nl.roykovic.aoc.signalstrength;
 
+@SuppressWarnings("unused")
 public enum InstructionType {
     addx(2),
     noop(1);

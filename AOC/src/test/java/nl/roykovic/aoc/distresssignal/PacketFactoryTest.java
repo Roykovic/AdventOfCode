@@ -26,15 +26,15 @@ public class PacketFactoryTest {
         File input = new File("src/test/resources/PacketTestInput.txt");
         LinkedHashMap<ArrayList, ArrayList> dataMap = new PacketFactory().generateFromFile(input);
 
-        List<Boolean> result = new ArrayList<>();
+        List<Integer> result = new ArrayList<>();
         for(Map.Entry<ArrayList, ArrayList> entry : dataMap.entrySet()){
             result.add(PacketUtils.compare(entry.getKey(), entry.getValue()));
         }
 
         int sum = IntStream.range(0, result.size())
-                .filter(result::get)
+                .filter(it -> result.get(it) == 1)
                 .map(it -> it + 1)
-                .reduce(0, Integer::sum);
+                .sum();
 
         assertEquals(13,sum);
     }
@@ -44,17 +44,15 @@ public class PacketFactoryTest {
         File input = new ClassPathResource("PacketInput.txt").getFile();
         LinkedHashMap<ArrayList, ArrayList> dataMap = new PacketFactory().generateFromFile(input);
 
-        List<Boolean> result = new ArrayList<>();
+        List<Integer> result = new ArrayList<>();
         for(Map.Entry<ArrayList, ArrayList> entry : dataMap.entrySet()){
             result.add(PacketUtils.compare(entry.getKey(), entry.getValue()));
         }
 
-        System.out.println(result.size());
-
         int sum = IntStream.range(0, result.size())
-                .filter(result::get)
+                .filter(it -> result.get(it) == 1)
                 .map(it -> it + 1)
-                .reduce(0, Integer::sum);
+                .sum();
 
         assertEquals(6568,sum);
     }

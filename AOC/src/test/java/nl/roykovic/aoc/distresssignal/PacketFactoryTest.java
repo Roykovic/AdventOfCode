@@ -1,12 +1,6 @@
 package nl.roykovic.aoc.distresssignal;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import nl.roykovic.aoc.rucksack.Rucksack;
-import nl.roykovic.aoc.rucksack.RucksackFactory;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.core.io.ClassPathResource;
 
 import java.io.File;
@@ -15,7 +9,6 @@ import java.util.*;
 import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PacketFactoryTest {
 
@@ -71,7 +64,7 @@ public class PacketFactoryTest {
         dataList.add(dividerStartPacket);
         dataList.add(dividerEndPacket);
 
-        Collections.sort(dataList, new PacketComparator());
+        dataList.sort(new PacketComparator());
         Collections.reverse(dataList);
 
         int dividerStartPacketIndex = dataList.indexOf(dividerStartPacket) +1;
@@ -94,7 +87,7 @@ public class PacketFactoryTest {
         dataList.add(dividerStartPacket);
         dataList.add(dividerEndPacket);
 
-        Collections.sort(dataList, new PacketComparator());
+        dataList.sort(new PacketComparator());
         Collections.reverse(dataList);
 
         int dividerStartPacketIndex = dataList.indexOf(dividerStartPacket) +1;

@@ -66,9 +66,4 @@ public class Node {
     public boolean isEnd() {
         return isEnd;
     }
-
-    public void reset(){
-        setDistance(Integer.MAX_VALUE);
-        setShortestPath(new LinkedList<>());
-    }
 }

@@ -5,7 +5,6 @@ import org.springframework.core.io.ClassPathResource;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -47,16 +46,8 @@ public class NodeFactoryTest {
 
         DijkstraService.calculateShortestPathFromSource(endNode);
 
-        List<Node> lowestNodes = list.stream().filter(it -> it.getElevation() == 0).toList();   //get all nodes with lowest elevation
+        assertEquals(29, list.stream().filter(it -> it.getElevation() == 0).mapToInt(it -> it.getShortestPath().size()).filter(it -> it > 0).sorted().findFirst().orElse(0)); //get the lowest (non 0) value from the shortestpaths
 
-        List<Integer> shortestPaths = new ArrayList<>();
-
-        for(Node lowNode : lowestNodes){
-            shortestPaths.add(lowNode.getShortestPath().size());
-
-        }
-
-        assertEquals(29, shortestPaths.stream().filter(it -> it != 0).sorted().findFirst().orElse(null)); //get the lowest (non 0) value from shortestpaths
     }
 
     @Test
@@ -68,15 +59,7 @@ public class NodeFactoryTest {
 
         DijkstraService.calculateShortestPathFromSource(endNode);
 
-        List<Node> lowestNodes = list.stream().filter(it -> it.getElevation() == 0).toList();   //get all nodes with lowest elevation
+        assertEquals(459, list.stream().filter(it -> it.getElevation() == 0).mapToInt(it -> it.getShortestPath().size()).filter(it -> it > 0).sorted().findFirst().orElse(0)); //get the lowest (non 0) value from the shortestpaths
 
-        List<Integer> shortestPaths = new ArrayList<>();
-
-        for(Node lowNode : lowestNodes){
-            shortestPaths.add(lowNode.getShortestPath().size());
-
-        }
-
-        assertEquals(459, shortestPaths.stream().filter(it -> it != 0).sorted().findFirst().orElse(null)); //get the lowest (non 0) value from shortestpaths
     }
 }

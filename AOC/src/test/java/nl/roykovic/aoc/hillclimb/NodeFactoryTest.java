@@ -46,7 +46,7 @@ public class NodeFactoryTest {
 
         DijkstraService.calculateShortestPathFromSource(endNode);
 
-        assertEquals(29, list.stream().filter(it -> it.getElevation() == 0).mapToInt(it -> it.getShortestPath().size()).filter(it -> it > 0).sorted().findFirst().orElse(0)); //get the lowest (non 0) value from the shortestpaths
+        assertEquals(29, list.stream().filter(it -> it.getElevation() == 0).mapToInt(it -> it.getShortestPath().size()).filter(it -> it > 0).sorted().findFirst().orElseThrow(IllegalArgumentException::new)); //get the lowest (non 0) value from the paths from nodes with elevation == 0
 
     }
 
@@ -59,7 +59,7 @@ public class NodeFactoryTest {
 
         DijkstraService.calculateShortestPathFromSource(endNode);
 
-        assertEquals(459, list.stream().filter(it -> it.getElevation() == 0).mapToInt(it -> it.getShortestPath().size()).filter(it -> it > 0).sorted().findFirst().orElse(0)); //get the lowest (non 0) value from the shortestpaths
+        assertEquals(459, list.stream().filter(it -> it.getElevation() == 0).mapToInt(it -> it.getShortestPath().size()).filter(it -> it > 0).sorted().findFirst().orElseThrow(IllegalArgumentException::new)); //get the lowest (non 0) value from the paths from nodes with elevation == 0 
 
     }
 }

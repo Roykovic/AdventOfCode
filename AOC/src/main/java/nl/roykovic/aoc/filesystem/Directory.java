@@ -5,8 +5,8 @@ import java.util.List;
 
 public class Directory implements FileSystemItem{
 
-    private Directory parent;
-    private String name;
+    private final Directory parent;
+    private final String name;
     private final List<Directory> children;
     private final List<File> files;
 

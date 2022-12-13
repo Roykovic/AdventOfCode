@@ -3,18 +3,13 @@ package nl.roykovic.aoc.distresssignal;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import nl.roykovic.aoc.rucksack.Rucksack;
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.NotImplementedException;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.lang.reflect.Array;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class PacketFactory {
     public LinkedHashMap<ArrayList, ArrayList> generateFromFile(File file) throws FileNotFoundException, JsonProcessingException {

@@ -2,7 +2,7 @@ package nl.roykovic.aoc.filesystem;
 
 public class File implements FileSystemItem{
     private final long size;
-    private Directory parent;
+    private final Directory parent;
 
     public File(long size, Directory parent) {
         this.size = size;

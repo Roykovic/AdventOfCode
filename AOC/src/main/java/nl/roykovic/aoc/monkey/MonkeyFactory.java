@@ -29,6 +29,7 @@ public class MonkeyFactory {
                 curMonkey = new Monkey();
                 monkeyList.add(curMonkey);
             }
+            assert curMonkey != null;
             if(line.trim().startsWith("Starting items")){
                 List<Long> startingItems = new ArrayList<>();
 

@@ -2,6 +2,8 @@ package nl.roykovic.aoc.utils;
 
 import org.apache.commons.lang3.math.NumberUtils;
 
+import java.util.Objects;
+
 public class Coord{
     private int x;
     private int y;
@@ -37,19 +39,22 @@ public class Coord{
     }
 
     @Override
-    public int hashCode() {
-        return super.hashCode();
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Coord coord = (Coord) o;
+        return x == coord.x && y == coord.y;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        boolean same = false;
-
-        if (obj != null && obj instanceof Coord)
-        {
-            same = this.x == ((Coord) obj).getX() && this.y == ((Coord) obj).getY();
-        }
-
-        return same;
+    public int hashCode() {
+        return Objects.hash(x, y);
     }
+
+    @Override
+    public String toString() {
+        return "(" + getX() + ", " + getY() +  ")";
+    }
+
+
 }

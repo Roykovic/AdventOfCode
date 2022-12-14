@@ -7,15 +7,16 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Arrays;
+import java.util.function.Supplier;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class WrappingPaperFactory {
-    public IntStream generateFromFile(File file) throws FileNotFoundException {
+    public Stream<IntStream> generateFromFile(File file) throws FileNotFoundException {
 
         BufferedReader reader = new BufferedReader(new FileReader(file));
         Stream<String> lines =  reader.lines();
-        return lines.map(it -> it.split("x")).map(it -> Arrays.stream(it).mapToInt(NumberUtils::toInt)).mapToInt(WrappingPaperFactory::calculateSurfaceBySides);
+        return lines.map(it -> it.split("x")).map(it -> Arrays.stream(it).mapToInt(NumberUtils::toInt));
     }
 
     public static int calculateSurfaceBySides(IntStream stream){
@@ -34,5 +35,16 @@ public class WrappingPaperFactory {
         surface += Math.min(Math.min(lw, wh), hl);
 
         return surface;
+    }
+
+    public static int calculateRibbonLengthBySides(IntStream stream){
+
+        int[] streamArray = stream.toArray();
+        Supplier<IntStream> sup = () -> Arrays.stream(streamArray);
+
+        int perimeter = sup.get().sorted().limit(2).map(it -> it * 2).sum();
+        int volume = sup.get().reduce((a, b) -> a*b).orElseThrow(RuntimeException::new);
+
+        return perimeter + volume;
     }
 }

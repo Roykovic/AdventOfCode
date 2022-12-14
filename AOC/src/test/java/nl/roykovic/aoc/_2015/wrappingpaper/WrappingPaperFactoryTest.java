@@ -30,7 +30,26 @@ public class WrappingPaperFactoryTest {
     @Test
     void testActualSurface() throws IOException {
         File input = new ClassPathResource("2015/WrappingPaperInput.txt").getFile();
-        int surface = new WrappingPaperFactory().generateFromFile(input).sum();
+        int surface = new WrappingPaperFactory().generateFromFile(input).mapToInt(WrappingPaperFactory::calculateSurfaceBySides).sum();
         assertEquals(1588178, surface);
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "2x3x4,34",
+            "1x1x10,14"
+    })
+    void testExampleRibbonLength(String input, int expectedSurface) throws IOException {
+
+        int surface = WrappingPaperFactory.calculateRibbonLengthBySides(Arrays.stream(input.split("x")).mapToInt(NumberUtils::toInt));
+
+        assertEquals(expectedSurface, surface);
+    }
+
+    @Test
+    void testActualRibbonLength() throws IOException {
+        File input = new ClassPathResource("2015/WrappingPaperInput.txt").getFile();
+        int surface = new WrappingPaperFactory().generateFromFile(input).mapToInt(WrappingPaperFactory::calculateRibbonLengthBySides).sum();
+        assertEquals(3783758, surface);
     }
 }

@@ -4,20 +4,11 @@ import nl.roykovic.aoc.utils.Coord;
 
 import java.util.Objects;
 
-public class Rock implements IParticle {
-    private Coord coord;
-
-    public Rock(Coord coord) {
-        this.coord = coord;
-    }
-
-    public Coord getCoord() {
-        return coord;
-    }
+public record Rock(Coord coord) implements IParticle {
 
     @Override
     public String toString() {
-        return "(" + coord.getX() + ", " + coord.getY() +  ")";
+        return "(" + coord.getX() + ", " + coord.getY() + ")";
     }
 
     @Override
@@ -28,8 +19,4 @@ public class Rock implements IParticle {
         return Objects.equals(coord, rock.coord);
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(coord);
-    }
 }

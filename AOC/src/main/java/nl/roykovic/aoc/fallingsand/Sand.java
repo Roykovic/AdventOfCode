@@ -1,11 +1,7 @@
 package nl.roykovic.aoc.fallingsand;
 
 import nl.roykovic.aoc.utils.Coord;
-
-import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 public class Sand implements IParticle{
     private Coord coord;
@@ -54,7 +50,7 @@ public class Sand implements IParticle{
     }
 
     @Override
-    public Coord getCoord() {
+    public Coord coord() {
         return coord;
     }
 }

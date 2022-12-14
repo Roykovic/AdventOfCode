@@ -6,8 +6,6 @@ import org.springframework.core.io.ClassPathResource;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -20,23 +18,23 @@ public class FallingSandFactoryTest {
 
         boolean intoTheAbyss = false;
 
-        int abyssY = cave.highestY;
+        int abyssY = cave.highestY();
 
         while(!intoTheAbyss) {
             Sand sand = new Sand(new Coord(500,0));
-            cave.particles.put(new Coord(500,0), sand);
+            cave.particles().put(new Coord(500,0), sand);
             boolean movable = true;
             while(movable){
-                movable = sand.move(cave.particles, abyssY +2);
+                movable = sand.move(cave.particles(), abyssY +2);
 
-                if(sand.getCoord().getY() == abyssY){
+                if(sand.coord().getY() == abyssY){
                     intoTheAbyss = true;
                     movable = false;
                 }
-            };
+            }
         }
 
-        assertEquals(24, cave.particles.values().stream().filter(it -> it instanceof Sand).count()-1);
+        assertEquals(24, cave.particles().values().stream().filter(it -> it instanceof Sand).count()-1);
     }
 
     @Test
@@ -46,23 +44,23 @@ public class FallingSandFactoryTest {
 
         boolean intoTheAbyss = false;
 
-        int abyssY = cave.highestY;
+        int abyssY = cave.highestY();
 
         while(!intoTheAbyss) {
             Sand sand = new Sand(new Coord(500,0));
-            cave.particles.put(new Coord(500,0), sand);
+            cave.particles().put(new Coord(500,0), sand);
             boolean movable = true;
             while(movable){
-                movable = sand.move(cave.particles, abyssY +2);
+                movable = sand.move(cave.particles(), abyssY +2);
 
-                if(sand.getCoord().getY() == abyssY){
+                if(sand.coord().getY() == abyssY){
                     intoTheAbyss = true;
                     movable = false;
                 }
-            };
+            }
         }
 
-        assertEquals(858, cave.particles.values().stream().filter(it -> it instanceof Sand).count()-1);
+        assertEquals(858, cave.particles().values().stream().filter(it -> it instanceof Sand).count()-1);
     }
 
     @Test
@@ -70,21 +68,21 @@ public class FallingSandFactoryTest {
         File input = new File("src/test/resources/FallingSandTestInput.txt");
         Cave cave = new FallingSandFactory().generateFromFile(input);
 
-        int abyssY = cave.highestY;
+        int abyssY = cave.highestY();
 
         while(true) {
             Sand sand = new Sand(new Coord(500,0));
-            cave.particles.put(new Coord(500,0), sand);
+            cave.particles().put(new Coord(500,0), sand);
             boolean movable = true;
             while(movable){
-                movable = sand.move(cave.particles, abyssY +2);
-            };
-            if(sand.getCoord().equals(new Coord(500,0))){
+                movable = sand.move(cave.particles(), abyssY +2);
+            }
+            if(sand.coord().equals(new Coord(500,0))){
                 break;
             }
         }
 
-        assertEquals(93, cave.particles.values().stream().filter(it -> it instanceof Sand).count());
+        assertEquals(93, cave.particles().values().stream().filter(it -> it instanceof Sand).count());
     }
 
     @Test
@@ -92,20 +90,20 @@ public class FallingSandFactoryTest {
         File input = new ClassPathResource("FallingSandInput.txt").getFile();
         Cave cave = new FallingSandFactory().generateFromFile(input);
 
-        int abyssY = cave.highestY;
+        int abyssY = cave.highestY();
 
         while(true) {
             Sand sand = new Sand(new Coord(500,0));
-            cave.particles.put(new Coord(500,0), sand);
+            cave.particles().put(new Coord(500,0), sand);
             boolean movable = true;
             while(movable){
-                movable = sand.move(cave.particles, abyssY +2);
-            };
-            if(sand.getCoord().equals(new Coord(500,0))){
+                movable = sand.move(cave.particles(), abyssY +2);
+            }
+            if(sand.coord().equals(new Coord(500,0))){
                 break;
             }
         }
 
-        assertEquals(26845, cave.particles.values().stream().filter(it -> it instanceof Sand).count());
+        assertEquals(26845, cave.particles().values().stream().filter(it -> it instanceof Sand).count());
     }
 }

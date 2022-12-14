@@ -4,12 +4,10 @@ import org.apache.commons.lang3.math.NumberUtils;
 
 import java.util.Objects;
 
+@SuppressWarnings("unused")
 public class Coord{
     private int x;
     private int y;
-
-    public Coord() {
-    }
 
     public Coord(int x, int y) {
         this.x = x;

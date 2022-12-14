@@ -18,12 +18,12 @@ public class FallingSandFactory {
 
         BufferedReader reader = new BufferedReader(new FileReader(file));
 
-        HashMap<Coord, IParticle> particles = new HashMap<Coord, IParticle>(
+        HashMap<Coord, IParticle> particles = new HashMap<>(
                 reader.lines().distinct()
                         .map(it -> it.split(" -> "))
                         .flatMap(coordinates -> connectRocks(
                                 Arrays.stream(coordinates)
-                                        .map(coordinate -> new Rock(new Coord(coordinate))))).distinct().collect(Collectors.toMap(IParticle::getCoord, Function.identity())));
+                                        .map(coordinate -> new Rock(new Coord(coordinate))))).distinct().collect(Collectors.toMap(IParticle::coord, Function.identity())));
 
         return new Cave(particles, highestY);
     }
@@ -36,10 +36,10 @@ public class FallingSandFactory {
             Rock first = rocks.get(i -1);
             Rock second = rocks.get(i);
 
-            int smallestX = Math.min(first.getCoord().getX(), second.getCoord().getX());
-            int biggestX = Math.max(first.getCoord().getX(), second.getCoord().getX());
-            int smallestY = Math.min(first.getCoord().getY(), second.getCoord().getY());
-            int biggestY = Math.max(first.getCoord().getY(), second.getCoord().getY());
+            int smallestX = Math.min(first.coord().getX(), second.coord().getX());
+            int biggestX = Math.max(first.coord().getX(), second.coord().getX());
+            int smallestY = Math.min(first.coord().getY(), second.coord().getY());
+            int biggestY = Math.max(first.coord().getY(), second.coord().getY());
 
             if(biggestY > highestY){
                 highestY = biggestY;

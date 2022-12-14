@@ -11,11 +11,15 @@ public class Sand implements IParticle{
         this.coord = coord;
     }
 
-    public boolean move(List<IParticle> particles){
+    public boolean move(List<IParticle> particles, int floorY){
 
         Coord down = new Coord(this.coord.getX(), this.coord.getY() +1);
         Coord downLeft = new Coord(this.coord.getX() - 1, this.coord.getY()+1);
         Coord downRight = new Coord(this.coord.getX() + 1, this.coord.getY() +1);
+
+        if(down.getY() == floorY){
+            return false;
+        }
 
         if(particles.stream().noneMatch(it -> it.getCoord().equals(down))){
             setCoord(down);

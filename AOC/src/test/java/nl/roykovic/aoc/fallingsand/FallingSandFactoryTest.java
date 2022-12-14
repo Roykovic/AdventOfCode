@@ -26,7 +26,7 @@ public class FallingSandFactoryTest {
             list.add(sand);
             boolean movable = true;
             while(movable){
-                movable = sand.move(list);
+                movable = sand.move(list, abyssY +1);
 
                 if(sand.getCoord().getY() > abyssY){
                     intoTheAbyss = true;
@@ -52,7 +52,7 @@ public class FallingSandFactoryTest {
             list.add(sand);
             boolean movable = true;
             while(movable){
-                movable = sand.move(list);
+                movable = sand.move(list, abyssY +1);
 
                 if(sand.getCoord().getY() > abyssY){
                     intoTheAbyss = true;

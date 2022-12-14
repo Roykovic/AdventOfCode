@@ -1,5 +1,6 @@
 package nl.roykovic.aoc.hillclimb;
 
+import nl.roykovic.aoc.utils.DijkstraService;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.io.ClassPathResource;
 

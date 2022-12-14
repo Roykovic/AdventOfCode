@@ -1,4 +1,6 @@
-package nl.roykovic.aoc.hillclimb;
+package nl.roykovic.aoc.utils;
+
+import nl.roykovic.aoc.hillclimb.Node;
 
 import java.util.HashSet;
 import java.util.LinkedList;

@@ -1,4 +1,4 @@
-package nl.roykovic.aoc._2015;
+package nl.roykovic.aoc._2015.apartment;
 
 import java.io.BufferedReader;
 import java.io.File;

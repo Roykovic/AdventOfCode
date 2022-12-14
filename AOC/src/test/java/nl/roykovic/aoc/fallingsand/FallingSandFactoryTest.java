@@ -63,4 +63,51 @@ public class FallingSandFactoryTest {
 
         assertEquals(858, list.stream().filter(it -> it instanceof Sand).count()-1);
     }
+
+    @Test
+    void testMaxExampleNumberOfFallingSandWithFloor() throws IOException {
+        File input = new File("src/test/resources/FallingSandTestInput.txt");
+        List<IParticle> list = new FallingSandFactory().generateFromFile(input);
+
+        int abyssY = list.stream().mapToInt(it -> it.getCoord().getY()).max().orElseThrow(RuntimeException::new);
+
+        while(true) {
+            Sand sand = new Sand(new Coord(500,0));
+            list.add(sand);
+            boolean movable = true;
+            while(movable){
+                movable = sand.move(list, abyssY +2);
+            };
+            if(sand.getCoord().equals(new Coord(500,0))){
+                break;
+            }
+        }
+
+        assertEquals(93, list.stream().filter(it -> it instanceof Sand).count());
+    }
+
+    @Test
+    void testMaxActualNumberOfFallingSandWithFloor() throws IOException {
+        File input = new ClassPathResource("FallingSandInput.txt").getFile();
+        List<IParticle> list = new FallingSandFactory().generateFromFile(input);
+
+        boolean stuck = false;
+
+        int abyssY = list.stream().mapToInt(it -> it.getCoord().getY()).max().orElseThrow(RuntimeException::new);
+
+        while(true) {
+            Sand sand = new Sand(new Coord(500,0));
+            list.add(sand);
+            boolean movable = true;
+            while(movable){
+                movable = sand.move(list, abyssY +2);
+            };
+            System.out.println(sand.getCoord());
+            if(sand.getCoord().equals(new Coord(500,0))){
+                break;
+            }
+        }
+
+        assertEquals(858, list.stream().filter(it -> it instanceof Sand).count()-1);
+    }
 }

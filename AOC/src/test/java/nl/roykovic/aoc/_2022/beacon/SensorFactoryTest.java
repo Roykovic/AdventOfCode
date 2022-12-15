@@ -21,14 +21,14 @@ public class SensorFactoryTest {
         Set<Coord> notBeaconIndicesOnY = new HashSet<>();
 
         for(Sensor sensor : list){
-            long manhattanDistanceToY = sensor.getCoord().manhattanDistance(new Coord(sensor.getCoord().getX(), yToCheck));
+            long manhattanDistanceToY = sensor.coord().manhattanDistance(new Coord(sensor.coord().getX(), yToCheck));
 
             long dDistance = sensor.manhattanDistanceToBeacon() - manhattanDistanceToY;
 
             for(long i = -dDistance; i < dDistance; i++){
 
-                Coord coord = new Coord(sensor.getCoord().getX() - i, yToCheck);
-                if(sensor.getClosestBeacon().getCoord() != coord) {
+                Coord coord = new Coord(sensor.coord().getX() - i, yToCheck);
+                if(sensor.closestBeacon().coord() != coord) {
                     notBeaconIndicesOnY.add(coord);
                 }
             }
@@ -48,7 +48,7 @@ public class SensorFactoryTest {
         Set<Coord> notBeaconIndicesOnY = new HashSet<>();
 
         for(Sensor sensor : list){
-            long manhattanDistanceToY = sensor.getCoord().manhattanDistance(new Coord(sensor.getCoord().getX(), yToCheck)); //check the manhattan distance to the y coord
+            long manhattanDistanceToY = sensor.coord().manhattanDistance(new Coord(sensor.coord().getX(), yToCheck)); //check the manhattan distance to the y coord
 
             long dDistance = sensor.manhattanDistanceToBeacon() - manhattanDistanceToY; //the dDistance is the distance the beacon can still be away -> manhattan distance is just the dX + dY in absolute numbers.
                                                                                         // so if the closest y coord is 10 away, and the beacon is 12 away.
@@ -56,8 +56,8 @@ public class SensorFactoryTest {
 
             for(long i = -dDistance; i < dDistance; i++){
 
-                Coord coord = new Coord(sensor.getCoord().getX() - i, yToCheck);    //check these possible coords, from -dDistance, y to dDistance,y
-                if(sensor.getClosestBeacon().getCoord() != coord) {
+                Coord coord = new Coord(sensor.coord().getX() - i, yToCheck);    //check these possible coords, from -dDistance, y to dDistance,y
+                if(sensor.closestBeacon().coord() != coord) {
                     notBeaconIndicesOnY.add(coord);                                     //if the coord does not contain your beacon, add it to the list
                 }
             }
@@ -74,7 +74,7 @@ public class SensorFactoryTest {
 
         Coord beaconCoord = null;
         for(Sensor sensor : list){
-            for (Coord coord : sensor.signalRangePerimeter()) {
+            for (Coord coord : sensor.signalRangePerimeter(maxCoord,maxCoord)) {
                 if(coord.getX() <= maxCoord && coord.getY() <= maxCoord && coord.getX() >=0 && coord.getY() >= 0) {
 
                     boolean found = list.stream().noneMatch(otherSensor -> otherSensor.isInSignalRange(coord));

@@ -70,10 +70,12 @@ public class SensorFactoryTest {
         File input = new File("src/test/resources/2022/BeaconTestInput.txt");
         List<Sensor> list = new SensorFactory().generateFromFile(input);
 
+        long maxCoord = 20;
+
         Coord beaconCoord = null;
         for(Sensor sensor : list){
             for (Coord coord : sensor.signalRangePerimeter()) {
-                if(coord.getX() <= 20 && coord.getY() <= 20 && coord.getX() >=0 && coord.getY() >= 0) {
+                if(coord.getX() <= maxCoord && coord.getY() <= maxCoord && coord.getX() >=0 && coord.getY() >= 0) {
 
                     boolean found = list.stream().noneMatch(otherSensor -> otherSensor.isInSignalRange(coord));
 

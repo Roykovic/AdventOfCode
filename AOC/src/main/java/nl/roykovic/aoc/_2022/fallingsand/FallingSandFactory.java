@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 
 public class FallingSandFactory {
 
-    private int highestY;
+    private Long highestY = Long.MIN_VALUE;
     public Cave generateFromFile(File file) throws FileNotFoundException {
 
         BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -36,20 +36,20 @@ public class FallingSandFactory {
             Rock first = rocks.get(i -1);
             Rock second = rocks.get(i);
 
-            int smallestX = Math.min(first.coord().getX(), second.coord().getX());
-            int biggestX = Math.max(first.coord().getX(), second.coord().getX());
-            int smallestY = Math.min(first.coord().getY(), second.coord().getY());
-            int biggestY = Math.max(first.coord().getY(), second.coord().getY());
+            long smallestX = Math.min(first.coord().getX(), second.coord().getX());
+            long biggestX = Math.max(first.coord().getX(), second.coord().getX());
+            long smallestY = Math.min(first.coord().getY(), second.coord().getY());
+            long biggestY = Math.max(first.coord().getY(), second.coord().getY());
 
             if(biggestY > highestY){
                 highestY = biggestY;
             }
 
-            for(int x = smallestX +1; x < biggestX; x++){
+            for(long x = smallestX +1; x < biggestX; x++){
                 Coord coord = new Coord(x, smallestY);
                 returnList.add(new Rock(coord));
             }
-            for(int y = smallestY +1; y < biggestY; y++){
+            for(long y = smallestY +1; y < biggestY; y++){
                 Coord coord = new Coord(smallestX, y);
                 returnList.add(new Rock(coord));
             }

@@ -6,33 +6,33 @@ import java.util.Objects;
 
 @SuppressWarnings("unused")
 public class Coord{
-    private int x;
-    private int y;
+    private Long x;
+    private Long y;
 
-    public Coord(int x, int y) {
+    public Coord(Long x, Long y) {
         this.x = x;
         this.y = y;
     }
 
     public Coord(String coordinates) {
         String[] coord = coordinates.split(",");
-        this.x = NumberUtils.toInt(coord[0]);
-        this.y = NumberUtils.toInt(coord[1]);
+        this.x = NumberUtils.toLong(coord[0]);
+        this.y = NumberUtils.toLong(coord[1]);
     }
 
-    public int getX() {
+    public Long getX() {
         return x;
     }
 
-    public void setX(int x) {
+    public void setX(Long x) {
         this.x = x;
     }
 
-    public int getY() {
+    public Long getY() {
         return y;
     }
 
-    public void setY(int y) {
+    public void setY(Long y) {
         this.y = y;
     }
 
@@ -41,7 +41,7 @@ public class Coord{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Coord coord = (Coord) o;
-        return x == coord.x && y == coord.y;
+        return Objects.equals(x, coord.x) && Objects.equals(y, coord.y);
     }
 
     @Override

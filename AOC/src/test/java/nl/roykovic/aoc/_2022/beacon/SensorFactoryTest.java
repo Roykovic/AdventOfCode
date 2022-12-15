@@ -18,7 +18,7 @@ public class SensorFactoryTest {
 
         long yToCheck = 10;
 
-        Set<Coord> notBeaconIndicesOnY = new HashSet<>();
+        List<Coord> notBeaconIndicesOnY = new ArrayList<>();
 
         for(Sensor sensor : list){
             long manhattanDistanceToY = sensor.getCoord().manhattanDistance(new Coord(sensor.getCoord().getX(), yToCheck));
@@ -34,7 +34,7 @@ public class SensorFactoryTest {
             }
         }
 
-        assertEquals(26, notBeaconIndicesOnY.size());
+        assertEquals(26, notBeaconIndicesOnY.stream().distinct().count());
 
     }
 

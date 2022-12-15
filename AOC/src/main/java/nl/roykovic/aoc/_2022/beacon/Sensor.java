@@ -15,6 +15,10 @@ public class Sensor {
      return coord.manhattanDistance(closestBeacon.getCoord());
     }
 
+    public boolean isInSignalRange(Coord coord){
+        return coord.manhattanDistance(this.coord) <= this.manhattanDistanceToBeacon();
+    }
+
     public Beacon getClosestBeacon() {
         return closestBeacon;
     }

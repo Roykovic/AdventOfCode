@@ -21,7 +21,7 @@ public class Sensor {
     }
 
     List<Coord> signalRangePerimeter(){
-        Set<Coord> perimeter = new HashSet<>();
+        List<Coord> perimeter = new ArrayList<>();
         long upperY = getCoord().getY();
         long lowerY = getCoord().getY();
         for(long x = coord.getX() - manhattanDistanceToBeacon() -1; x < coord.getX() + manhattanDistanceToBeacon() +2; x++){
@@ -41,7 +41,7 @@ public class Sensor {
                 lowerY--;
             }
         }
-        return perimeter.stream().toList();
+        return perimeter;
     }
 
     public boolean isInSignalRange(Coord coord){

@@ -1,4 +1,4 @@
-package nl.roykovic.aoc._2015.adventcoint;
+package nl.roykovic.aoc._2015.adventcoin;
 
 import org.apache.commons.lang3.StringUtils;
 

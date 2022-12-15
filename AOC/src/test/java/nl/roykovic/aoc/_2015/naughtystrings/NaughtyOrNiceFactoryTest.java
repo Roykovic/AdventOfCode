@@ -29,4 +29,21 @@ public class NaughtyOrNiceFactoryTest {
         long niceStrings = new NaughtyOrNiceFactory().generateFromFile(input).values().stream().filter(it -> it).count();
         assertEquals(258, niceStrings);
     }
+
+    @ParameterizedTest
+    @CsvSource({
+            "qjhvhtzxzqqjkmpb,true",
+            "xxyxx,true",
+            "uurcxstgmygtbstg,false",
+            "ieodomkazucvgmuy, false"
+    })
+    void testExampleNewIsNice(String input, boolean expectedIsNice) {
+        assertEquals(expectedIsNice, NaughtyOrNiceFactory.newIsNice(input));
+    }
+    @Test
+    void testActualNewIsNice() throws IOException {
+        File input = new ClassPathResource("2015/NaughtyOrNiceInput.txt").getFile();
+        long niceStrings = new NaughtyOrNiceFactory().generateNewFromFile(input).values().stream().filter(it -> it).count();
+        assertEquals(53, niceStrings);
+    }
 }

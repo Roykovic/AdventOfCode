@@ -2,6 +2,7 @@ package nl.roykovic.aoc._2022.fallingsand;
 
 import nl.roykovic.aoc.utils.Coord;
 import java.util.Map;
+import java.util.Objects;
 
 public class Sand implements IParticle{
     private Coord coord;
@@ -10,13 +11,13 @@ public class Sand implements IParticle{
         this.coord = coord;
     }
 
-    public boolean move( Map<Coord, IParticle> particleMap, int floorY){
+    public boolean move( Map<Coord, IParticle> particleMap, Long floorY){
 
         Coord down = new Coord(this.coord.getX(), this.coord.getY() +1);
         Coord downLeft = new Coord(this.coord.getX() - 1, this.coord.getY()+1);
         Coord downRight = new Coord(this.coord.getX() + 1, this.coord.getY() +1);
 
-        if(down.getY() == floorY){
+        if(Objects.equals(down.getY(), floorY)){
             return false;
         }
 

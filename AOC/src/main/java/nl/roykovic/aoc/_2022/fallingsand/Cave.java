@@ -4,5 +4,5 @@ import nl.roykovic.aoc.utils.Coord;
 
 import java.util.Map;
 
-public record Cave(Map<Coord, IParticle> particles, int highestY) {
+public record Cave(Map<Coord, IParticle> particles, Long highestY) {
 }

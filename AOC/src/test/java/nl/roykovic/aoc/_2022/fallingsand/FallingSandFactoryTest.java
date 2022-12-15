@@ -6,6 +6,7 @@ import org.springframework.core.io.ClassPathResource;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -18,16 +19,16 @@ public class FallingSandFactoryTest {
 
         boolean intoTheAbyss = false;
 
-        int abyssY = cave.highestY();
+        Long abyssY = cave.highestY();
 
         while(!intoTheAbyss) {
-            Sand sand = new Sand(new Coord(500,0));
-            cave.particles().put(new Coord(500,0), sand);
+            Sand sand = new Sand(new Coord(500L,0L));
+            cave.particles().put(new Coord(500L,0L), sand);
             boolean movable = true;
             while(movable){
-                movable = sand.move(cave.particles(), abyssY +2);
+                movable = sand.move(cave.particles(), abyssY +2L);
 
-                if(sand.coord().getY() == abyssY){
+                if(Objects.equals(sand.coord().getY(), abyssY)){
                     intoTheAbyss = true;
                     movable = false;
                 }
@@ -44,16 +45,16 @@ public class FallingSandFactoryTest {
 
         boolean intoTheAbyss = false;
 
-        int abyssY = cave.highestY();
+        Long abyssY = cave.highestY();
 
         while(!intoTheAbyss) {
-            Sand sand = new Sand(new Coord(500,0));
-            cave.particles().put(new Coord(500,0), sand);
+            Sand sand = new Sand(new Coord(500L,0L));
+            cave.particles().put(new Coord(500L,0L), sand);
             boolean movable = true;
             while(movable){
-                movable = sand.move(cave.particles(), abyssY +2);
+                movable = sand.move(cave.particles(), abyssY +2L);
 
-                if(sand.coord().getY() == abyssY){
+                if(Objects.equals(sand.coord().getY(), abyssY)){
                     intoTheAbyss = true;
                     movable = false;
                 }
@@ -68,16 +69,16 @@ public class FallingSandFactoryTest {
         File input = new File("src/test/resources/2022/FallingSandTestInput.txt");
         Cave cave = new FallingSandFactory().generateFromFile(input);
 
-        int abyssY = cave.highestY();
+        Long abyssY = cave.highestY();
 
         while(true) {
-            Sand sand = new Sand(new Coord(500,0));
-            cave.particles().put(new Coord(500,0), sand);
+            Sand sand = new Sand(new Coord(500L,0L));
+            cave.particles().put(new Coord(500L,0L), sand);
             boolean movable = true;
             while(movable){
                 movable = sand.move(cave.particles(), abyssY +2);
             }
-            if(sand.coord().equals(new Coord(500,0))){
+            if(sand.coord().equals(new Coord(500L,0L))){
                 break;
             }
         }
@@ -90,16 +91,16 @@ public class FallingSandFactoryTest {
         File input = new ClassPathResource("2022/FallingSandInput.txt").getFile();
         Cave cave = new FallingSandFactory().generateFromFile(input);
 
-        int abyssY = cave.highestY();
+        Long abyssY = cave.highestY();
 
         while(true) {
-            Sand sand = new Sand(new Coord(500,0));
-            cave.particles().put(new Coord(500,0), sand);
+            Sand sand = new Sand(new Coord(500L,0L));
+            cave.particles().put(new Coord(500L,0L), sand);
             boolean movable = true;
             while(movable){
                 movable = sand.move(cave.particles(), abyssY +2);
             }
-            if(sand.coord().equals(new Coord(500,0))){
+            if(sand.coord().equals(new Coord(500L,0L))){
                 break;
             }
         }

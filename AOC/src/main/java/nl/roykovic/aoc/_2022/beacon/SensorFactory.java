@@ -1,8 +1,6 @@
 package nl.roykovic.aoc._2022.beacon;
 
-import nl.roykovic.aoc._2022.rucksack.Rucksack;
 import nl.roykovic.aoc.utils.Coord;
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
 import java.io.BufferedReader;

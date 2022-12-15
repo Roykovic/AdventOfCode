@@ -101,8 +101,7 @@ public class SensorFactoryTest {
 
         Coord beaconCoord = null;
         for(Sensor sensor : list){
-            for (Coord coord : sensor.signalRangePerimeter()) {
-                if(coord.getX() <= maxCoord && coord.getY() <= maxCoord && coord.getX() >=0 && coord.getY() >= 0) {
+            for (Coord coord : sensor.signalRangePerimeter(maxCoord, maxCoord)) {
 
                     boolean found = list.stream().noneMatch(otherSensor -> otherSensor.isInSignalRange(coord));
 
@@ -110,7 +109,6 @@ public class SensorFactoryTest {
                         beaconCoord = coord;
                         break;
                     }
-                }
             }
         }
 

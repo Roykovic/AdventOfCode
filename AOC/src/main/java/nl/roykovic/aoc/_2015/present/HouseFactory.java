@@ -12,19 +12,32 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class HouseFactory {
-    public List<Coord> generateFromFile(File file) throws FileNotFoundException {
+    public List<Coord> generateFromFile(File file, boolean robotSanta) throws FileNotFoundException {
 
         BufferedReader reader = new BufferedReader(new FileReader(file));
-        return this.generateFromString(reader.lines().findFirst().orElseThrow(IllegalArgumentException::new));
+        return this.generateFromString(reader.lines().findFirst().orElseThrow(IllegalArgumentException::new), robotSanta);
 
     }
 
-    public List<Coord> generateFromString(String input){
+    public List<Coord> generateFromString(String input, boolean robotSanta){
 
         char[] instructions = input.toCharArray();
+
         List<Coord> houseCoords = new ArrayList<>(List.of(new Coord(0L, 0L)));
+        List<Coord> robotHouseCoords = new ArrayList<>(List.of(new Coord(0L, 0L)));
+
         for(int i = 0; i < instructions.length; i++){
-            houseCoords.add(instructionToCoord(houseCoords.get(i), instructions[i]));
+
+            if(i %2 != 0 && robotSanta){
+                robotHouseCoords.add(instructionToCoord(robotHouseCoords.get(robotHouseCoords.size()-1), instructions[i]));
+            }
+            else {
+                houseCoords.add(instructionToCoord(houseCoords.get(houseCoords.size()-1), instructions[i]));
+            }
+        }
+
+        if(robotSanta){
+            houseCoords.addAll(robotHouseCoords);
         }
 
         return houseCoords.stream().distinct().collect(Collectors.toList());

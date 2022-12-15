@@ -36,6 +36,10 @@ public class Coord{
         this.y = y;
     }
 
+    public long manhattanDistance(Coord other){
+        return Math.abs(getX() - other.getX()) + Math.abs(getY() - other.getY());
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

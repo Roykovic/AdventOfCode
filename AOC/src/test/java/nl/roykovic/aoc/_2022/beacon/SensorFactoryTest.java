@@ -91,4 +91,31 @@ public class SensorFactoryTest {
         assertEquals(new Coord(14L,11L), beaconCoord);
         assertEquals(56000011, beaconCoord.getX() * 4000000 + beaconCoord.getY());
     }
+
+    @Test
+    void testActualTuningFrequency() throws IOException {
+        File input = new ClassPathResource("2022/BeaconInput.txt").getFile();
+        List<Sensor> list = new SensorFactory().generateFromFile(input);
+
+        long maxCoord = 4000000;
+
+        Coord beaconCoord = null;
+        for(Sensor sensor : list){
+            for (Coord coord : sensor.signalRangePerimeter()) {
+                if(coord.getX() <= maxCoord && coord.getY() <= maxCoord && coord.getX() >=0 && coord.getY() >= 0) {
+
+                    boolean found = list.stream().noneMatch(otherSensor -> otherSensor.isInSignalRange(coord));
+
+                    if (found) {
+                        beaconCoord = coord;
+                        break;
+                    }
+                }
+            }
+        }
+
+        assertNotNull(beaconCoord);
+        assertEquals(new Coord(3204400L,3219131L), beaconCoord);
+        assertEquals(12817603219131L, beaconCoord.getX() * 4000000 + beaconCoord.getY());
+    }
 }

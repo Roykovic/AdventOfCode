@@ -1,4 +1,4 @@
-package nl.roykovic.aoc._2022.signalstrength.bufferstream;
+package nl.roykovic.aoc._2022.bufferstream;
 
 import nl.roykovic.aoc._2022.bufferstream.BufferStreamDecoder;
 import org.junit.jupiter.api.Test;

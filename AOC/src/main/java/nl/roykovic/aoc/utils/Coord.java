@@ -14,6 +14,11 @@ public class Coord{
         this.y = y;
     }
 
+    public Coord(int x, int y) {
+        this.x = Long.valueOf(x);
+        this.y = Long.valueOf(y);
+    }
+
     public Coord(String coordinates) {
         String[] coord = coordinates.split(",");
         this.x = NumberUtils.toLong(coord[0]);
@@ -38,6 +43,16 @@ public class Coord{
 
     public long manhattanDistance(Coord other){
         return Math.abs(getX() - other.getX()) + Math.abs(getY() - other.getY());
+    }
+
+    public void changeOrigin(Coord origin){
+        this.x = this.x + origin.x;
+        this.y = this.y + origin.y;
+    }
+
+    public void move(Direction direction){
+        this.x = this.x + direction.getAdditionalX();
+        this.y = this.y + direction.getAdditionalY();
     }
 
     @Override

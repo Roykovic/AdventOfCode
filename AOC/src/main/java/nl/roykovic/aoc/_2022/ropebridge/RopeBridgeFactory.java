@@ -1,5 +1,6 @@
 package nl.roykovic.aoc._2022.ropebridge;
 
+import nl.roykovic.aoc.utils.Direction;
 import org.apache.commons.lang3.math.NumberUtils;
 
 import java.io.BufferedReader;

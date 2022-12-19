@@ -1,5 +1,7 @@
 package nl.roykovic.aoc._2022.ropebridge;
 
+import nl.roykovic.aoc.utils.Direction;
+
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.List;

@@ -1,5 +1,7 @@
 package nl.roykovic.aoc._2022.ropebridge;
 
+import nl.roykovic.aoc.utils.Direction;
+
 import java.util.AbstractMap;
 
 public class Tail  extends RopeEnd{

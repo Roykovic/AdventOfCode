@@ -1,4 +1,8 @@
-package nl.roykovic.aoc._2022.ropebridge;
+package nl.roykovic.aoc.utils;
+
+import nl.roykovic.aoc._2022.rockpaperscissors.RPSMove;
+
+import java.util.Map;
 
 public enum Direction {
     U(0,-1),
@@ -17,6 +21,14 @@ public enum Direction {
         this.additionalX = additionalX;
         this.additionalY = additionalY;
     }
+
+    public static final Map<Direction,Direction> OPPOSITE = Map.of(
+            U, D,
+            D,U,
+            L,R,
+            R,L
+    );
+
 
     public int getAdditionalX() {
         return additionalX;

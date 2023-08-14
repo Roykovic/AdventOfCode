@@ -8,11 +8,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.locks.Lock;
+import java.util.Map;
 
 public class TetrisFactory {
-    public Long generateFromFile(File file) throws FileNotFoundException {
+    public Long generateFromFile(File file, long rounds) throws FileNotFoundException {
+
         List<TetrisRockType> pieces = List.of(TetrisRockType.LINE, TetrisRockType.PLUS, TetrisRockType.L, TetrisRockType.COLUMN, TetrisRockType.SQUARE);
 
         BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -26,7 +28,8 @@ public class TetrisFactory {
         int rockType = 0;
         int instructionPos = 0;
 
-        for(int i = 0; i< 2022; i++){
+        for(int i = 0; i<rounds; i++){
+
             TetrisRock rock = new TetrisRock(pieces.get(rockType), new Coord(2L,(highestBlock - 3) - pieces.get(rockType).getHeight()));
             rocks.add(rock);
 
@@ -90,5 +93,11 @@ public class TetrisFactory {
             }
             System.out.println();
         }
+    }
+
+    private int getRepeatingRounds(int instructionsLength, int amountOfShapes){
+        float repeatAfterRounds = instructionsLength/amountOfShapes;
+
+        return (int) (repeatAfterRounds * amountOfShapes);
     }
 }

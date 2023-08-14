@@ -8,10 +8,17 @@ import java.util.Objects;
 public class Coord{
     private Long x;
     private Long y;
+    private Long z;
 
     public Coord(Long x, Long y) {
         this.x = x;
         this.y = y;
+    }
+
+    public Coord(Long x, Long y, Long z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
     }
 
     public Coord(int x, int y) {
@@ -23,6 +30,10 @@ public class Coord{
         String[] coord = coordinates.split(",");
         this.x = NumberUtils.toLong(coord[0]);
         this.y = NumberUtils.toLong(coord[1]);
+
+        if(coord.length == 3){
+            this.z = NumberUtils.toLong(coord[2]);
+        }
     }
 
     public Long getX() {
@@ -39,6 +50,14 @@ public class Coord{
 
     public void setY(Long y) {
         this.y = y;
+    }
+
+    public Long getZ() {
+        return z;
+    }
+
+    public void setZ(Long z) {
+        this.z = z;
     }
 
     public long manhattanDistance(Coord other){
@@ -60,7 +79,7 @@ public class Coord{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Coord coord = (Coord) o;
-        return Objects.equals(x, coord.x) && Objects.equals(y, coord.y);
+        return Objects.equals(x, coord.x) && Objects.equals(y, coord.y) && Objects.equals(z, coord.z);
     }
 
     @Override
@@ -70,7 +89,15 @@ public class Coord{
 
     @Override
     public String toString() {
-        return "(" + getX() + ", " + getY() +  ")";
+
+        String out = "(" + getX() + ", " + getY();
+
+        if(getZ() != null){
+            out +=", " + getZ();
+        }
+        out  +=  ")";
+
+        return out;
     }
 
 

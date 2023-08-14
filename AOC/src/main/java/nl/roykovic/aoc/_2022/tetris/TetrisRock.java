@@ -5,6 +5,7 @@ import nl.roykovic.aoc.utils.Direction;
 
 import java.util.AbstractMap;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 public class TetrisRock {
@@ -30,7 +31,7 @@ public class TetrisRock {
     }
 
 
-    public boolean move(Direction direction, List<TetrisRock> otherRocks){
+    public boolean move(Direction direction, HashSet<Coord> coords){
 
         boolean moved = false;
 //        System.out.println("move " + direction);
@@ -53,9 +54,11 @@ public class TetrisRock {
                 occupiedCoord.move(direction);
             }
 
-            for(TetrisRock otherRock : otherRocks){
-                if (otherRock != this && collidesWith(otherRock)) {
+
+            for(Coord c: this.occupiedCoords){
+                if (coords.contains(c)) {
                     collides = true;
+                    break;
                 }
             }
 

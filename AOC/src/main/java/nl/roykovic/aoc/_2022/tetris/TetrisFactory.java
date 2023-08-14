@@ -7,10 +7,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class TetrisFactory {
     public Long generateFromFile(File file, long rounds) throws FileNotFoundException {
@@ -23,22 +20,20 @@ public class TetrisFactory {
 
         long highestBlock = 0;
 
-        List<TetrisRock> rocks = new ArrayList<>();
+        HashSet<Coord> coords = new HashSet<>();
 
         int rockType = 0;
         int instructionPos = 0;
 
         for(int i = 0; i<rounds; i++){
-
             TetrisRock rock = new TetrisRock(pieces.get(rockType), new Coord(2L,(highestBlock - 3) - pieces.get(rockType).getHeight()));
-            rocks.add(rock);
 
             boolean hitBottom = false;
 
             while(!hitBottom){
 
-                rock.move(directionFromChar(instructions[instructionPos]), rocks);
-                hitBottom = !rock.move(Direction.D, rocks);
+                rock.move(directionFromChar(instructions[instructionPos]), coords);
+                hitBottom = !rock.move(Direction.D, coords);
 
                 if(instructionPos == instructions.length -1){
                     instructionPos =0;
@@ -48,6 +43,8 @@ public class TetrisFactory {
                 }
             }
 
+            coords.addAll(Arrays.asList(rock.getOccupiedCoords()));
+
             if(rockType == pieces.size() -1){
                 rockType = 0;
             }
@@ -56,7 +53,6 @@ public class TetrisFactory {
             }
 
            highestBlock = Math.min(highestBlock, rock.getCoord().getY());
-//            draw(rocks, highestBlock);
         }
 
 
@@ -73,31 +69,5 @@ public class TetrisFactory {
             }
             default -> throw new IllegalArgumentException();
         }
-    }
-
-    private void draw(List<TetrisRock> rocks, long lowestY){
-        for(long y = -14; y < 0; y++){
-            for(int x = 0; x <7; x++){
-                boolean drawn = false;
-                for(TetrisRock rock: rocks){
-                    for(Coord coord : rock.getOccupiedCoords()){
-                        if(coord.equals(new Coord((long) x, y))){
-                            drawn = true;
-                            System.out.print("#");
-                        }
-                    }
-                }
-                if(!drawn){
-                    System.out.print(".");
-                }
-            }
-            System.out.println();
-        }
-    }
-
-    private int getRepeatingRounds(int instructionsLength, int amountOfShapes){
-        float repeatAfterRounds = instructionsLength/amountOfShapes;
-
-        return (int) (repeatAfterRounds * amountOfShapes);
     }
 }

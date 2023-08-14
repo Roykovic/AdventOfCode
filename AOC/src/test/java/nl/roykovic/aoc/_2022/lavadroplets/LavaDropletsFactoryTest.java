@@ -25,6 +25,8 @@ public class LavaDropletsFactoryTest {
         File input = new ClassPathResource("2022/LavaDropletsInput.txt").getFile();
         List<Face> faces = new LavaDropletsFactory().generateFromFile(input);
 
-        assertEquals(64, faces.size());
+        assertEquals(4308, faces.size());
+    }
+
     }
 }

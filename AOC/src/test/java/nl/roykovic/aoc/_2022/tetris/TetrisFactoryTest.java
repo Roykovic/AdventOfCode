@@ -30,7 +30,7 @@ public class TetrisFactoryTest {
     @Test
     void testExampleHeightTrillionRounds() throws IOException {
         File input = new File("src/test/resources/2022/TetrisTestInput.txt");
-        assertEquals(3068, new TetrisFactory().generateFromFile(input, 10000000));
+        assertEquals(3068, new TetrisFactory().generateFromFile(input, 1000000000000L));
     }
 
     @Disabled

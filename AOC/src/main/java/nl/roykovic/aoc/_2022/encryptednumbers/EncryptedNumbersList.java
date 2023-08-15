@@ -53,23 +53,23 @@ public class EncryptedNumbersList {
             int numbersToEndOfList = numberList.size()  - currentIndex;
 
             if (numberOfMoves < numbersToEndOfList) {
-                return currentIndex + numberOfMoves;
+                return (int) (currentIndex + numberOfMoves);
             }
 
-            int indexFromStart = numberOfMoves - numbersToEndOfList;
+            long indexFromStart = numberOfMoves - numbersToEndOfList;
 
-            return indexFromStart % numberList.size();
+            return (int) (indexFromStart % numberList.size());
         }
 
         int numbersToStartOfList = currentIndex * -1;
         if(numberOfMoves > numbersToStartOfList){
-            return currentIndex + numberOfMoves;
+            return (int) (currentIndex + numberOfMoves);
         }
 
-        int indexFromEnd = numberOfMoves - numbersToStartOfList;
+        long indexFromEnd = numberOfMoves - numbersToStartOfList;
 
-        int normalizedIndex = indexFromEnd % numberList.size();
+        long normalizedIndex = indexFromEnd % numberList.size();
 
-        return numberList.size() + normalizedIndex;
+        return (int) (numberList.size() + normalizedIndex);
     }
 }

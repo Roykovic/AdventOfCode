@@ -27,6 +27,4 @@ public class LavaDropletsFactoryTest {
 
         assertEquals(4308, faces.size());
     }
-
-    }
 }

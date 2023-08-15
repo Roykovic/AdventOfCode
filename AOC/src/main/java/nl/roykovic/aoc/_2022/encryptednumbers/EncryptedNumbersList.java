@@ -1,7 +1,6 @@
 package nl.roykovic.aoc._2022.encryptednumbers;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class EncryptedNumbersList {
@@ -27,11 +26,6 @@ public class EncryptedNumbersList {
 
         numberList.remove(oldIndex);
         numberList.add(findIndexFromNumberOfMoves(number.getValue(), oldIndex), number);
-
-//        for(EncryptedNumber n : numberList){
-//            System.out.print(n.getValue() + ", ");
-//        }
-//        System.out.println("\n");
 
     }
 

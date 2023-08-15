@@ -33,6 +33,6 @@ public class EncryptedNumbersFactoryTest {
         EncryptedNumbersList list = new EncryptedNumbersFactory().generateFromFile(input);
         list.decrypt();
 
-        assertEquals(3, list.findNthNumberAfterZero(1000).getValue() + list.findNthNumberAfterZero(2000).getValue() +list.findNthNumberAfterZero(3000).getValue());
+        assertEquals(17490, list.findNthNumberAfterZero(1000) + list.findNthNumberAfterZero(2000) +list.findNthNumberAfterZero(3000));
     }
 }

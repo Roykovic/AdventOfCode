@@ -46,4 +46,13 @@ public class EncryptedNumbersFactoryTest {
 
         assertEquals(1623178306, list.findNthNumberAfterZero(1000).getValue() + list.findNthNumberAfterZero(2000).getValue() +list.findNthNumberAfterZero(3000).getValue());
     }
+
+    @Test
+    void testActualEncryptedNumberWithDecryptionKey() throws IOException {
+        File input = new ClassPathResource("2022/EncryptedNumbersInput.txt").getFile();
+        EncryptedNumbersList list = new EncryptedNumbersFactory().generateFromFile(input, 811589153);
+        list.decrypt(10);
+
+        assertEquals(1632917375836, list.findNthNumberAfterZero(1000).getValue() + list.findNthNumberAfterZero(2000).getValue() +list.findNthNumberAfterZero(3000).getValue());
+    }
 }

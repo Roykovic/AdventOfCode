@@ -25,7 +25,7 @@ public class EncryptedNumbersFactory {
         EncryptedNumbersList list = new EncryptedNumbersList();
 
         for(int i =0; i< lines.size(); i++){
-            list.addToList(new EncryptedNumber(Integer.parseInt(lines.get(i)), i));
+            list.addToList(new EncryptedNumber(Long.parseLong(lines.get(i)) * key, i));
         }
 
         return list;

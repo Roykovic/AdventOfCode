@@ -35,14 +35,14 @@ public class EncryptedNumbersList {
 
     }
 
-    public EncryptedNumber findNthNumberAfterZero(int n){
+    public EncryptedNumber findNthNumberAfterZero(long n){
 
         EncryptedNumber zero = numberList.stream().filter(it -> it.getValue() ==0 ).findFirst().orElseThrow(RuntimeException::new);
 
         return numberList.get(findIndexFromNumberOfMoves(n, numberList.indexOf(zero)));
     }
 
-    private int findIndexFromNumberOfMoves(int numberOfMoves, int currentIndex){
+    private int findIndexFromNumberOfMoves(long numberOfMoves, int currentIndex){
 
         if(numberOfMoves == 0 ){
             return currentIndex;

@@ -1,21 +1,21 @@
 package nl.roykovic.aoc._2022.encryptednumbers;
 
 public class EncryptedNumber {
-    private int value;
+    private long value;
     private int index;
 
     private boolean swapped = false;
 
-    public EncryptedNumber(int value, int index) {
+    public EncryptedNumber(long value, int index) {
         this.value = value;
         this.index = index;
     }
 
-    public int getValue() {
+    public long getValue() {
         return value;
     }
 
-    public void setValue(int value) {
+    public void setValue(long value) {
         this.value = value;
     }
 

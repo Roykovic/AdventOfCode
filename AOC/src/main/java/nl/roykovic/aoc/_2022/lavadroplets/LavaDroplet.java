@@ -21,30 +21,30 @@ public class LavaDroplet {
                 new Coord(origin.getX() +1, coord.getY(), origin.getZ()+1));
         faces[1] = new Face(
                 origin,
-                new Coord(origin.getX(), origin.getY()-1, origin.getZ()),
+                new Coord(origin.getX(), origin.getY()+1, origin.getZ()),
                 new Coord(origin.getX(), origin.getY(), origin.getZ()+1),
-                new Coord(origin.getX(), coord.getY() -1, origin.getZ()+1));
+                new Coord(origin.getX(), coord.getY() +1, origin.getZ()+1));
 
         faces[2] = new Face(
-                new Coord(origin.getX(), origin.getY()-1, origin.getZ()),
-                new Coord(origin.getX(), origin.getY()-1, origin.getZ()+1),
-                new Coord(origin.getX()+1, origin.getY()-1, origin.getZ()+1),
-                new Coord(origin.getX()+1, coord.getY() -1, origin.getZ()));
+                new Coord(origin.getX(), origin.getY()+1, origin.getZ()),
+                new Coord(origin.getX(), origin.getY()+1, origin.getZ()+1),
+                new Coord(origin.getX()+1, origin.getY()+1, origin.getZ()+1),
+                new Coord(origin.getX()+1, coord.getY() +1, origin.getZ()));
         faces[3] = new Face(
                 new Coord(origin.getX()+1, origin.getY(), origin.getZ()),
-                new Coord(origin.getX()+1, origin.getY()-1, origin.getZ()+1),
+                new Coord(origin.getX()+1, origin.getY()+1, origin.getZ()+1),
                 new Coord(origin.getX()+1, origin.getY(), origin.getZ()+1),
-                new Coord(origin.getX()+1, coord.getY() -1, origin.getZ()));
+                new Coord(origin.getX()+1, coord.getY() +1, origin.getZ()));
         faces[4] = new Face(
                 origin,
                 new Coord(origin.getX() +1, origin.getY(), origin.getZ()),
-                new Coord(origin.getX(), origin.getY()-1, origin.getZ()),
-                new Coord(origin.getX() +1, coord.getY()-1, origin.getZ()));
+                new Coord(origin.getX(), origin.getY()+1, origin.getZ()),
+                new Coord(origin.getX() +1, coord.getY()+1, origin.getZ()));
         faces[5] = new Face(
                 new Coord(origin.getX(), origin.getY(), origin.getZ()+1),
                 new Coord(origin.getX() +1, origin.getY(), origin.getZ()+1),
-                new Coord(origin.getX(), origin.getY()-1, origin.getZ()+1),
-                new Coord(origin.getX() +1, coord.getY()-1, origin.getZ()+1));
+                new Coord(origin.getX(), origin.getY()+1, origin.getZ()+1),
+                new Coord(origin.getX() +1, coord.getY()+1, origin.getZ()+1));
     }
 
     public Coord getCoord() {

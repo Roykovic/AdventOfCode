@@ -11,11 +11,11 @@ public class EncryptedNumbersList {
         numberList.add(number);
     }
 
-    public void decrypt(){
+    public void decrypt(int times){
         List<EncryptedNumber> originalList = new ArrayList<>(numberList);
-        for(EncryptedNumber number : originalList){
-            if(!number.isSwapped()){
-                move(number);
+        for( int i = 0; i < times; i++) {
+            for (EncryptedNumber number : originalList) {
+                    move(number);
             }
         }
     }

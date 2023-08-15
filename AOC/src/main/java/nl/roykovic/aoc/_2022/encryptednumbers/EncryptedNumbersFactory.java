@@ -16,7 +16,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class EncryptedNumbersFactory {
-    public EncryptedNumbersList generateFromFile(File file) throws FileNotFoundException {
+    public EncryptedNumbersList generateFromFile(File file, int key) throws FileNotFoundException {
 
         BufferedReader reader = new BufferedReader(new FileReader(file));
 

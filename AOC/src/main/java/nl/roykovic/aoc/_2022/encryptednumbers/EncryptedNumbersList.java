@@ -23,49 +23,53 @@ public class EncryptedNumbersList {
     public void move(EncryptedNumber number){
         number.setSwapped(true);
 
-        if(number.getValue() > 0) {
-            for (int i = 0; i < number.getValue(); i++) {
-                int oldIndex = numberList.indexOf(number);
+        int oldIndex = numberList.indexOf(number);
 
-                if (oldIndex < numberList.size() - 2) {
-                    Collections.swap(numberList, oldIndex, oldIndex + 1);
-                } else {
-                    numberList.remove(number);
-                    numberList.add(0, number);
-                }
-            }
-        }
-        else{
-            for (int i = 0; i > number.getValue(); i--) {
-                int oldIndex = numberList.indexOf(number);
+        numberList.remove(oldIndex);
+        numberList.add(findIndexFromNumberOfMoves(number.getValue(), oldIndex), number);
 
-                if (oldIndex > 1) {
-                    Collections.swap(numberList, oldIndex, oldIndex - 1);
-                } else {
-                    numberList.remove(number);
-                    numberList.add(number);
-                }
-            }
-        }
+//        for(EncryptedNumber n : numberList){
+//            System.out.print(n.getValue() + ", ");
+//        }
+//        System.out.println("\n");
+
     }
 
     public EncryptedNumber findNthNumberAfterZero(int n){
 
         EncryptedNumber zero = numberList.stream().filter(it -> it.getValue() ==0 ).findFirst().orElseThrow(RuntimeException::new);
 
-        int zeroIndex = numberList.indexOf(zero);
+        return numberList.get(findIndexFromNumberOfMoves(n, numberList.indexOf(zero)));
+    }
 
-        int numbersToEndOfList = numberList.size() -1 - zeroIndex;
+    private int findIndexFromNumberOfMoves(int numberOfMoves, int currentIndex){
 
-
-        if(n < numbersToEndOfList){
-            return numberList.get(zeroIndex + n);
+        if(numberOfMoves == 0 ){
+            return currentIndex;
         }
 
-        int nFromStart = n -numbersToEndOfList -1;
+        if(numberOfMoves > 0) {
 
-        int normalizedIndex = nFromStart % (numberList.size());
+            int numbersToEndOfList = numberList.size()  - currentIndex;
 
-        return numberList.get(normalizedIndex);
+            if (numberOfMoves < numbersToEndOfList) {
+                return currentIndex + numberOfMoves;
+            }
+
+            int indexFromStart = numberOfMoves - numbersToEndOfList;
+
+            return indexFromStart % numberList.size();
+        }
+
+        int numbersToStartOfList = currentIndex * -1;
+        if(numberOfMoves > numbersToStartOfList){
+            return currentIndex + numberOfMoves;
+        }
+
+        int indexFromEnd = numberOfMoves - numbersToStartOfList;
+
+        int normalizedIndex = indexFromEnd % numberList.size();
+
+        return numberList.size() + normalizedIndex;
     }
 }

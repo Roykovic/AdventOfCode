@@ -1,11 +1,7 @@
 package nl.roykovic.aoc._2022.lavadroplets;
 
-import nl.roykovic.aoc._2022.volcano.Valve;
-import nl.roykovic.aoc._2022.volcano.Volcano;
 import nl.roykovic.aoc.utils.Coord;
 import nl.roykovic.aoc.utils.Face;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.math.NumberUtils;
 
 import java.io.BufferedReader;
 import java.io.File;

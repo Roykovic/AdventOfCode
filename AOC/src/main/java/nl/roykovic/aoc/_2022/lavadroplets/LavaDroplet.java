@@ -1,7 +1,6 @@
 package nl.roykovic.aoc._2022.lavadroplets;
 
 import nl.roykovic.aoc.utils.Coord;
-import nl.roykovic.aoc.utils.Direction;
 import nl.roykovic.aoc.utils.Face;
 
 import java.util.List;

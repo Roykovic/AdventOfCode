@@ -1,15 +1,11 @@
 package nl.roykovic.aoc._2022.tetris;
 
-import nl.roykovic.aoc._2022.rucksack.Rucksack;
-import nl.roykovic.aoc._2022.rucksack.RucksackFactory;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.io.ClassPathResource;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

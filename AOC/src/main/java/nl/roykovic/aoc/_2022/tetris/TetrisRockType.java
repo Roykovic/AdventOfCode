@@ -2,8 +2,6 @@ package nl.roykovic.aoc._2022.tetris;
 
 import nl.roykovic.aoc.utils.Coord;
 
-import java.util.List;
-
 public enum TetrisRockType {
     LINE(1, 4,new Coord(0,0),new Coord(1,0),new Coord(2,0),new Coord(3,0)),
     PLUS(3, 3, new Coord(1,0),new Coord(0,1),new Coord(1,1),new Coord(2,1), new Coord(1,2)),

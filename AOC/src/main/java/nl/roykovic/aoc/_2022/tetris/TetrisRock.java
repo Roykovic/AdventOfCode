@@ -3,10 +3,8 @@ package nl.roykovic.aoc._2022.tetris;
 import nl.roykovic.aoc.utils.Coord;
 import nl.roykovic.aoc.utils.Direction;
 
-import java.util.AbstractMap;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 
 public class TetrisRock {
     private final TetrisRockType type;

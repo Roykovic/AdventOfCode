@@ -1,10 +1,5 @@
 package nl.roykovic.aoc._2022.monkeymap;
 
-import nl.roykovic.aoc._2022.trees.Tree;
-import nl.roykovic.aoc._2022.trees.TreePatch;
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.StringUtils;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -23,7 +18,7 @@ public class MonkeyMapFactory {
 
         lines = lines.subList(0, lines.size() -2);
 
-        int x = lines.stream().max(Comparator.comparingInt(String::length)).get().length();
+        int x = lines.stream().max(Comparator.comparingInt(String::length)).orElseThrow(RuntimeException::new).length();
         int y = lines.size();
 
         char[][] map = new char[y][x];

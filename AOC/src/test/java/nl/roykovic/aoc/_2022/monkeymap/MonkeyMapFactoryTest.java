@@ -1,19 +1,9 @@
 package nl.roykovic.aoc._2022.monkeymap;
-
-import nl.roykovic.aoc._2022.monkeymath.MonkeyMathFactory;
-import nl.roykovic.aoc.utils.Coord;
-import nl.roykovic.aoc.utils.Direction;
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.junit.jupiter.api.Test;
-import org.mariuszgromada.math.mxparser.Expression;
 import org.springframework.core.io.ClassPathResource;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Map;
-import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

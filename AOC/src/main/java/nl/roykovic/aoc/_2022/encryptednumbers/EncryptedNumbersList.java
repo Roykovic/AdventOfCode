@@ -20,8 +20,6 @@ public class EncryptedNumbersList {
     }
 
     public void move(EncryptedNumber number){
-        number.setSwapped(true);
-
         int oldIndex = numberList.indexOf(number);
 
         numberList.remove(oldIndex);

@@ -1,22 +1,15 @@
 package nl.roykovic.aoc._2022.monkeymath;
 
-import nl.roykovic.aoc._2022.lavadroplets.LavaDropletsFactory;
-import nl.roykovic.aoc.utils.Face;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mariuszgromada.math.mxparser.Expression;
 import org.mariuszgromada.math.mxparser.License;
-import org.mariuszgromada.math.mxparser.mXparser;
 import org.springframework.core.io.ClassPathResource;
 
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

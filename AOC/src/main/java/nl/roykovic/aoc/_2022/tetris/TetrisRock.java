@@ -12,7 +12,7 @@ public class TetrisRock {
     private final TetrisRockType type;
     private Coord coord;
 
-    private Coord[] occupiedCoords;
+    private final Coord[] occupiedCoords;
 
     public TetrisRock(TetrisRockType type, Coord coord) {
         this.type = type;
@@ -33,12 +33,8 @@ public class TetrisRock {
 
     public boolean move(Direction direction, HashSet<Coord> coords){
 
-        boolean moved = false;
-//        System.out.println("move " + direction);
+        boolean moved = direction.getAdditionalX() != 0 && (this.coord.getX() + direction.getAdditionalX() >= 0 && this.coord.getX() + direction.getAdditionalX() + type.getWidth() < 8);
 
-        if(direction.getAdditionalX() != 0 && (this.coord.getX() + direction.getAdditionalX() >= 0 && this.coord.getX() + direction.getAdditionalX() + type.getWidth() < 8)){
-            moved = true;
-        }
         if (direction.getAdditionalY() != 0 && (this.coord.getY() + direction.getAdditionalY() + type.getHeight() <= 0)){
             moved = true;
         }

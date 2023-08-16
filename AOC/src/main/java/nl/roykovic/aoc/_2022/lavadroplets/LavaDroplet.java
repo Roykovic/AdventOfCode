@@ -10,7 +10,7 @@ public class LavaDroplet {
     private final Coord origin;
     private List<LavaDroplet> neighbours;
 
-    private Face[] faces = new Face[6];
+    private final Face[] faces = new Face[6];
 
     public LavaDroplet(Coord coord) {
         this.origin = coord;

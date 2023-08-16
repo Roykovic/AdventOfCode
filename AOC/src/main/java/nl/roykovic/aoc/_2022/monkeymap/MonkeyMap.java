@@ -8,13 +8,12 @@ import org.apache.commons.lang3.math.NumberUtils;
 import java.util.Objects;
 
 public class MonkeyMap {
-    private char[][] map;
-    private String[] instructions;
+    private final char[][] map;
+    private final String[] instructions;
 
     private int currentX = 0;
     private int currentY = 0;
     private int currentDirection = 0;
-private int index;
     private final Direction[] directions = {Direction.R, Direction.D, Direction.L, Direction.U};
 
     public MonkeyMap(char[][] map, String[] instructions) {
@@ -104,7 +103,6 @@ private int index;
             newX = currentX;
             newY = currentY;
         }
-        index++;
         return new Coord(newX, newY);
     }
 
@@ -112,23 +110,11 @@ private int index;
         return currentX;
     }
 
-    public void setCurrentX(int currentX) {
-        this.currentX = currentX;
-    }
-
     public int getCurrentY() {
         return currentY;
     }
 
-    public void setCurrentY(int currentY) {
-        this.currentY = currentY;
-    }
-
     public int getCurrentDirection() {
         return currentDirection;
-    }
-
-    public void setCurrentDirection(int currentDirection) {
-        this.currentDirection = currentDirection;
     }
 }

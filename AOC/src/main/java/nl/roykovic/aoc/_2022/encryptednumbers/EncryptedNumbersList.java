@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EncryptedNumbersList {
-    private List<EncryptedNumber> numberList = new ArrayList<>();
+    private final List<EncryptedNumber> numberList = new ArrayList<>();
 
     public void addToList(EncryptedNumber  number){
         numberList.add(number);

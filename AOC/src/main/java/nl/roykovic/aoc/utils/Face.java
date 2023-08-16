@@ -5,7 +5,7 @@ import java.util.Comparator;
 import java.util.HashSet;
 
 public class Face {
-    Coord[] coords;
+    private final Coord[] coords;
 
     public Face(Coord... coords) {
         this.coords = coords;

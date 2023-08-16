@@ -30,7 +30,7 @@ public class Valve {
             Map.Entry<Valve, Integer> highestNeighbour = neighbour.getMostOptimalValveFromHere(minutesLeft, highestFlowRate);
             if(highestNeighbour != null && highestNeighbour.getValue() > highestFlowRate){
                 highestFound = highestNeighbour;
-            };
+            }
         }
         return highestFound;
     }

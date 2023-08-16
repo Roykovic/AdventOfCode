@@ -1,6 +1,7 @@
 package nl.roykovic.aoc._2022.monkeymap;
 
 import nl.roykovic.aoc._2022.monkeymath.MonkeyMathFactory;
+import nl.roykovic.aoc.utils.Coord;
 import nl.roykovic.aoc.utils.Direction;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -22,41 +23,26 @@ public class MonkeyMapFactoryTest {
         File input = new File("src/test/resources/2022/MonkeyMapTestInput.txt");
         MonkeyMap monkeyMap = new MonkeyMapFactory().generateFromFile(input);
 
-        int currentY = 0;
-        int currentX = ArrayUtils.indexOf(monkeyMap.getMap()[0], '.');
-        Direction[] directions = {Direction.R, Direction.D, Direction.L, Direction.U};
-        int currentDirection = 0;
+        monkeyMap.move();
 
-        for(String instruction: monkeyMap.getInstructions()){
-            if(NumberUtils.isCreatable(instruction)){
-                int numberInstruction = NumberUtils.toInt(instruction);
-                for(int i = 0; i < numberInstruction; i++){
-                    int newX = currentX + directions[currentDirection].getAdditionalX();
-                    int newY = currentY + directions[currentDirection].getAdditionalY();
+        System.out.println(monkeyMap.getCurrentX());
+        System.out.println(monkeyMap.getCurrentY());
+        System.out.println(monkeyMap.getCurrentDirection());
 
-                    if(monkeyMap.getMap()[newY][newX] != '#'){
-                        System.out.println("move");
-                        currentX = newX;
-                        currentY = newY;
-                    }
-                    else{
-                        System.out.println("wall");
-                        break;
-                    }
-                }
-            }
-            else{
-                if(Objects.equals(instruction, "R")){
-                    currentDirection++;
-                }
-                else{
-                    currentDirection--;
-                }
-                System.out.println("changed direction to " + directions[currentDirection]);
-            }
-        }
+        assertEquals(6032, 1000*(monkeyMap.getCurrentY()+1) + 4* (monkeyMap.getCurrentX()+1) + monkeyMap.getCurrentDirection());
+    }
 
+    @Test
+    void testActualRoute() throws IOException{
+        File input = new ClassPathResource("2022/MonkeyMapInput.txt").getFile();
+        MonkeyMap monkeyMap = new MonkeyMapFactory().generateFromFile(input);
 
-        System.out.println(monkeyMap);
+        monkeyMap.move();
+
+        assertEquals(58, monkeyMap.getCurrentY()+1);
+        assertEquals(62, monkeyMap.getCurrentX()+1);
+        assertEquals(0, monkeyMap.getCurrentDirection());
+
+        assertEquals(58248, 1000*(monkeyMap.getCurrentY()+1) + 4* (monkeyMap.getCurrentX()+1) + monkeyMap.getCurrentDirection());
     }
 }

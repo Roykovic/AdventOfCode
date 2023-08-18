@@ -51,10 +51,6 @@ public class LogicGateFactory {
                 wireMap.remove(k);
                 calculatedWireMap.put(k, calculateBitOperation(v));
             });
-            if(wireMap.size() == 1){
-                System.out.println(wireMap.size());
-
-            }
         }
 
         return calculatedWireMap.get(wireToKnow);

@@ -60,7 +60,8 @@ public class LightFactory {
         int curValue = lights[Math.toIntExact(coord.getX())][Math.toIntExact(coord.getY())];
         if (brightness) {
              curValue += lightInstruction.getValue();
-        } else {
+
+        } else if(curValue != lightInstruction.getSwitchedValue()) {
             switch (lightInstruction){
                 case OFF -> curValue = 0;
                 case ON -> curValue = 1;

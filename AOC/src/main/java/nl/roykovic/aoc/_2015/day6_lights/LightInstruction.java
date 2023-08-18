@@ -1,14 +1,16 @@
 package nl.roykovic.aoc._2015.day6_lights;
 
 public enum LightInstruction {
-    OFF(-1),
-    ON(1),
-    TOGGLE(2);
+    OFF(-1, 0),
+    ON(1, 1),
+    TOGGLE(2, -1);
 
-    private final int value;
+    private final int brightnessValue;
+    private final int switchedValue;
 
-    LightInstruction(int value){
-        this.value = value;
+    LightInstruction(int brightnessValue, int switchedValue){
+        this.brightnessValue = brightnessValue;
+        this.switchedValue = switchedValue;
     }
 
     static LightInstruction getIntructionFromString(String instruction){
@@ -21,7 +23,11 @@ public enum LightInstruction {
         return TOGGLE;
     }
 
-    public int getValue() {
-        return value;
+    public int getBrightnessValue() {
+        return brightnessValue;
+    }
+
+    public int getSwitchedValue() {
+        return switchedValue;
     }
 }

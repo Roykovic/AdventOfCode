@@ -48,7 +48,7 @@ public class LightFactoryTest {
         File input = new ClassPathResource("2015/LightInput.txt").getFile();
         int[][] lights = new LightFactory().generateFromFile(input, true);
 
-        assertEquals(1,
+        assertEquals(15343601,
                 Arrays.stream(lights).flatMapToInt(Arrays::stream).sum());
     }
 }

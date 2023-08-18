@@ -16,4 +16,12 @@ public class LogicGateFactoryTest {
 
         assertEquals((short)16076, valueOfA);
     }
+
+    @Test
+    void testActualGateValuesPartTwo() throws IOException {
+        File input = new ClassPathResource("2015/LogicGateInputPartTwo.txt").getFile();
+        Short valueOfA = new LogicGateFactory().generateFromFile(input, "a");
+
+        assertEquals((short)2797, valueOfA);
+    }
 }

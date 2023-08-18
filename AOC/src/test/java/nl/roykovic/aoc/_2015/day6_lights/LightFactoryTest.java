@@ -23,13 +23,32 @@ public class LightFactoryTest {
     })
     void testExampleLightsOn(String input, int expectedLightsOn) {
         assertEquals(expectedLightsOn,
-                Arrays.stream(new LightFactory().generateFromStream(Stream.of(input))).flatMap(Arrays::stream).filter(Boolean.TRUE::equals).count());
+                Arrays.stream(new LightFactory().generateFromStream(Stream.of(input), false)).flatMapToInt(Arrays::stream).filter(it -> it ==1).count());
     }
     @Test
     void testActualLightsOn() throws IOException {
         File input = new ClassPathResource("2015/LightInput.txt").getFile();
-        Boolean[][] lights = new LightFactory().generateFromFile(input);
+        int[][] lights = new LightFactory().generateFromFile(input, false);
 
-        assertEquals(400410,Arrays.stream(lights).flatMap(Arrays::stream).filter(Boolean.TRUE::equals).count());
+        assertEquals(400410,Arrays.stream(lights).flatMapToInt(Arrays::stream).filter(it -> it ==1).count());
+    }
+
+    @ParameterizedTest
+    @CsvSource(delimiter = ';', value = {
+            "turn on 0,0 through 0,0; 1",
+            "toggle 0,0 through 999,999; 2000000",
+    })
+    void testExampleLightsBrightness(String input, int expectedLightsOn) {
+        assertEquals(expectedLightsOn,
+                Arrays.stream(new LightFactory().generateFromStream(Stream.of(input), true)).flatMapToInt(Arrays::stream).sum());
+    }
+
+    @Test
+    void testActualLightsBrightness() throws IOException {
+        File input = new ClassPathResource("2015/LightInput.txt").getFile();
+        int[][] lights = new LightFactory().generateFromFile(input, true);
+
+        assertEquals(1,
+                Arrays.stream(lights).flatMapToInt(Arrays::stream).sum());
     }
 }

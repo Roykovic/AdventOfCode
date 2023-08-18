@@ -14,16 +14,13 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class LightFactory {
-    public Boolean[][] generateFromFile(File file) throws FileNotFoundException {
-
-
-
+    public int[][] generateFromFile(File file, boolean brightness) throws FileNotFoundException {
         BufferedReader reader = new BufferedReader(new FileReader(file));
-       return generateFromStream(reader.lines());
+        return generateFromStream(reader.lines(), brightness);
     }
 
-    public Boolean[][] generateFromStream(Stream<String> lines){
-        Boolean[][] lights = new Boolean[1000][1000];
+    public int[][] generateFromStream(Stream<String> lines, boolean brightness){
+        int[][] lights = new int[1000][1000];
         Pattern coordPattern = Pattern.compile("\\d+,\\d+");
         lines.forEach(line -> {
             Matcher m = coordPattern.matcher(line);
@@ -34,19 +31,33 @@ public class LightFactory {
             }
 
             for(Coord coord: getCoordsInSquare(coords.get(0), coords.get(1))){
-
-                if(lights[Math.toIntExact(coord.getX())][Math.toIntExact(coord.getY())] == null){
-                    lights[Math.toIntExact(coord.getX())][Math.toIntExact(coord.getY())] = Boolean.FALSE;
-                }
-
                 if(line.contains("off")){
-                    lights[Math.toIntExact(coord.getX())][Math.toIntExact(coord.getY())] = false;
+                    if(brightness && lights[Math.toIntExact(coord.getX())][Math.toIntExact(coord.getY())] > 0){
+                        lights[Math.toIntExact(coord.getX())][Math.toIntExact(coord.getY())] -=1;
+                    }
+                    else{
+                        lights[Math.toIntExact(coord.getX())][Math.toIntExact(coord.getY())] = 0;
+                    }
                 }
                 if(line.contains("on")){
-                    lights[Math.toIntExact(coord.getX())][Math.toIntExact(coord.getY())] = true;
+                    if(brightness){
+                        lights[Math.toIntExact(coord.getX())][Math.toIntExact(coord.getY())] +=1;
+                    }
+                    else{
+                        lights[Math.toIntExact(coord.getX())][Math.toIntExact(coord.getY())] = 1;
+                    }
                 }
                 if(line.contains("toggle")){
-                    lights[Math.toIntExact(coord.getX())][Math.toIntExact(coord.getY())] = !lights[Math.toIntExact(coord.getX())][Math.toIntExact(coord.getY())];
+
+                    if(brightness){
+                        lights[Math.toIntExact(coord.getX())][Math.toIntExact(coord.getY())] +=2;
+                    }
+                    else{
+                        int curValue = lights[Math.toIntExact(coord.getX())][Math.toIntExact(coord.getY())];
+
+                        lights[Math.toIntExact(coord.getX())][Math.toIntExact(coord.getY())] = curValue ==0?1:0;
+                    }
+
                 }
             };
         });

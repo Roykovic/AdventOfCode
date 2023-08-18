@@ -32,9 +32,12 @@ public class LogicGateFactory {
             Map<String, String> concurrentMap = new HashMap<>();
             calculatedWireMap.forEach((ck, cv) -> {
                 wireMap.forEach((k, v) -> {
-                    v = v.replaceAll("^" + ck + " ", cv + " ");
-                    v = v.replaceAll(" " + ck + "$", " " +cv);
-                    v = v.replaceAll("^" + ck + "$", String.valueOf(cv));
+
+                    if(v.contains(ck)) {
+                        v = v.replaceAll("^" + ck + " ", cv + " ");
+                        v = v.replaceAll(" " + ck + "$", " " + cv);
+                        v = v.replaceAll("^" + ck + "$", String.valueOf(cv));
+                    }
 
                     if (v.equals(v.toUpperCase())) {
                         concurrentMap.put(k, v);

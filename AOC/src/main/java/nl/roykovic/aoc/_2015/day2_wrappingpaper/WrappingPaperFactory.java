@@ -1,4 +1,4 @@
-package nl.roykovic.aoc._2015.wrappingpaper;
+package nl.roykovic.aoc._2015.day2_wrappingpaper;
 
 import org.apache.commons.lang3.math.NumberUtils;
 

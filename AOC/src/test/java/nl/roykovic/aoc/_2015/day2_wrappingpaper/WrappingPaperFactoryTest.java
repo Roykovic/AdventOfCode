@@ -1,6 +1,5 @@
-package nl.roykovic.aoc._2015.wrappingpaper;
+package nl.roykovic.aoc._2015.day2_wrappingpaper;
 
-import nl.roykovic.aoc._2015.apartment.ApartmentFactory;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

@@ -1,4 +1,4 @@
-package nl.roykovic.aoc._2015.present;
+package nl.roykovic.aoc._2015.day3_present;
 
 import nl.roykovic.aoc.utils.Coord;
 
@@ -9,7 +9,6 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class HouseFactory {
     public List<Coord> generateFromFile(File file, boolean robotSanta) throws FileNotFoundException {

@@ -1,4 +1,4 @@
-package nl.roykovic.aoc._2015.adventcoin;
+package nl.roykovic.aoc._2015.day4_adventcoin;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

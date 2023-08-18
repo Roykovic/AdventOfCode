@@ -1,6 +1,5 @@
-package nl.roykovic.aoc._2015.naughtystrings;
+package nl.roykovic.aoc._2015.day5_naughtystrings;
 
-import nl.roykovic.aoc._2015.present.HouseFactory;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;

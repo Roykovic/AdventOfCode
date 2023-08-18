@@ -1,4 +1,4 @@
-package nl.roykovic.aoc._2015.apartment;
+package nl.roykovic.aoc._2015.day1_apartment;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

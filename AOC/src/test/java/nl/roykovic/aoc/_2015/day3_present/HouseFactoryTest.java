@@ -1,17 +1,12 @@
-package nl.roykovic.aoc._2015.present;
+package nl.roykovic.aoc._2015.day3_present;
 
-import nl.roykovic.aoc._2015.apartment.ApartmentFactory;
-import nl.roykovic.aoc.utils.Coord;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.core.io.ClassPathResource;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

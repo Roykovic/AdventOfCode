@@ -54,35 +54,19 @@ public class LightFactory {
         return coords;
     }
 
-    private void switchLight(String instruction, Coord coord, boolean brightness){
+    private void switchLight(String instruction, Coord coord, boolean brightness) {
 
+        LightInstruction lightInstruction = LightInstruction.getIntructionFromString(instruction);
         int curValue = lights[Math.toIntExact(coord.getX())][Math.toIntExact(coord.getY())];
-
-        if(instruction.contains("off")){
-            if(brightness && curValue > 0){
-                curValue -=1;
-            }
-            else{
-                curValue = 0;
-            }
-        }
-        else if(instruction.contains("on")){
-            if(brightness){
-                curValue +=1;
-            }
-            else{
-                curValue = 1;
+        if (brightness) {
+             curValue += lightInstruction.getValue();
+        } else {
+            switch (lightInstruction){
+                case OFF -> curValue = 0;
+                case ON -> curValue = 1;
+                case TOGGLE -> curValue ^= 1;
             }
         }
-        else {
-            if(brightness){
-                curValue +=2;
-            }
-            else{
-                curValue = curValue ==0?1:0;
-            }
-        }
-
-        lights[Math.toIntExact(coord.getX())][Math.toIntExact(coord.getY())] = curValue;
+        lights[Math.toIntExact(coord.getX())][Math.toIntExact(coord.getY())] = Math.max(0,curValue);
     }
 }

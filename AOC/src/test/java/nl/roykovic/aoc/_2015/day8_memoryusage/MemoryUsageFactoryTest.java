@@ -34,3 +34,26 @@ public class MemoryUsageFactoryTest {
         Long memoryDif = new MemoryUsageFactory().generateFromFile(input);
         assertEquals(1350, memoryDif);
     }
+
+    @ParameterizedTest
+    @CsvSource(value = {
+            "\"\", 6, 2",
+            "\"abc\", 9, 5",
+            "\"aaa\\\"aaa\", 16, 10",
+            "\"\\x27\", 11, 6",
+    })
+    void testExampleMemoryUsageOtherWay(String line, int code, int data) throws IOException {
+
+        Long memoryDif = new MemoryUsageFactory().getMemoryDifOtherWay(List.of(line));
+
+        assertEquals(code - data, memoryDif);
+    }
+
+    @Test
+    void testActualMemoryUsageOtherWay() throws IOException {
+        File input = new ClassPathResource("2015/MemoryUsageInput.txt").getFile();
+        Long memoryDif = new MemoryUsageFactory().generateFromFileOtherWay(input);
+        assertEquals(2085, memoryDif);
+    }
+
+}

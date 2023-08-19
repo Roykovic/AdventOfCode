@@ -18,6 +18,13 @@ public class MemoryUsageFactory {
 
         return getMemoryDifFromList(reader.lines().toList());
     }
+
+    public Long generateFromFileOtherWay(File file) throws FileNotFoundException {
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+
+        return getMemoryDifOtherWay(reader.lines().toList());
+    }
+
     public Long getMemoryDifFromList(List<String> lines){
         Long characterCount = 0L;
         Long memoryCount = 0L;
@@ -29,6 +36,21 @@ public class MemoryUsageFactory {
         }
         return characterCount - memoryCount;
     }
+
+    public Long getMemoryDifOtherWay(List<String> lines){
+        Long characterCount = 0L;
+        Long memoryCount = 0L;
+
+        for(String line : lines){
+            characterCount += StringEscapeUtils.escapeJava(line).length() +2;
+
+            memoryCount += line.length();
+        }
+        return characterCount - memoryCount;
+    }
+
+
+    private String sanitize(String dirtyString){
 
         //removing quotes
         dirtyString = dirtyString.substring(1, dirtyString.length()-1);

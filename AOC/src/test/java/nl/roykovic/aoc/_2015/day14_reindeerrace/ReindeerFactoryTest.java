@@ -29,4 +29,31 @@ public class ReindeerFactoryTest {
 
         assertEquals(2660, Collections.max(distancesTraveled));
     }
+
+    @Test
+    void testActualHighestScoringReindeer() throws IOException {
+        File input = new ClassPathResource("2015/ReindeerInput.txt").getFile();
+        List<Reindeer> reindeer = new ReindeerFactory().generateFromFile(input);
+
+        int raceTime = 2503;
+
+        for(int i = 1 ; i <= raceTime; i++) {
+            int highestDistanceTraveled = 0;
+            List<Reindeer> highestDistanceReindeer = new ArrayList<>();
+            for (Reindeer deer : reindeer) {
+                int distanceTraveled = deer.getDistanceTraveledInTime(i);
+                if(distanceTraveled == highestDistanceTraveled){
+                    highestDistanceReindeer.add(deer);
+                }
+                else if(distanceTraveled > highestDistanceTraveled){
+                    highestDistanceReindeer = new ArrayList<>(List.of(deer));
+                    highestDistanceTraveled = distanceTraveled;
+                }
+            }
+            highestDistanceReindeer.forEach(Reindeer::giveScore);
+        }
+        int maxScore = reindeer.stream().map(Reindeer::getScore).mapToInt(it -> it).max().getAsInt();
+
+        assertEquals(1256, maxScore);
+    }
 }

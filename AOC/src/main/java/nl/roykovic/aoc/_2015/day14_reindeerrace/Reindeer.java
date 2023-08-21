@@ -6,6 +6,8 @@ public class Reindeer {
     private final int speedTime;
     private final int restTime;
 
+    private int score;
+
     public Reindeer(String name, int speed, int speedTime, int restTime) {
         this.name = name;
         this.speed = speed;
@@ -23,6 +25,14 @@ public class Reindeer {
 
     public int getCycleDistance(){
         return speed * speedTime;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void giveScore() {
+        this.score++;
     }
 
     public int getDistanceTraveledInTime(int seconds){

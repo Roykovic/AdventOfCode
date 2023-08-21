@@ -13,8 +13,15 @@ public class JsonNumbersFactoryTest{
         @Test
         void testActualSum() throws IOException {
             File input = new ClassPathResource("2015/JsonNumbersInput.txt").getFile();
-            int sum = new JsonNumbersFactory().generateFromFile(input);
-            System.out.println(sum);
+            int sum = new JsonNumbersFactory().generateFromFile(input, null);
+            assertEquals(156366, sum);
         }
+
+    @Test
+    void testActualSumWithExclude() throws IOException {
+        File input = new ClassPathResource("2015/JsonNumbersInput.txt").getFile();
+        int sum = new JsonNumbersFactory().generateFromFile(input, "red");
+        assertEquals(96852, sum);
+    }
 }
 

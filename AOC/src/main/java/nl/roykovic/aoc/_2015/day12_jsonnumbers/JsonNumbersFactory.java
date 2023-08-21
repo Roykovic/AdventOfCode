@@ -13,32 +13,35 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class JsonNumbersFactory {
-    public int generateFromFile(File file) throws IOException {
+    public int generateFromFile(File file, String exclude) throws IOException {
 
         BufferedReader reader = new BufferedReader(new FileReader(file));
         String line = reader.readLine();
 
         ObjectMapper mapper = new ObjectMapper();
         var obj = mapper.readValue(line, JsonNode.class);
-        var values = flatmapJsonNode(obj);
+        var values = flatmapJsonNode(obj, exclude);
         return values.stream().mapToInt(Integer::intValue).sum();
     }
 
-    private static List<Integer> flatmapJsonNode(JsonNode node){
+    private static List<Integer> flatmapJsonNode(JsonNode node, String exclude){
         List<Integer> values = new ArrayList<>();
         if(node.isArray()){
             ArrayNode arrayNode = (ArrayNode) node;
             for (int i = 0; i < arrayNode.size(); i++) {
-                values.addAll(flatmapJsonNode(arrayNode.get(i)));
+                values.addAll(flatmapJsonNode(arrayNode.get(i), exclude));
             }
         }
-        else if(node.isObject()){
+        else if(node.isObject() && node.get("red") == null){
             ObjectNode objectNode = (ObjectNode) node;
             Iterator<Map.Entry<String, JsonNode>> iter = objectNode.fields();
 
             while (iter.hasNext()) {
                 Map.Entry<String, JsonNode> entry = iter.next();
-                values.addAll(flatmapJsonNode(entry.getValue()));
+                if( exclude != null && Objects.equals(entry.getValue().asText(), exclude)){
+                    return Collections.emptyList();
+                }
+                values.addAll(flatmapJsonNode(entry.getValue(), exclude));
             }
         }
         else if(node.isValueNode() && node.isNumber()){

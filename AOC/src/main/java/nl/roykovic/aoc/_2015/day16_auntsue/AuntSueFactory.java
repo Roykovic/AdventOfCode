@@ -14,7 +14,7 @@ import java.util.Objects;
 
 public class AuntSueFactory
 {
-    public String generateFromFile(File file, Map<String, Integer> knownAttributes) throws FileNotFoundException {
+    public String generateFromFile(File file, Map<String, String> knownAttributes) throws FileNotFoundException {
 
         BufferedReader reader = new BufferedReader(new FileReader(file));
 
@@ -32,7 +32,7 @@ public class AuntSueFactory
                 String attributeName = parts[0].trim();
                 String attributeValue = parts[1].trim();
 
-                if(!knownAttributes.containsKey(attributeName) || knownAttributes.get(attributeName) != NumberUtils.toInt(attributeValue)){
+                if(!knownAttributes.containsKey(attributeName) || !matches(attributeValue, knownAttributes.get(attributeName))){
                     correctSue = false;
                     break;
                 }
@@ -45,5 +45,15 @@ public class AuntSueFactory
         }
 
         return name;
+    }
+
+    private boolean matches(String s1, String s2){
+        if(s2.contains(">")){
+            return NumberUtils.toInt(s1) > NumberUtils.toInt(s2.substring(1));
+        }
+        if(s2.contains("<")){
+            return NumberUtils.toInt(s1) < NumberUtils.toInt(s2.substring(1));
+        }
+        return NumberUtils.toInt(s1) == NumberUtils.toInt(s2);
     }
 }

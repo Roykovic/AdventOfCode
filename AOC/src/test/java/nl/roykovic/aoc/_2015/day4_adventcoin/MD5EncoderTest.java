@@ -35,7 +35,6 @@ public class MD5EncoderTest {
             index++;
         }
 
-
         assertEquals(254575, index);
     }
 
@@ -51,7 +50,6 @@ public class MD5EncoderTest {
             }
             index++;
         }
-
 
         assertEquals(1038736, index);
     }

@@ -15,10 +15,6 @@ public class MonkeyMapFactoryTest {
 
         monkeyMap.move();
 
-        System.out.println(monkeyMap.getCurrentX());
-        System.out.println(monkeyMap.getCurrentY());
-        System.out.println(monkeyMap.getCurrentDirection());
-
         assertEquals(6032, 1000*(monkeyMap.getCurrentY()+1) + 4* (monkeyMap.getCurrentX()+1) + monkeyMap.getCurrentDirection());
     }
 

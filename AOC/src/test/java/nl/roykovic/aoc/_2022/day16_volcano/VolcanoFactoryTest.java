@@ -11,6 +11,6 @@ public class VolcanoFactoryTest {
         File input = new File("src/test/resources/2022/VolcanoTestInput.txt");
         Volcano volcano = new VolcanoFactory().generateFromFile(input);
 
-        System.out.println(volcano.getValves().get(0).getMostOptimalValveFromHere(30, 0).getValue());
+//        System.out.println(volcano.getValves().get(0).getMostOptimalValveFromHere(30, 0).getValue());
     }
 }

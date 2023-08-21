@@ -39,8 +39,6 @@ public class CycleFactoryTest {
 
         Map<Integer, Integer> steps = program.run();
 
-        System.out.println(steps);
-
         assertEquals(21, steps.get(20)); //X is 21 on step 20 etc
         assertEquals(19, steps.get(60));
         assertEquals(18, steps.get(100));

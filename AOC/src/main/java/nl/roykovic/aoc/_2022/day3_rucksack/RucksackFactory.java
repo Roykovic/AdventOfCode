@@ -25,7 +25,6 @@ public class RucksackFactory {
 
             Rucksack rucksack = new Rucksack(firstCompartment, secondCompartment);
             rucksackList.add(rucksack);
-//            System.out.println(rucksack);
         }
         return rucksackList;
     }

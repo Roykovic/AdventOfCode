@@ -25,16 +25,19 @@ public class LookAndSayFactoryTest {
         assertEquals(answer, actualAnswer);
     }
 
-    @Test
-    void testActualLookAndSay(){
+    @ParameterizedTest
+    @CsvSource(value = {
+            "1321131112, 40, 492982",
+            "1321131112, 50, 6989950",
+    })
+    void testActualLookAndSay(String line, int times, int expectedLength){
 
         LookAndSayFactory factory = new LookAndSayFactory();
-        String input = "1321131112";
-        int times = 40;
+        String input = line;
         for(int i = 0; i < times; i++){
             input = factory.lookAndSay(input);
         }
 
-        assertEquals(492982, input.length());
+        assertEquals(expectedLength, input.length());
     }
 }

@@ -26,4 +26,12 @@ public class TableHappinessFactoryTest {
 
         assertEquals(733, Collections.max(distances));
     }
+
+    @Test
+    void testActualHappiestPathWithMe() throws IOException {
+        File input = new ClassPathResource("2015/TableHappinessWithMeInput.txt").getFile();
+        List<Integer> distances = new TableHappinessFactory().generateFromFile(input);
+
+        assertEquals(330, Collections.max(distances));
+    }
 }

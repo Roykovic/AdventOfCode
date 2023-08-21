@@ -21,9 +21,9 @@ public class TSPFactory {
         BufferedReader reader = new BufferedReader(new FileReader(file));
         List<String> lines = reader.lines().toList();
 
-        //Lets get an array with all distinct cities (cities are the first and third word in every line
+        //Let's get an array with all distinct cities (cities are the first and third word in every line
         HashSet<String> distinctCities = new HashSet<>();
-                for (String line : lines) {
+        for (String line : lines) {
             String[] parts = line.split(" ");
             distinctCities.add(parts[0]);
             distinctCities.add(parts[2]);
@@ -55,7 +55,7 @@ public class TSPFactory {
 
         //now for every possible order of cities, calculate how long each route is.
         //We do this by getting all distances from the lookup table from this city in the list to the next.
-        //Untill we hit the end of the route
+        //Until we hit the end of the route
         for (List<Integer> possibleRoute : possiblePermutations) {
             int distance = 0;
             for (int i = 0; i < possibleRoute.size(); i++) {

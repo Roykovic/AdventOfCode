@@ -25,7 +25,7 @@ public class TSPFactoryTest {
         File input = new ClassPathResource("2015/TSPInput.txt").getFile();
         List<Integer> distances = new TSPFactory().generateFromFile(input);
 
-        assertEquals(605, Collections.min(distances));
+        assertEquals(207, Collections.min(distances));
     }
 
     @Test

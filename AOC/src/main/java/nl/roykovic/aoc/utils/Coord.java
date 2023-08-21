@@ -22,8 +22,8 @@ public class Coord{
     }
 
     public Coord(int x, int y) {
-        this.x = Long.valueOf(x);
-        this.y = Long.valueOf(y);
+        this.x = (long) x;
+        this.y = (long) y;
     }
 
     public Coord(String coordinates) {
@@ -61,7 +61,7 @@ public class Coord{
     }
 
     public long manhattanDistance(Coord other){
-        return Math.abs(getX() - other.getX()) + Math.abs(getY() - other.getY());
+        return Math.abs(x - other.getX()) + Math.abs(y - other.getY());
     }
 
     public void changeOrigin(Coord origin){

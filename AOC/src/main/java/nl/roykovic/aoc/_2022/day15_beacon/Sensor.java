@@ -24,20 +24,20 @@ public class Sensor {
 
     List<Coord> signalRangePerimeter(long maxX, long maxY) {
         List<Coord> perimeter = new ArrayList<>();
-        long upperY = coord.getY();
-        long lowerY = coord.getY();
+        Long upperY = coord.getY();
+        Long lowerY = coord.getY();
 
-        long minX = Math.max(0, coord.getX() - getManhattanDistanceToBeacon() - 1);
+        long minX = Math.max(0L, coord.getX() - getManhattanDistanceToBeacon() - 1L);
 
-        maxX = Math.min(maxX, coord.getX() + getManhattanDistanceToBeacon() + 2);
+        maxX = Math.min(maxX, coord.getX() + getManhattanDistanceToBeacon() + 2L);
 
         for (long x = minX; x < maxX; x++) {
 
             perimeter.add(new Coord(x, upperY));
 
-            if (upperY > 0 && lowerY > 0 && upperY < maxY && lowerY < maxY) {
+            if (upperY > 0L && lowerY > 0L && upperY < maxY && lowerY < maxY) {
 
-                if (upperY != lowerY) {
+                if (!upperY.equals(lowerY)) {
                     perimeter.add(new Coord(x, lowerY));
                 }
 

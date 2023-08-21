@@ -60,7 +60,7 @@ public class Coord{
         this.z = z;
     }
 
-    public long manhattanDistance(Coord other){
+    public Long manhattanDistance(Coord other){
         return Math.abs(x - other.getX()) + Math.abs(y - other.getY());
     }
 

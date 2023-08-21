@@ -46,8 +46,8 @@ public class LightFactory {
 
         List<Coord> coords = new ArrayList<>();
 
-        for(long x = corner1.getX(); x <= corner2.getX(); x++){
-            for(long y = corner1.getY(); y <= corner2.getY(); y++){
+        for(Long x = corner1.getX(); x <= corner2.getX(); x++){
+            for(Long y = corner1.getY(); y <= corner2.getY(); y++){
                 coords.add(new Coord(x,y));
             }
         }

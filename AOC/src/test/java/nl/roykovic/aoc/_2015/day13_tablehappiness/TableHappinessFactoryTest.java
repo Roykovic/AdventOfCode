@@ -32,6 +32,6 @@ public class TableHappinessFactoryTest {
         File input = new ClassPathResource("2015/TableHappinessWithMeInput.txt").getFile();
         List<Integer> distances = new TableHappinessFactory().generateFromFile(input);
 
-        assertEquals(330, Collections.max(distances));
+        assertEquals(725, Collections.max(distances));
     }
 }

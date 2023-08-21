@@ -8,7 +8,7 @@ import java.util.List;
 
 public class LightFactory{
 
-        public boolean[][] generateFromFile(File file) throws FileNotFoundException {
+        public boolean[][] generateFromFile(File file, boolean cornersOn) throws FileNotFoundException {
             BufferedReader reader = new BufferedReader(new FileReader(file));
             List<String> lines = reader.lines().toList();
 
@@ -19,24 +19,35 @@ public class LightFactory{
                     lights[x][y] = line.charAt(y) == '#';
                 }
             }
+
+            if(cornersOn){
+                lights[0][lights.length-1] = true;
+                lights[lights.length-1][lights.length-1] = true;
+                lights[0][0] = true;
+                lights[lights.length-1][0] = true;
+            }
             return lights;
         }
 
-        public boolean[][] animate(boolean[][] lights){
+        public boolean[][] animate(boolean[][] lights, boolean cornersOn){
 
             boolean[][] newLights = new boolean[lights.length][lights.length];
 
             for(int x = 0; x < lights.length; x++){
                 boolean[] lightsAtX = lights[x];
                 for(int y = 0; y < lightsAtX.length; y++){
-                    newLights[x][y] = toggle(lights, x, y);
+                    newLights[x][y] = toggle(lights, x, y, cornersOn);
                 }
             }
             return newLights;
         }
 
-        private boolean toggle(boolean[][] lights, int x, int y){
+        private boolean toggle(boolean[][] lights, int x, int y, boolean cornersOn){
             int neighbourCounter = 0;
+
+            if(cornersOn && ((x == 0 || x == lights.length -1 ) && (y == 0 || y == lights.length-1))){
+                return true;
+            }
 
             outerLoop: for(int neighbourX = x -1; neighbourX <= x+1; neighbourX++){
                 for(int neighbourY = y-1; neighbourY <= y+1; neighbourY++){
@@ -49,8 +60,7 @@ public class LightFactory{
                 }
             }
 
-            var uitkomst = neighbourCounter == 3 || (neighbourCounter == 2 && lights[x][y]);
-            return uitkomst ;
+            return neighbourCounter == 3 || (neighbourCounter == 2 && lights[x][y]);
         }
 
 }

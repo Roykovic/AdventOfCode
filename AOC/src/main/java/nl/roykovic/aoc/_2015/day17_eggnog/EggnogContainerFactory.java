@@ -19,6 +19,33 @@ public class EggnogContainerFactory {
         return calculatePossibleWaysFromList(containers, sum);
     }
 
+    public Long calculateShortestPossibleWaysFromFile(File file, int sum) throws FileNotFoundException {
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        List<Integer> containers = reader.lines().mapToInt(Integer::parseInt).boxed().collect(Collectors.toCollection(ArrayList::new));
+
+        return calculateShortestPossibleWaysFromList(containers, sum);
+    }
+
+    public Long calculateShortestPossibleWaysFromList(List<Integer> containers, int sum) {
+        containers.sort(Collections.reverseOrder());
+        int i = 0;
+        long calculatedSum = 0L;
+        while (calculatedSum < sum) {
+            calculatedSum += containers.get(i);
+            i++;
+        }
+
+        int smallestNumber = i;
+
+        long waysToMakeSum = 0L;
+
+        while(waysToMakeSum == 0){
+            waysToMakeSum += kCombinations(containers.stream().mapToInt(Integer::intValue).toArray(), smallestNumber).stream().map(it -> Arrays.stream(it).sum()).filter(it -> it == sum).count();
+        }
+
+        return waysToMakeSum;
+    }
+
     public Long calculatePossibleWaysFromList(List<Integer> containers, int sum) {
 
         //first we find the absolute maximum number of containers we can fill,
@@ -47,7 +74,7 @@ public class EggnogContainerFactory {
         long waysToMakeSum = 0L;
 
         //now we just calculate all k combinations where smallestNumber < k < largestNumber,
-        // then we check if the sum of any of these combinations is our goal. And add 1 for each that is
+        // then we check if the sum of these combinations is our goal. And add 1 for each that is
         for (int k = smallestNumber; k <= largestNumber; k++) {
             waysToMakeSum += kCombinations(containers.stream().mapToInt(Integer::intValue).toArray(), k).stream().map(it -> Arrays.stream(it).sum()).filter(it -> it == sum).count();
         }

@@ -30,4 +30,20 @@ public class EggnogContainerFactoryTest {
 
         assertEquals(4372, combinations);
     }
+
+    @Test
+    void testExampleShortestContainerCombinations() throws IOException {
+        List<Integer> containerList = new ArrayList<>(List.of(20, 15, 10, 5, 5));
+        Long combinations = new EggnogContainerFactory().calculateShortestPossibleWaysFromList(containerList, 25);
+
+        assertEquals(3, combinations);
+    }
+
+    @Test
+    void testActualShortestContainerCombinations() throws IOException {
+        File input = new ClassPathResource("2015/EggnogContainerInput.txt").getFile();
+        Long combinations = new EggnogContainerFactory().calculateShortestPossibleWaysFromFile(input, 150);
+
+        assertEquals(4, combinations);
+    }
 }

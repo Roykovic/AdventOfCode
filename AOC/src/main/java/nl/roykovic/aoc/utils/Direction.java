@@ -1,7 +1,5 @@
 package nl.roykovic.aoc.utils;
 
-import nl.roykovic.aoc._2022.rockpaperscissors.RPSMove;
-
 import java.util.Map;
 
 public enum Direction {

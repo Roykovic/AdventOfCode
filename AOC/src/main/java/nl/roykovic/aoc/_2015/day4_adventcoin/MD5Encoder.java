@@ -10,7 +10,7 @@ import java.security.NoSuchAlgorithmException;
 
 public class MD5Encoder {
 
-    public static String encode(String input) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+    public static String encode(String input) throws NoSuchAlgorithmException {
         return StringUtils.leftPad
                 (new BigInteger(1,
                                 MessageDigest.getInstance("MD5")

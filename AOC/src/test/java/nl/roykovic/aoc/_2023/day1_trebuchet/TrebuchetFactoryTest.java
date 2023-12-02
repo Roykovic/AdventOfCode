@@ -6,6 +6,7 @@ import org.springframework.core.io.ClassPathResource;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.regex.Pattern;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -38,4 +39,11 @@ public class TrebuchetFactoryTest {
         assertEquals(281, stream.sum());
     }
 
+    @Test
+    void testActualSecondPartCalibration() throws IOException {
+        File input = new ClassPathResource("2023/TrebuchetInput.txt").getFile();
+        IntStream stream = new TrebuchetFactory().generateFromFile(input, true);
+
+        assertEquals(54277, stream.sum());
+    }
 }

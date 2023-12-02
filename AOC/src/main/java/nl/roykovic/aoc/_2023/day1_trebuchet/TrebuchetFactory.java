@@ -18,7 +18,7 @@ import java.util.stream.Stream;
 public class TrebuchetFactory {
 
     private static Pattern firstPartPattern = Pattern.compile("[0-9]");
-    private static Pattern secondPartPattern = Pattern.compile("(?=[0-9]|one|two|three|four|five|six|seven|eight|nine)");
+    private static Pattern secondPartPattern = Pattern.compile("[0-9]|one|two|three|four|five|six|seven|eight|nine");
 
     public IntStream generateFromFile(File file, boolean writtenWords) throws FileNotFoundException {
         BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -28,7 +28,7 @@ public class TrebuchetFactory {
 
     public static int getIndex(Pattern p, String s) {
 
-        Matcher m = p.matcher(s.toUpperCase());
+        Matcher m = p.matcher(s);
 
         List<String> matches = new ArrayList<>();
 
@@ -41,12 +41,12 @@ public class TrebuchetFactory {
         int first = Optional.of(matches.get(0))
                 .filter(NumberUtils::isCreatable)
                 .map(Integer::parseInt)
-                .orElseGet(() -> writtenDigits.valueOf(matches.get(0)).getValue());
+                .orElseGet(() -> writtenDigits.valueOf(matches.get(0).toUpperCase()).getValue());
 
         int last = Optional.of(matches.get(matches.size()-1))
                 .filter(NumberUtils::isCreatable)
                 .map(Integer::parseInt)
-                .orElseGet(() -> writtenDigits.valueOf(matches.get(matches.size()-1)).getValue());
+                .orElseGet(() -> writtenDigits.valueOf(matches.get(matches.size()-1).toUpperCase()).getValue());
 
 
         return Integer.parseInt(first + String.valueOf(last));

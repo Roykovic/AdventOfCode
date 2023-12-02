@@ -17,7 +17,7 @@ public class TrebuchetFactoryTest {
     @Test
     void testExampleCalibration() throws IOException {
         File input = new File("src/test/resources/2023/TrebuchetTestInput.txt");
-        IntStream stream = new TrebuchetFactory().generateFromFile(input);
+        IntStream stream = new TrebuchetFactory().generateFromFile(input, false);
 
         assertEquals(142, stream.sum());
     }
@@ -25,7 +25,7 @@ public class TrebuchetFactoryTest {
     @Test
     void testActualCalibration() throws IOException {
         File input = new ClassPathResource("2023/TrebuchetInput.txt").getFile();
-        IntStream stream = new TrebuchetFactory().generateFromFile(input);
+        IntStream stream = new TrebuchetFactory().generateFromFile(input, false);
 
         assertEquals(54390, stream.sum());
     }

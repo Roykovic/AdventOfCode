@@ -10,21 +10,17 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class CubeGameFactory {
-    public List<Map<String, Integer>> generateFromFile(File file) throws FileNotFoundException {
+    public List<List<Map<String, Integer>>> generateFromFile(File file) throws FileNotFoundException {
         BufferedReader reader = new BufferedReader(new FileReader(file));
 
         return reader.lines()
                 .map(it -> it.split(":")[1])
                 .map(it -> it.split(";"))
-                .map(it -> Arrays.stream(it).map(str -> str.split(",")).toList())
-                .map(it -> it.stream()
+                .map(it -> Arrays.stream(it).map(str -> str.split(",")))
+                .map(it -> it
                         .map( arr -> Arrays.stream(arr)
                                 .collect(Collectors
-                                        .toMap(p -> p.trim().split(" ")[1], p -> p.trim().split(" ")[0]))
-                        ))
-                .map(it -> it
-                        .flatMap(m ->  m.entrySet().stream())
-                        .collect(Collectors.toMap(Map.Entry::getKey, m -> Integer.parseInt(m.getValue()), Integer::sum)))
-                .toList();
+                                        .toMap(p -> p.trim().split(" ")[1], p -> Integer.parseInt(p.trim().split(" ")[0])))
+                        ).toList()).toList();
     }
 }

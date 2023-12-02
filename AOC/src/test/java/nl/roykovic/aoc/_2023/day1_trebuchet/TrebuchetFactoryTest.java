@@ -30,4 +30,12 @@ public class TrebuchetFactoryTest {
         assertEquals(54390, stream.sum());
     }
 
+    @Test
+    void testExampleSecondPartCalibration() throws IOException {
+        File input = new File("src/test/resources/2023/TrebuchetSecondTestInput.txt");
+        IntStream stream = new TrebuchetFactory().generateFromFile(input, true);
+
+        assertEquals(281, stream.sum());
+    }
+
 }

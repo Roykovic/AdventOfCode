@@ -1,14 +1,12 @@
 package nl.roykovic.aoc._2023.day2_cubegame;
 
-import nl.roykovic.aoc._2023.day1_trebuchet.TrebuchetFactory;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.io.ClassPathResource;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.IntStream;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -63,5 +61,39 @@ public class CubeGameFactoryTest {
         }
 
         assertEquals(2563, gameSum);
+    }
+
+    @Test
+    void testExampleCubeGamePower() throws IOException {
+        File input = new File("src/test/resources/2023/CubeGameTestInput.txt");
+        var games = new CubeGameFactory().generateFromFile(input);
+
+        var powerSum = games.stream().map(it -> it.stream()
+                .flatMap(m ->  m.entrySet().stream())
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, Integer::max)))
+                .map(it -> it.values().stream().mapToInt(num -> num).reduce((i, j) -> i * j).orElseThrow())
+                .mapToInt(it -> it)
+                .sum();
+
+
+
+        assertEquals(2286, powerSum);
+    }
+
+    @Test
+    void testActualCubeGamePower() throws IOException {
+        File input = new ClassPathResource("2023/CubeGameInput.txt").getFile();
+        var games = new CubeGameFactory().generateFromFile(input);
+
+        var powerSum = games.stream().map(it -> it.stream()
+                        .flatMap(m ->  m.entrySet().stream())
+                        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, Integer::max)))
+                .map(it -> it.values().stream().mapToInt(num -> num).reduce((i, j) -> i * j).orElseThrow())
+                .mapToInt(it -> it)
+                .sum();
+
+
+
+        assertEquals(70768, powerSum);
     }
 }

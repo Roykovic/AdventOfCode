@@ -35,4 +35,13 @@ public class PartNumbersFactoryTest {
 
         assertEquals(467835, answer);
     }
+
+    @Test
+    public void testActualGearRatios(){
+        Stream<String> input = FileReaderService.getLinesFromFile(2023, "PartNumbersInput.txt", false);
+
+        var answer = new PartNumbersFactory().generateGearRatios(input);
+
+        assertEquals(72514855, answer);
+    }
 }

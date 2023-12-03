@@ -8,12 +8,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class CubeGameFactory {
-    public List<List<Map<String, Integer>>> generateFromFile(File file) throws FileNotFoundException {
-        BufferedReader reader = new BufferedReader(new FileReader(file));
-
-        return reader.lines()
+    public List<List<Map<String, Integer>>> generate(Stream<String> input) throws FileNotFoundException {
+        return input
                 .map(it -> it.split(":")[1])
                 .map(it -> it.split(";"))
                 .map(it -> Arrays.stream(it).map(str -> str.split(",")))

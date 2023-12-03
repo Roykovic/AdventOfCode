@@ -13,7 +13,7 @@ public class PartNumbersFactoryTest {
     public void testExamplePartNumbers(){
         Stream<String> input = FileReaderService.getLinesFromFile(2023, "PartNumbersTestInput.txt", true);
 
-        var answer = new PartNumbersFactory().generate(input);
+        var answer = new PartNumbersFactory().generatePartNumbers(input);
 
         assertEquals(4361, answer);
     }
@@ -22,8 +22,17 @@ public class PartNumbersFactoryTest {
     public void testActualPartNumbers(){
         Stream<String> input = FileReaderService.getLinesFromFile(2023, "PartNumbersInput.txt", false);
 
-        var answer = new PartNumbersFactory().generate(input);
+        var answer = new PartNumbersFactory().generatePartNumbers(input);
 
-        assertEquals(0, answer);
+        assertEquals(520135, answer);
+    }
+
+    @Test
+    public void testExampleGearRatios(){
+        Stream<String> input = FileReaderService.getLinesFromFile(2023, "PartNumbersTestInput.txt", true);
+
+        var answer = new PartNumbersFactory().generateGearRatios(input);
+
+        assertEquals(467835, answer);
     }
 }

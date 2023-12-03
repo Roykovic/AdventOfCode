@@ -2,6 +2,8 @@ package nl.roykovic.aoc.utils;
 
 import org.apache.commons.lang3.math.NumberUtils;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @SuppressWarnings("unused")
@@ -78,6 +80,30 @@ public class Coord{
     public void move(Direction direction){
         this.x = this.x + direction.getAdditionalX();
         this.y = this.y + direction.getAdditionalY();
+    }
+
+    public List<Coord> getNeighbours(){
+        List<Coord> neighbours = new ArrayList<>();
+
+        this.move(Direction.UL);
+        neighbours.add(new Coord(this));
+        this.move(Direction.R);
+        neighbours.add(new Coord(this));
+        this.move(Direction.R);
+        neighbours.add(new Coord(this));
+        this.move(Direction.D);
+        neighbours.add(new Coord(this));
+        this.move(Direction.D);
+        neighbours.add(new Coord(this));
+        this.move(Direction.L);
+        neighbours.add(new Coord(this));
+        this.move(Direction.L);
+        neighbours.add(new Coord(this));
+        this.move(Direction.U);
+        neighbours.add(new Coord(this));
+        this.move(Direction.R);
+
+        return neighbours;
     }
 
     @Override

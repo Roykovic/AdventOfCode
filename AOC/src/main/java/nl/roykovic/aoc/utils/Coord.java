@@ -36,6 +36,12 @@ public class Coord{
         }
     }
 
+    public Coord(Coord coord){
+        this.x = coord.getX();
+        this.y = coord.getY();
+        this.z = coord.getZ();
+    }
+
     public Long getX() {
         return x;
     }

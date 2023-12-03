@@ -11,13 +11,31 @@ import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 public class PartNumbersFactory {
-    public int generate(Stream<String> input){
+    public int generatePartNumbers(Stream<String> input){
+        List<String> inputList = input.toList();
+        List<Coord> specialChars = new ArrayList<>();
+        List<GridNumber> numbers = new ArrayList<>();
 
-       List<String> inputList = input.toList();
+        buildNumbersAndChars(inputList, numbers, specialChars, "[^A-Za-z0-9\\. ]");
 
-       List<Coord> specialChars = new ArrayList<>();
-        List<GridNumber> matches = new ArrayList<>();
+        for(Coord specialChar : specialChars) {
+            visitPartNumbers(numbers, specialChar);
+        }
+        return numbers.stream().filter(GridNumber::isPartNumber).mapToInt(GridNumber::getValue).sum();
+    }
 
+    public int generateGearRatios(Stream<String> input){
+
+        List<String> inputList = input.toList();
+        List<Coord> specialChars = new ArrayList<>();
+        List<GridNumber> numbers = new ArrayList<>();
+
+        buildNumbersAndChars(inputList, numbers, specialChars, "[\\*]");
+        var hans = specialChars.stream().mapToInt(c -> calculateGearRatio(numbers, c)).sum();
+        return hans;
+    }
+
+    private void buildNumbersAndChars(List<String> inputList, List<GridNumber> numbers, List<Coord> specialChars, String regex){
         for(int y = 0; y< inputList.size(); y++) {
             String currentRow = inputList.get(y);
 
@@ -25,52 +43,42 @@ public class PartNumbersFactory {
 
             while(numberMatcher.find()) {
                 GridNumber gn = new GridNumber(new Coord(numberMatcher.start(), y), new Coord(numberMatcher.end()-1, y), numberMatcher.group());
-                matches.add(gn);
+                numbers.add(gn);
             }
 
-            Matcher charMatcher = Pattern.compile("[^A-Za-z0-9\\. ]").matcher(currentRow);
+            Matcher charMatcher = Pattern.compile(regex).matcher(currentRow);
 
             while(charMatcher.find()) {
                 specialChars.add(new Coord(charMatcher.start(), y));
             }
         }
-
-        for(Coord specialChar : specialChars) {
-            getNumericalNeighbours(matches, specialChar);
-        }
-        return matches.stream().filter(GridNumber::isPartNumber).mapToInt(GridNumber::getValue).sum();
     }
-
-    private void getNumericalNeighbours(List<GridNumber> numbers, Coord coord){
-
-        List<Coord> neighbours = new ArrayList<>();
-
-        Coord o = new Coord(coord);
-
-        coord.move(Direction.UL);
-        neighbours.add(new Coord(coord));
-        coord.move(Direction.R);
-        neighbours.add(new Coord(coord));
-        coord.move(Direction.R);
-        neighbours.add(new Coord(coord));
-        coord.move(Direction.D);
-        neighbours.add(new Coord(coord));
-        coord.move(Direction.D);
-        neighbours.add(new Coord(coord));
-        coord.move(Direction.L);
-        neighbours.add(new Coord(coord));
-        coord.move(Direction.L);
-        neighbours.add(new Coord(coord));
-        coord.move(Direction.U);
-        neighbours.add(new Coord(coord));
-
-        for(Coord neighbour : neighbours){
+    private void visitPartNumbers(List<GridNumber> numbers, Coord coord){
+        for(Coord neighbour : coord.getNeighbours()){
             for(GridNumber number : numbers){
                 if(number.contains(neighbour)){
                     number.setPartNumber(true);
                 }
             }
         }
+    }
+
+    private int calculateGearRatio(List<GridNumber> numbers, Coord coord){
+        List<GridNumber> numberNeighbours = new ArrayList<>();
+        for(Coord neighbour : coord.getNeighbours()){
+            for(GridNumber number : numbers){
+                if(number.contains(neighbour)){
+                    if(!number.partNumber) {
+                        number.setPartNumber(true);
+                        numberNeighbours.add(number);
+                    }
+                }
+            }
+        }
+        if(numberNeighbours.size() == 2){
+            return numberNeighbours.stream().mapToInt(GridNumber::getValue).reduce((a, b) -> a*b).orElseThrow(RuntimeException::new);
+        }
+        return 0;
     }
 
     private static class GridNumber{

@@ -31,8 +31,7 @@ public class PartNumbersFactory {
         List<GridNumber> numbers = new ArrayList<>();
 
         buildNumbersAndChars(inputList, numbers, specialChars, "[\\*]");
-        var hans = specialChars.stream().mapToInt(c -> calculateGearRatio(numbers, c)).sum();
-        return hans;
+        return specialChars.stream().mapToInt(c -> calculateGearRatio(numbers, c)).sum();
     }
 
     private void buildNumbersAndChars(List<String> inputList, List<GridNumber> numbers, List<Coord> specialChars, String regex){
@@ -42,8 +41,7 @@ public class PartNumbersFactory {
             Matcher numberMatcher = Pattern.compile("[0-9]+").matcher(currentRow);
 
             while(numberMatcher.find()) {
-                GridNumber gn = new GridNumber(new Coord(numberMatcher.start(), y), new Coord(numberMatcher.end()-1, y), numberMatcher.group());
-                numbers.add(gn);
+                numbers.add(new GridNumber(new Coord(numberMatcher.start(), y), new Coord(numberMatcher.end()-1, y), numberMatcher.group()));
             }
 
             Matcher charMatcher = Pattern.compile(regex).matcher(currentRow);
@@ -84,8 +82,8 @@ public class PartNumbersFactory {
     private static class GridNumber{
         Coord start;
         Coord end;
-
-       String value;
+        String value;
+        boolean partNumber = false;
 
         public GridNumber(Coord start, Coord end, String value) {
             this.start = start;
@@ -95,11 +93,6 @@ public class PartNumbersFactory {
 
         boolean contains(Coord coord){
             return Objects.equals(coord.getY(), start.getY()) && coord.getX() >= start.getX() && coord.getX() <= end.getX();
-        }
-
-        @Override
-        public String toString() {
-            return value;
         }
 
         public void setPartNumber(boolean partNumber) {
@@ -113,7 +106,9 @@ public class PartNumbersFactory {
         public int getValue() {
             return Integer.parseInt(value);
         }
-
-        boolean partNumber = false;
+        @Override
+        public String toString() {
+            return value;
+        }
     }
 }

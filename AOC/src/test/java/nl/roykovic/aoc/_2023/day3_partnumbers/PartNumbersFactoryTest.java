@@ -27,9 +27,6 @@ public class PartNumbersFactoryTest {
     })
     public void testGearRatios(String filename, boolean test, int expected){
         Stream<String> input = FileReaderService.streamLinesFromFile(2023, filename, test);
-
-        var answer = new PartNumbersFactory().generateGearRatios(input);
-
-        assertEquals(expected, answer);
+        assertEquals(expected, new PartNumbersFactory().generateGearRatios(input));
     }
 }

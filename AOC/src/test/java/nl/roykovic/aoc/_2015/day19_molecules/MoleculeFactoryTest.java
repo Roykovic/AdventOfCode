@@ -28,7 +28,7 @@ public class MoleculeFactoryTest {
 
     @Test
     void testActualCalibration() throws IOException {
-        File input = new ClassPathResource("2015/MoleculeInput.txt").getFile();;
+        File input = new ClassPathResource("2015/MoleculeInput.txt").getFile();
         int combinations = new MoleculeFactory().generateFromFile(input);
 
         assertEquals(4, combinations);

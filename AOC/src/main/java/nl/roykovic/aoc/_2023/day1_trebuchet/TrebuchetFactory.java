@@ -20,9 +20,8 @@ public class TrebuchetFactory {
     private static Pattern firstPartPattern = Pattern.compile("[0-9]");
     private static Pattern secondPartPattern = Pattern.compile("[0-9]|one|two|three|four|five|six|seven|eight|nine");
 
-    public IntStream generateFromFile(File file, boolean writtenWords) throws FileNotFoundException {
-        BufferedReader reader = new BufferedReader(new FileReader(file));
-        return reader.lines()
+    public IntStream generateFromFile(Stream<String> input, boolean writtenWords) throws FileNotFoundException {
+        return input
                 .mapToInt(line -> getIndex(writtenWords? secondPartPattern: firstPartPattern, line));
     }
 

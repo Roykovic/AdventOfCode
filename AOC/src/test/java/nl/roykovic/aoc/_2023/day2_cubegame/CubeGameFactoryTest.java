@@ -38,7 +38,7 @@ public class CubeGameFactoryTest {
                 .map(it -> !it.contains(false))
                 .toList();
 
-        gameSum = IntStream.range(0, possibleList.size())
+        int gameSum = IntStream.range(0, possibleList.size())
                 .map(i -> possibleList.get(i)? i+1:0)
                 .sum();
 

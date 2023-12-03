@@ -30,19 +30,16 @@ public class TrebuchetFactoryTest {
         assertEquals(expected, stream.sum());
     }
 
-//    @Test
-//    void testExampleSecondPartCalibration() throws IOException {
-//        File input = new File("src/test/resources/2023/TrebuchetSecondTestInput.txt");
-//        IntStream stream = new TrebuchetFactory().generateFromFile(input, true);
-//
-//        assertEquals(281, stream.sum());
-//    }
-//
-//    @Test
-//    void testActualSecondPartCalibration() throws IOException {
-//        File input = new ClassPathResource("2023/TrebuchetInput.txt").getFile();
-//        IntStream stream = new TrebuchetFactory().generateFromFile(input, true);
-//
-//        assertEquals(54277, stream.sum());
-//    }
+    @ParameterizedTest
+    @CsvSource({
+            "TrebuchetTestInput.txt,true,142",
+            "TrebuchetSecondTestInput.txt,true,281",
+            "TrebuchetInput.txt,false,54277"
+    })
+    void testSecondPartCalibration(String filename, boolean test, int expected) throws IOException {
+        var input = FileReaderService.streamLinesFromFile(2023, filename, test);
+        IntStream stream = new TrebuchetFactory().generateFromFile(input, true);
+
+        assertEquals(expected, stream.sum());
+    }
 }

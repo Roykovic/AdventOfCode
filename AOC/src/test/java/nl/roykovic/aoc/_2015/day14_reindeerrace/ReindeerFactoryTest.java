@@ -51,7 +51,7 @@ public class ReindeerFactoryTest {
             }
             highestDistanceReindeer.forEach(Reindeer::giveScore);
         }
-        int maxScore = reindeer.stream().map(Reindeer::getScore).mapToInt(it -> it).max().getAsInt();
+        int maxScore = reindeer.stream().map(Reindeer::getScore).mapToInt(it -> it).max().orElseThrow();
 
         assertEquals(1256, maxScore);
     }

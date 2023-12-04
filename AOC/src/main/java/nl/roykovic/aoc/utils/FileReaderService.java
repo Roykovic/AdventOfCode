@@ -16,7 +16,7 @@ public class FileReaderService {
                 "/" +
                 filename;
 
-        BufferedReader reader = null;
+        BufferedReader reader;
 
         try {
             reader = new BufferedReader(new FileReader(path));

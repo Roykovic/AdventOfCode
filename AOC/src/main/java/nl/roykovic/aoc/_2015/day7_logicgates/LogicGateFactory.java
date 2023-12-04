@@ -57,9 +57,9 @@ public class LogicGateFactory {
 
     private Short calculateBitOperation(String bitOperation){
 
-        String leftValue = "";
-        String rightValue = "";
-        String operation = "";
+        String leftValue;
+        String rightValue;
+        String operation;
 
         String[] parts = bitOperation.split(" ");
 
@@ -69,6 +69,7 @@ public class LogicGateFactory {
         if(parts.length == 2){
             leftValue = parts[1];
             operation = parts[0];
+            rightValue = "";
         }
         else{
             leftValue = parts[0];

@@ -18,10 +18,6 @@ public class RPSGameFactoryTest {
     })
     void testScore(String filename, boolean test, int expected, boolean elvesSolution) throws IOException {
         var input = FileReaderService.streamLinesFromFile(2022, filename, test);
-        var score = new RPSGameFactory().generateFromFile(input, elvesSolution)
-                .mapToInt(RPSGame::determineScore)
-                .sum();
-
-        assertEquals(expected, score);
+        assertEquals(expected,  new RPSGameFactory().generateFromFile(input, elvesSolution));
     }
 }

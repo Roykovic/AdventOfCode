@@ -6,10 +6,12 @@ import java.io.FileNotFoundException;
 import java.util.stream.Stream;
 
 public class RPSGameFactory {
-    public Stream<RPSGame> generateFromFile(Stream<String> input, boolean elvesSolution) throws FileNotFoundException {
+    public int generateFromFile(Stream<String> input, boolean elvesSolution) throws FileNotFoundException {
         return input
                 .map(StringUtils::deleteWhitespace)
                 .map(String::toCharArray)
-                .map(moves -> elvesSolution? new RPSGame(moves[0], moves[1], true):  new RPSGame(moves[0], moves[1]));
+                .map(moves -> elvesSolution? new RPSGame(moves[0], moves[1], true):  new RPSGame(moves[0], moves[1]))
+                .mapToInt(RPSGame::determineScore)
+                .sum();
     }
 }

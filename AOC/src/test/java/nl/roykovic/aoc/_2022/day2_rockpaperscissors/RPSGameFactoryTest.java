@@ -1,67 +1,27 @@
 package nl.roykovic.aoc._2022.day2_rockpaperscissors;
-import org.junit.jupiter.api.Test;
-import org.springframework.core.io.ClassPathResource;
 
-import java.io.File;
+import nl.roykovic.aoc.utils.FileReaderService;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+
 import java.io.IOException;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RPSGameFactoryTest {
-    @Test
-    void testOwnStrategyExampleScore() throws IOException {
-        File input = new File("src/test/resources/2022/RockPaperScissorTestInput.txt");
-        List<RPSGame> list = new RPSGameFactory().generateFromFile(input, false);
+    @ParameterizedTest
+    @CsvSource({
+            "RockPaperScissorTestInput.txt,true,15, false",
+            "RockPaperScissorTestInput.txt,true,12, true",
+            "RockPaperScissorInput.txt,false,11150, false",
+            "RockPaperScissorInput.txt,false,8295, true"
+    })
+    void testScore(String filename, boolean test, int expected, boolean elvesSolution) throws IOException {
+        var input = FileReaderService.streamLinesFromFile(2022, filename, test);
+        var score = new RPSGameFactory().generateFromFile(input, elvesSolution)
+                .mapToInt(RPSGame::determineScore)
+                .sum();
 
-        int score = 0;
-
-        for(RPSGame game : list){
-            score += game.determineScore();
-        }
-
-        assertEquals(15, score);
-    }
-
-    @Test
-    void testOwnStrategyActualScore() throws IOException {
-        File input = new ClassPathResource("2022/RockPaperScissorInput.txt").getFile();
-        List<RPSGame> list = new RPSGameFactory().generateFromFile(input, false);
-
-        int score = 0;
-
-        for(RPSGame game : list){
-            score += game.determineScore();
-        }
-
-        assertEquals(11150, score);
-    }
-
-    @Test
-    void testElfStrategyExampleScore() throws IOException {
-        File input = new File("src/test/resources/2022/RockPaperScissorTestInput.txt");
-        List<RPSGame> list = new RPSGameFactory().generateFromFile(input, true);
-
-        int score = 0;
-
-        for(RPSGame game : list){
-            score += game.determineScore();
-        }
-
-        assertEquals(12, score);
-    }
-
-    @Test
-    void testElfStrategyActualScore() throws IOException {
-        File input = new ClassPathResource("2022/RockPaperScissorInput.txt").getFile();
-        List<RPSGame> list = new RPSGameFactory().generateFromFile(input, true);
-
-        int score = 0;
-
-        for(RPSGame game : list){
-            score += game.determineScore();
-        }
-
-        assertEquals(8295, score);
+        assertEquals(expected, score);
     }
 }

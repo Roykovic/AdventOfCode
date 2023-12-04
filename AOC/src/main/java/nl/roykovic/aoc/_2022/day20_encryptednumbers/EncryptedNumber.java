@@ -1,7 +1,7 @@
 package nl.roykovic.aoc._2022.day20_encryptednumbers;
 
 public class EncryptedNumber {
-    private long value;
+    private final long value;
 
     public EncryptedNumber(long value) {
         this.value = value;

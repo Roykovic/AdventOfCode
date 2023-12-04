@@ -18,8 +18,8 @@ import java.util.stream.Stream;
 
 public class TrebuchetFactory {
 
-    private static Pattern firstPartPattern = Pattern.compile("[0-9]");
-    private static Pattern secondPartPattern = Pattern.compile("[0-9]|one|two|three|four|five|six|seven|eight|nine");
+    private static final Pattern firstPartPattern = Pattern.compile("[0-9]");
+    private static final Pattern secondPartPattern = Pattern.compile("[0-9]|one|two|three|four|five|six|seven|eight|nine");
 
     public IntStream generateFromFile(Stream<String> input, boolean writtenWords) throws FileNotFoundException {
         return input

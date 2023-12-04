@@ -1,58 +1,61 @@
 package nl.roykovic.aoc._2022.day5_supplystacks;
+
 import org.apache.commons.lang3.StringUtils;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class CraneFactory {
 
-    public Crane generateFromFile(File file) throws FileNotFoundException {
+    public Crane generateFromFile(Stream<String> input) {
+        return input
+                .filter(line -> line.contains("[") || line.contains("move")) //filtering out irrelevant lines
+                .collect(Collectors.partitioningBy(line -> line.contains("[")))//creating a map with key = true -> crate, key = false -> instruction
+                .entrySet().stream()
+                .map(it -> it.getKey() ? buildCrateStacks(it.getValue()) : buildInstructions(it.getValue()))
+                .flatMap(List::stream)
+                .collect(
+                        Collectors.teeing(
+                                Collectors.filtering(entry -> entry instanceof CrateStack, Collectors.toList()), //Collecting Cratestacks
+                                Collectors.filtering(entry -> entry instanceof CraneInstruction, Collectors.toList()),  //Collecting CraneInstructions
+                                (crateStacks, craneInstructions) -> new Crane((List<CrateStack>) crateStacks, (List<CraneInstruction>) craneInstructions)));    //Feeding them into Crane constructor
+    }
 
-        BufferedReader reader = new BufferedReader(new FileReader(file));
+    private List<CrateStack> buildCrateStacks(List<String> crateStackLines) {
+        List<CrateStack> crateStacks = Stream.generate(CrateStack::new)
+                .limit((crateStackLines.stream()
+                        .max(Comparator.comparingInt(String::length)).orElseThrow()
+                        .length() +1) /4)
+                .collect(Collectors.toList());
 
-        List<String> lines = new ArrayList<>(reader.lines().toList());
-
-        List<CrateStack> crateStacks = new ArrayList<>();
-        List<CraneInstruction> instructions = new ArrayList<>();
-
-        List<String> crateStackLines = new ArrayList<>(lines.stream().filter(line -> line.contains("[")).toList());
         Collections.reverse(crateStackLines);
-        for(int i = 0; i < (crateStackLines.get(0).length()+1)/4; i++){
-            crateStacks.add(new CrateStack());
-        }
 
-        for(String line : crateStackLines){
+        for (String line : crateStackLines) {
             int currentStack = 0;
-            while(!StringUtils.isBlank(line)){
-                String crate = StringUtils.substring(line,0,4);
-                if(crate.contains("[")){
+            while (!StringUtils.isBlank(line)) {
+                String crate = StringUtils.substring(line, 0, 4);
+                if (crate.contains("[")) {
                     crateStacks.get(currentStack).push(crate.charAt(1));
                 }
-                line = StringUtils.substring(line,4);
+                line = StringUtils.substring(line, 4);
                 currentStack++;
             }
         }
+        return crateStacks;
+    }
 
-        List<String> instructionLines = lines.stream().filter(line -> line.contains("move")).toList();
-        for(String line : instructionLines){
-            List<Integer> numbers = new ArrayList<>();
-
-            Pattern p = Pattern.compile("\\d+");
-            Matcher m = p.matcher(line);
-
-            while(m.find()){
-                numbers.add(Integer.parseInt(m.group()));
-            }
-            instructions.add(new CraneInstruction(numbers.get(0), numbers.get(1), numbers.get(2)));
-        }
-
-        return new Crane(crateStacks, instructions);
+    private List<CraneInstruction> buildInstructions(List<String> instructionLines) {
+        return instructionLines.stream().map(line ->
+                new CraneInstruction( //a bit dirty, but the CraneInstruction can take a list of ints to fill its internal properties
+                    Pattern.compile("\\d+")
+                            .matcher(line)
+                            .results()
+                            .map(it -> Integer.parseInt(it.group())).toList()
+                )
+        ).toList();
     }
 }

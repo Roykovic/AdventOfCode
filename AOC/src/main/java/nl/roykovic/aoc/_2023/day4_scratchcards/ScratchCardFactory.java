@@ -16,6 +16,25 @@ public class ScratchCardFactory {
                 .sum();
     }
 
+    public int generateCards(Stream<String> input){
+        List<Integer> numberOfWins = getWinningNumbers(input)
+                .toList();
+        
+        int[] cards = new int[numberOfWins.size()];
+        Arrays.fill(cards, 1);
+
+        for(int i = 0; i < numberOfWins.size(); i++){
+            int num = numberOfWins.get(i);
+            for(int j = 0; j< cards[i]; j++) {
+                for (int card = i + 1; card < num + i + 1; card++) {
+                    cards[card]++;
+                }
+            }
+        }
+
+        return Arrays.stream(cards).sum();
+    }
+
     private Stream<Integer> getWinningNumbers(Stream<String> input){
         return input
                 .map(inputStr -> inputStr.split(":")[1]

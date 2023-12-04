@@ -18,4 +18,14 @@ public class ScratchCardFactoryTest {
         var input = FileReaderService.streamLinesFromFile(2023, filename, test);
         assertEquals(expected, new ScratchCardFactory().generatePoints(input));
     }
+
+    @ParameterizedTest
+    @CsvSource({
+            "ScratchCardTestInput.txt,true,30",
+            "ScratchCardInput.txt,false,8467762"
+    })
+    public void testScratchcardCards(String filename, boolean test, int expected){
+        var input = FileReaderService.streamLinesFromFile(2023, filename, test);
+        assertEquals(expected, new ScratchCardFactory().generateCards(input));
+    }
 }

@@ -22,26 +22,32 @@ public class TSPService {
         //We do this by getting all distances from the lookup table from this node in the list to the next.
         //Until we hit the end of the route
         for (List<Integer> possibleRoute : possiblePermutations) {
-            int distance = 0;
-            for (int i = 0; i < possibleRoute.size(); i++) {
-                if (i < (possibleRoute.size() - 1)) {
-                    int currentNode = possibleRoute.get(i);
-                    int nextNode = possibleRoute.get(i + 1);
-
-                    distance += distanceChart[currentNode][nextNode];
-                }
-                else if(circular){
-                    int currentNode = possibleRoute.get(i);
-                    int nextNode = possibleRoute.get(0);
-
-                    distance += distanceChart[currentNode][nextNode];
-                }
-            }
+            int distance = getDistance(distanceChart, circular, possibleRoute);
             distances.add(distance);
         }
 
         return distances;
     }
+
+    private static int getDistance(int[][] distanceChart, boolean circular, List<Integer> possibleRoute) {
+        int distance = 0;
+        for (int i = 0; i < possibleRoute.size(); i++) {
+            if (i < (possibleRoute.size() - 1)) {
+                int currentNode = possibleRoute.get(i);
+                int nextNode = possibleRoute.get(i + 1);
+
+                distance += distanceChart[currentNode][nextNode];
+            }
+            else if(circular){
+                int currentNode = possibleRoute.get(i);
+                int nextNode = possibleRoute.get(0);
+
+                distance += distanceChart[currentNode][nextNode];
+            }
+        }
+        return distance;
+    }
+
     public static Stream<List<Integer>> permutations(List<Integer> input) {
         if (input.size() == 1) {
             return Stream.of(new LinkedList<>(input));

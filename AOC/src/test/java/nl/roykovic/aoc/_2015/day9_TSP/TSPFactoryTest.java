@@ -1,6 +1,5 @@
 package nl.roykovic.aoc._2015.day9_TSP;
 
-import nl.roykovic.aoc._2015.day8_memoryusage.MemoryUsageFactory;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.io.ClassPathResource;
 

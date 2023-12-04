@@ -1,6 +1,5 @@
 package nl.roykovic.aoc._2015.day14_reindeerrace;
 
-import nl.roykovic.aoc._2015.day13_tablehappiness.TableHappinessFactory;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.io.ClassPathResource;
 

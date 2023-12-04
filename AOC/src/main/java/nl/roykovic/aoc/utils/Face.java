@@ -1,7 +1,6 @@
 package nl.roykovic.aoc.utils;
 
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.HashSet;
 
 public record Face(Coord... coords) {

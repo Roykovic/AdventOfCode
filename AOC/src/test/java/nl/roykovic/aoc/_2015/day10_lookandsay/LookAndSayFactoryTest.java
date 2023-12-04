@@ -1,12 +1,7 @@
 package nl.roykovic.aoc._2015.day10_lookandsay;
 
-import nl.roykovic.aoc._2015.day8_memoryusage.MemoryUsageFactory;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-
-import java.io.IOException;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

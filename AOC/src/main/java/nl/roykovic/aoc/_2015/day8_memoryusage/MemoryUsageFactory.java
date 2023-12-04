@@ -1,6 +1,6 @@
 package nl.roykovic.aoc._2015.day8_memoryusage;
 
-import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.text.StringEscapeUtils;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -22,8 +22,8 @@ public class MemoryUsageFactory {
     }
 
     public Long getMemoryDifFromList(List<String> lines){
-        Long characterCount = 0L;
-        Long memoryCount = 0L;
+        long characterCount = 0L;
+        long memoryCount = 0L;
 
         for(String line : lines){
             characterCount += line.length();

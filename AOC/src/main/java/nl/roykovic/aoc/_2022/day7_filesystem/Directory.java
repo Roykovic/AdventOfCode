@@ -46,10 +46,10 @@ public class Directory implements FileSystemItem{
         int size = 0;
 
         for(Directory child: children){
-            size += child.getSize();
+            size += (int) child.getSize();
         }
         for(File file: files){
-            size += file.getSize();
+            size += (int) file.getSize();
         }
 
         return size;

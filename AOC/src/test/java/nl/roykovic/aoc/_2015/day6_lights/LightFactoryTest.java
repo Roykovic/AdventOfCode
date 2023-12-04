@@ -1,6 +1,5 @@
 package nl.roykovic.aoc._2015.day6_lights;
 
-import nl.roykovic.aoc._2015.day5_naughtystrings.NaughtyOrNiceFactory;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;

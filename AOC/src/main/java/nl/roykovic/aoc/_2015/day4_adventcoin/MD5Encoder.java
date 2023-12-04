@@ -2,7 +2,6 @@ package nl.roykovic.aoc._2015.day4_adventcoin;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;

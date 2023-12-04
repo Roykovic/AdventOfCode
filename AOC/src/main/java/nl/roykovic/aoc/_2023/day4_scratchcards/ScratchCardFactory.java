@@ -2,7 +2,6 @@ package nl.roykovic.aoc._2023.day4_scratchcards;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

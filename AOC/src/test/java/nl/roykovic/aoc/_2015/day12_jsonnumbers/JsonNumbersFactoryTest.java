@@ -1,6 +1,5 @@
 package nl.roykovic.aoc._2015.day12_jsonnumbers;
 
-import nl.roykovic.aoc._2015.day5_naughtystrings.NaughtyOrNiceFactory;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.io.ClassPathResource;
 

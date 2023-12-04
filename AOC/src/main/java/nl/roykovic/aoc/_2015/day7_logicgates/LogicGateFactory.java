@@ -7,7 +7,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LogicGateFactory {
     public Short generateFromFile(File file, String wireToKnow) throws FileNotFoundException {
@@ -30,22 +31,20 @@ public class LogicGateFactory {
         while(!calculatedWireMap.containsKey(wireToKnow)) {
 
             Map<String, String> concurrentMap = new HashMap<>();
-            calculatedWireMap.forEach((ck, cv) -> {
-                wireMap.forEach((k, v) -> {
+            calculatedWireMap.forEach((ck, cv) -> wireMap.forEach((k, v) -> {
 
-                    if(v.contains(ck)) {
-                        v = v.replaceAll("^" + ck + " ", cv + " ");
-                        v = v.replaceAll(" " + ck + "$", " " + cv);
-                        v = v.replaceAll("^" + ck + "$", String.valueOf(cv));
-                    }
+                if(v.contains(ck)) {
+                    v = v.replaceAll("^" + ck + " ", cv + " ");
+                    v = v.replaceAll(" " + ck + "$", " " + cv);
+                    v = v.replaceAll("^" + ck + "$", String.valueOf(cv));
+                }
 
-                    if (v.equals(v.toUpperCase())) {
-                        concurrentMap.put(k, v);
-                    } else {
-                        wireMap.put(k, v);
-                    }
-                });
-            });
+                if (v.equals(v.toUpperCase())) {
+                    concurrentMap.put(k, v);
+                } else {
+                    wireMap.put(k, v);
+                }
+            }));
 
             concurrentMap.forEach((k,v) -> {
                 wireMap.remove(k);

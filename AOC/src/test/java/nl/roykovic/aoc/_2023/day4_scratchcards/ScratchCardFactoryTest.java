@@ -1,7 +1,6 @@
 package nl.roykovic.aoc._2023.day4_scratchcards;
 
 import nl.roykovic.aoc.utils.FileReaderService;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 

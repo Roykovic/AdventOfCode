@@ -30,4 +30,8 @@ public class FileReaderService {
     public static List<String> getLinesFromFile(int year, String filename, boolean testResource){
         return streamLinesFromFile(year, filename, testResource).toList();
     }
+
+    public static String getFirstLineFromFile(int year, String filename, boolean testResource){
+        return streamLinesFromFile(year, filename, testResource).findFirst().orElseThrow();
+    }
 }

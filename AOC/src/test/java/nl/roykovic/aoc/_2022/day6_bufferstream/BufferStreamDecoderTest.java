@@ -1,12 +1,9 @@
 package nl.roykovic.aoc._2022.day6_bufferstream;
 
+import nl.roykovic.aoc.utils.FileReaderService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import org.springframework.core.io.ClassPathResource;
-
-import java.io.File;
-import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -25,8 +22,8 @@ public class BufferStreamDecoderTest {
     }
 
     @Test
-    void testStartOfPacketActualStream() throws IOException {
-        File input = new ClassPathResource("2022/BufferInput.txt").getFile();
+    void testStartOfPacketActualStream() {
+        var input = FileReaderService.getFirstLineFromFile(2022, "BufferInput.txt", false);
         int startOfPacket = new BufferStreamDecoder().findStartOfPacket(input, 4);
         assertEquals(1300, startOfPacket);
     }
@@ -44,8 +41,9 @@ public class BufferStreamDecoderTest {
     }
 
     @Test
-    void testStartOfMessageActualStream() throws IOException {
-        File input = new ClassPathResource("2022/BufferInput.txt").getFile();
+    void testStartOfMessageActualStream() {
+        var input = FileReaderService.getFirstLineFromFile(2022, "BufferInput.txt", false);
+
         int startOfPacket = new BufferStreamDecoder().findStartOfPacket(input, 14);
         assertEquals(3986, startOfPacket);
     }

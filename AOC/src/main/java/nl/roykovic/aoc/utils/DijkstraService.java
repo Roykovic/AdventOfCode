@@ -16,7 +16,7 @@ public class DijkstraService {
 
         unsettledNodes.add(source);
 
-        while (unsettledNodes.size() != 0) {
+        while (!unsettledNodes.isEmpty()) {
             Node currentNode = getLowestDistanceNode(unsettledNodes);
             unsettledNodes.remove(currentNode);
             for (Map.Entry< Node, Integer> adjacencyPair:

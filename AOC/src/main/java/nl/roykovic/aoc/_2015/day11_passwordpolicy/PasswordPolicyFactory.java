@@ -36,10 +36,6 @@ public class PasswordPolicyFactory {
 
         Pattern doubleLettersPattern = Pattern.compile("(.)\\1+");
         Matcher doubleLettersMatcher = doubleLettersPattern.matcher(password);
-        if(!(doubleLettersMatcher.results().count() >= 2)){
-            return false;
-        }
-
-        return true;
+        return doubleLettersMatcher.results().count() >= 2;
     }
 }

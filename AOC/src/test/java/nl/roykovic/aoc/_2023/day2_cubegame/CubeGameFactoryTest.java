@@ -1,13 +1,9 @@
 package nl.roykovic.aoc._2023.day2_cubegame;
 
 import nl.roykovic.aoc.utils.FileReaderService;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import org.springframework.core.io.ClassPathResource;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -21,7 +17,7 @@ public class CubeGameFactoryTest {
             "CubeGameTestInput.txt,true,8",
             "CubeGameInput.txt,false,2563"
     })
-    void testCubeGame(String filename, boolean test, int expected) throws IOException {
+    void testCubeGame(String filename, boolean test, int expected){
         var input = FileReaderService.streamLinesFromFile(2023,filename, test);
         var games = new CubeGameFactory().generate(input);
 
@@ -50,7 +46,7 @@ public class CubeGameFactoryTest {
             "CubeGameTestInput.txt,true,2286",
             "CubeGameInput.txt,false,70768"
     })
-    void testCubeGamePower(String filename, boolean test, int expected) throws IOException {
+    void testCubeGamePower(String filename, boolean test, int expected){
         var input = FileReaderService.streamLinesFromFile(2023, filename, test);
         var games = new CubeGameFactory().generate(input);
 

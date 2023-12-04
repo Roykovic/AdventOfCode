@@ -1,8 +1,5 @@
 package nl.roykovic.aoc._2015.day8_memoryusage;
 
-import nl.roykovic.aoc._2015.day7_logicgates.LogicGateFactory;
-import org.apache.commons.lang3.StringEscapeUtils;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -22,7 +19,7 @@ public class MemoryUsageFactoryTest {
             "\"aaa\\\"aaa\", 10, 7",
             "\"\\x27\", 6, 1",
     })
-    void testExampleMemoryUsage(String line, int code, int data) throws IOException {
+    void testExampleMemoryUsage(String line, int code, int data) {
         Long memoryDif = new MemoryUsageFactory().getMemoryDifFromList(List.of(line));
 
         assertEquals(code - data, memoryDif);
@@ -42,7 +39,7 @@ public class MemoryUsageFactoryTest {
             "\"aaa\\\"aaa\", 16, 10",
             "\"\\x27\", 11, 6",
     })
-    void testExampleMemoryUsageOtherWay(String line, int code, int data) throws IOException {
+    void testExampleMemoryUsageOtherWay(String line, int code, int data) {
 
         Long memoryDif = new MemoryUsageFactory().getMemoryDifOtherWay(List.of(line));
 

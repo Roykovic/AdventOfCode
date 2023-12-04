@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -16,14 +15,14 @@ public class MD5EncoderTest {
             "pqrstuv1048970",
             "bgvyzdsv254575"
     })
-    void testKnownHashes(String input) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+    void testKnownHashes(String input) throws NoSuchAlgorithmException {
         String hash = MD5Encoder.encode(input);
 
         assert(hash.startsWith("00000"));
     }
 
     @Test
-    void testActualHashes() throws UnsupportedEncodingException, NoSuchAlgorithmException {
+    void testActualHashes() throws NoSuchAlgorithmException {
 
         String input = "bgvyzdsv";
         long index = 1L;
@@ -39,7 +38,7 @@ public class MD5EncoderTest {
     }
 
     @Test
-    void testActualHashesSixZeroes() throws UnsupportedEncodingException, NoSuchAlgorithmException {
+    void testActualHashesSixZeroes() throws NoSuchAlgorithmException {
 
         String input = "bgvyzdsv";
         long index = 1L;

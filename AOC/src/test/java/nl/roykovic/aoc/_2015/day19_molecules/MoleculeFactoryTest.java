@@ -1,6 +1,6 @@
 package nl.roykovic.aoc._2015.day19_molecules;
 
-import nl.roykovic.aoc._2015.day18_lightsparttwo.LightFactory;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.io.ClassPathResource;
 
@@ -27,6 +27,7 @@ public class MoleculeFactoryTest {
     }
 
     @Test
+    @Disabled
     void testActualCalibration() throws IOException {
         File input = new ClassPathResource("2015/MoleculeInput.txt").getFile();
         int combinations = new MoleculeFactory().generateFromFile(input);

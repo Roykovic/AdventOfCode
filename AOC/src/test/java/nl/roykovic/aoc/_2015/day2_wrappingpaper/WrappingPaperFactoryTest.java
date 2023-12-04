@@ -19,7 +19,7 @@ public class WrappingPaperFactoryTest {
             "2x3x4,58",
             "1x1x10,43"
     })
-    void testExampleSurface(String input, int expectedSurface) throws IOException {
+    void testExampleSurface(String input, int expectedSurface) {
 
         int surface = WrappingPaperFactory.calculateSurfaceBySides(Arrays.stream(input.split("x")).mapToInt(NumberUtils::toInt));
 
@@ -38,7 +38,7 @@ public class WrappingPaperFactoryTest {
             "2x3x4,34",
             "1x1x10,14"
     })
-    void testExampleRibbonLength(String input, int expectedSurface) throws IOException {
+    void testExampleRibbonLength(String input, int expectedSurface) {
 
         int surface = WrappingPaperFactory.calculateRibbonLengthBySides(Arrays.stream(input.split("x")).mapToInt(NumberUtils::toInt));
 

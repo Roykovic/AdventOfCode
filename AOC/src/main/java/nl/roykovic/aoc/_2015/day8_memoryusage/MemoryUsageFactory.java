@@ -1,16 +1,12 @@
 package nl.roykovic.aoc._2015.day8_memoryusage;
 
 import org.apache.commons.lang3.StringEscapeUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.math.NumberUtils;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class MemoryUsageFactory {
     public Long generateFromFile(File file) throws FileNotFoundException {
@@ -38,8 +34,8 @@ public class MemoryUsageFactory {
     }
 
     public Long getMemoryDifOtherWay(List<String> lines){
-        Long characterCount = 0L;
-        Long memoryCount = 0L;
+        long characterCount = 0L;
+        long memoryCount = 0L;
 
         for(String line : lines){
             characterCount += StringEscapeUtils.escapeJava(line).length() +2;

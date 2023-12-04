@@ -1,7 +1,6 @@
 package nl.roykovic.aoc._2023.day3_partnumbers;
 
 import nl.roykovic.aoc.utils.Coord;
-import nl.roykovic.aoc.utils.Direction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,9 +79,9 @@ public class PartNumbersFactory {
     }
 
     private static class GridNumber{
-        Coord start;
-        Coord end;
-        String value;
+        final Coord start;
+        final Coord end;
+        final String value;
         boolean partNumber = false;
 
         public GridNumber(Coord start, Coord end, String value) {

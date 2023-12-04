@@ -1,16 +1,15 @@
 package nl.roykovic.aoc._2015.day6_lights;
 
-import nl.roykovic.aoc._2015.day5_naughtystrings.NaughtyOrNiceFactory;
 import nl.roykovic.aoc.utils.Coord;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class LightFactory {
@@ -35,7 +34,7 @@ public class LightFactory {
 
             for(Coord coord: getCoordsInSquare(coords.get(0), coords.get(1))){
                 switchLight(line, coord,brightness);
-            };
+            }
         });
 
 

@@ -2,7 +2,6 @@ package nl.roykovic.aoc._2023.day1_trebuchet;
 
 import org.apache.commons.lang3.math.NumberUtils;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -17,7 +16,7 @@ public class TrebuchetFactory {
     private static final Pattern firstPartPattern = Pattern.compile("[0-9]");
     private static final Pattern secondPartPattern = Pattern.compile("[0-9]|one|two|three|four|five|six|seven|eight|nine");
 
-    public IntStream generateFromFile(Stream<String> input, boolean writtenWords) throws FileNotFoundException {
+    public IntStream generateFromFile(Stream<String> input, boolean writtenWords) {
         return input
                 .mapToInt(line -> getIndex(writtenWords? secondPartPattern: firstPartPattern, line));
     }

@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -37,18 +38,17 @@ public class TrebuchetFactory {
             i = m.start() + 1; // update start index to start from beginning of last match + 1
         }
 
-        int first = Optional.of(matches.get(0))
-                .filter(NumberUtils::isCreatable)
-                .map(Integer::parseInt)
-                .orElseGet(() -> writtenDigits.valueOf(matches.get(0).toUpperCase()).getValue());
+        String number =
+                Stream.of(matches.get(0), matches.get(matches.size()-1))
+                .map(it -> Optional.of(it)
+                        .filter(NumberUtils::isCreatable)
+                        .map(Integer::parseInt)
+                        .orElseGet(() ->
+                                writtenDigits.valueOf(it.toUpperCase()).getValue()))
+                .map(Object::toString)
+                .collect(Collectors.joining(""));
 
-        int last = Optional.of(matches.get(matches.size()-1))
-                .filter(NumberUtils::isCreatable)
-                .map(Integer::parseInt)
-                .orElseGet(() -> writtenDigits.valueOf(matches.get(matches.size()-1).toUpperCase()).getValue());
-
-
-        return Integer.parseInt(first + String.valueOf(last));
+        return Integer.parseInt(number);
     }
 
     private enum writtenDigits{

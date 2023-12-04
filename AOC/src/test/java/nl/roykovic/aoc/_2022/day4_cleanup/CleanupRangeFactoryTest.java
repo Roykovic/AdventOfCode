@@ -1,52 +1,37 @@
 package nl.roykovic.aoc._2022.day4_cleanup;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.core.io.ClassPathResource;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.Map;
+import nl.roykovic.aoc.utils.FileReaderService;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CleanupRangeFactoryTest {
-    @Test
-    void testContainingExamplePairs() throws IOException {
-        File input = new File("src/test/resources/2022/CleanupTestInput.txt");
-        Map<CleanupRange, CleanupRange> map = new CleanupRangeFactory().generateFromFile(input);
+    @ParameterizedTest
+    @CsvSource({
+            "CleanupTestInput.txt,true,2",
+            "CleanupInput.txt,false,550"
+    })
+    void testContainingPairs(String filename, boolean test, int expected){
+        var input = FileReaderService.streamLinesFromFile(2022, filename, test);
+        var map = new CleanupRangeFactory().generateFromFile(input);
 
-        long containingRanges = map.entrySet().stream().filter(e -> (e.getValue().contains(e.getKey()) || e.getKey().contains(e.getValue()))).count();
+        long containingRanges = map.filter(e -> (e.getValue().contains(e.getKey()) || e.getKey().contains(e.getValue()))).count();
 
-        assertEquals(2, containingRanges);
+        assertEquals(expected, containingRanges);
     }
 
-    @Test
-    void testContainingActualPairs() throws IOException {
-        File input = new ClassPathResource("2022/CleanupInput.txt").getFile();
-        Map<CleanupRange, CleanupRange> map = new CleanupRangeFactory().generateFromFile(input);
+    @ParameterizedTest
+    @CsvSource({
+            "CleanupTestInput.txt,true,4",
+            "CleanupInput.txt,false,931"
+    })
+    void testOverlappingPairs(String filename, boolean test, int expected){
+        var input = FileReaderService.streamLinesFromFile(2022, filename, test);
+        var map = new CleanupRangeFactory().generateFromFile(input);
 
-        long containingRanges = map.entrySet().stream().filter(e -> (e.getValue().contains(e.getKey()) || e.getKey().contains(e.getValue()))).count();
+        long overlappingRanges = map.filter(e -> (e.getValue().overlaps(e.getKey()) || e.getKey().overlaps(e.getValue()))).count();
 
-        assertEquals(550, containingRanges);
-    }
-
-    @Test
-    void testOverlappingExamplePairs() throws IOException {
-        File input = new File("src/test/resources/2022/CleanupTestInput.txt");
-        Map<CleanupRange, CleanupRange> map = new CleanupRangeFactory().generateFromFile(input);
-
-        long overlappingRanges = map.entrySet().stream().filter(e -> (e.getValue().overlaps(e.getKey()) || e.getKey().overlaps(e.getValue()))).count();
-
-        assertEquals(4, overlappingRanges);
-    }
-
-    @Test
-    void testOverlappingActualPairs() throws IOException {
-        File input = new ClassPathResource("2022/CleanupInput.txt").getFile();
-        Map<CleanupRange, CleanupRange> map = new CleanupRangeFactory().generateFromFile(input);
-
-        long overlappingRanges = map.entrySet().stream().filter(e -> (e.getValue().overlaps(e.getKey()) || e.getKey().overlaps(e.getValue()))).count();
-
-        assertEquals(931, overlappingRanges);
+        assertEquals(expected, overlappingRanges);
     }
 }

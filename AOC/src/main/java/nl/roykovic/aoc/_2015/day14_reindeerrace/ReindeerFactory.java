@@ -16,7 +16,7 @@ public class ReindeerFactory {
         List<Reindeer> reindeer = new ArrayList<>();
         for (String line : lines) {
             String[] parts = line.split(" ");
-            reindeer.add(new Reindeer(parts[0], NumberUtils.toInt(parts[3]), NumberUtils.toInt(parts[6]),  NumberUtils.toInt(parts[13])));
+            reindeer.add(new Reindeer(NumberUtils.toInt(parts[3]), NumberUtils.toInt(parts[6]),  NumberUtils.toInt(parts[13])));
         }
 
         return reindeer;

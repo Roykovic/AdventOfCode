@@ -1,5 +1,6 @@
 package nl.roykovic.aoc._2022.day20_encryptednumbers;
 
+@SuppressWarnings("ClassCanBeRecord")
 public class EncryptedNumber {
     private final long value;
 

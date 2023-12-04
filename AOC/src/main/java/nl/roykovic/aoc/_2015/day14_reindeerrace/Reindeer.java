@@ -1,22 +1,16 @@
 package nl.roykovic.aoc._2015.day14_reindeerrace;
 
 public class Reindeer {
-    private final String name;
     private final int speed;
     private final int speedTime;
     private final int restTime;
 
     private int score;
 
-    public Reindeer(String name, int speed, int speedTime, int restTime) {
-        this.name = name;
+    public Reindeer(int speed, int speedTime, int restTime) {
         this.speed = speed;
         this.speedTime = speedTime;
         this.restTime = restTime;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public int getCycleTime(){

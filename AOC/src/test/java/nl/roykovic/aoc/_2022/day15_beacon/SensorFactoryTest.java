@@ -6,11 +6,15 @@ import org.springframework.core.io.ClassPathResource;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class SensorFactoryTest {
+    @SuppressWarnings("NewObjectEquality")
     @Test
     void testExampleLineNotBeaconIndices() throws IOException {
         File input = new File("src/test/resources/2022/BeaconTestInput.txt");
@@ -38,6 +42,7 @@ public class SensorFactoryTest {
 
     }
 
+    @SuppressWarnings("NewObjectEquality")
     @Test
     void testActualLineNotBeaconIndices() throws IOException {
         File input = new ClassPathResource("2022/BeaconInput.txt").getFile();

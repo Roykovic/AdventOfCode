@@ -13,6 +13,7 @@ public class File implements FileSystemItem{
         this.parent.add(this);
     }
 
+    @Override
     public long getSize() {
         return size;
     }

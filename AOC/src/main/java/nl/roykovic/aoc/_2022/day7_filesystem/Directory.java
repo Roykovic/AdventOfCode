@@ -42,6 +42,8 @@ public class Directory implements FileSystemItem{
         }
     }
 
+
+    @Override
     public long getSize(){
         int size = 0;
 

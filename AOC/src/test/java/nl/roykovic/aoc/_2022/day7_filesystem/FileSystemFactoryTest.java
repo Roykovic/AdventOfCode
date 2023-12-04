@@ -5,6 +5,7 @@ import org.springframework.core.io.ClassPathResource;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -17,7 +18,6 @@ public class FileSystemFactoryTest {
         List<Directory> directories= root.buildList();
 
         Long sum = directories.stream().map(Directory::getSize).filter(it -> it<100001).reduce(0L, Long::sum);
-
         assertEquals(95437, sum);
     }
 
@@ -28,7 +28,6 @@ public class FileSystemFactoryTest {
         List<Directory> directories= root.buildList();
 
         Long sum = directories.stream().map(Directory::getSize).filter(it -> it<100001).reduce(0L, Long::sum);
-
         assertEquals(1350966, sum);
     }
 
@@ -45,8 +44,8 @@ public class FileSystemFactoryTest {
 
         long sizeToFreeUp = neededSize - unusedSize;
 
-        List<Long> bigEnoughDirs = directories.stream().map(Directory::getSize).filter(it -> it >= sizeToFreeUp).sorted().toList();
-        assertEquals(24933642, bigEnoughDirs.get(0));
+        Long min = directories.stream().map(Directory::getSize).filter(it -> it >= sizeToFreeUp).min(Comparator.comparingLong(it -> it)).orElseThrow();
+        assertEquals(24933642, min);
     }
 
     @Test
@@ -62,7 +61,7 @@ public class FileSystemFactoryTest {
 
         long sizeToFreeUp = neededSize - unusedSize;
 
-        List<Long> bigEnoughDirs = directories.stream().map(Directory::getSize).filter(it -> it >= sizeToFreeUp).sorted().toList();
-        assertEquals(6296435, bigEnoughDirs.get(0));
+        Long min = directories.stream().map(Directory::getSize).filter(it -> it >= sizeToFreeUp).min(Comparator.comparingLong(it -> it)).orElseThrow();
+        assertEquals(6296435, min);
     }
 }

@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 
 public class ScratchCardFactory {
 
-    public int generate(Stream<String> input){
+    public int generatePoints(Stream<String> input){
         return input
                 .map(inputStr -> inputStr.split(":")[1]
                         .split("\\|"))

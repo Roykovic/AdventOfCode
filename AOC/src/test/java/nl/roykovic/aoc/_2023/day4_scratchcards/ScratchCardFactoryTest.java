@@ -16,6 +16,6 @@ public class ScratchCardFactoryTest {
     })
     public void testScratchcardPoints(String filename, boolean test, int expected){
         var input = FileReaderService.streamLinesFromFile(2023, filename, test);
-        assertEquals(expected, new ScratchCardFactory().generate(input));
+        assertEquals(expected, new ScratchCardFactory().generatePoints(input));
     }
 }

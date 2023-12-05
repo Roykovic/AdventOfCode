@@ -6,19 +6,18 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class GardenFactory {
-    public Map generate(String input){
+    public  Map<String, RangeMap> generate(String input){
 
         String[] result = input.split("\\r\\n[\\r\\n]+");
-        String seedString = result[0];
 
         return Arrays.stream(result).skip(1)
                 .map(it -> it.split(":"))
-                .map(it -> Map.entry(it[0], createMapping(it[1])))
+                .map(it -> Map.entry(it[0], createRangeMap(it[1])))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
 
-    private RangeMap createMapping(String numbers){
+    private RangeMap createRangeMap(String numbers){
         var result = Arrays.stream(numbers.trim().split("\\r\\n"))
                 .map(it -> it.trim().split(" "))
                 .map(nums -> {

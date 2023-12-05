@@ -4,6 +4,9 @@ package nl.roykovic.aoc.utils;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -23,9 +26,16 @@ public class FileReaderService {
     public static List<String> getLinesFromFile(int year, String filename, boolean testResource){
         return streamLinesFromFile(year, filename, testResource).toList();
     }
+    public static String getFileAsString(int year, String filename, boolean testResource){
+                String result = "";
+        try {
+            result = Files.readString(Path.of(buildPath(year, filename, testResource)));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
 
-    public static String getFirstLineFromFile(int year, String filename, boolean testResource){
-        return streamLinesFromFile(year, filename, testResource).findFirst().orElseThrow();
     private static String buildPath(int year, String filename, boolean testResource){
         return "src/" +
                 (testResource ? "test/" : "main/") +

@@ -9,17 +9,10 @@ import java.util.stream.Stream;
 
 public class FileReaderService {
     public static Stream<String> streamLinesFromFile(int year, String filename, boolean testResource){
-        String path = "src/" +
-                (testResource ? "test/" : "main/") +
-                "resources/" +
-                year +
-                "/" +
-                filename;
-
         BufferedReader reader;
 
         try {
-            reader = new BufferedReader(new FileReader(path));
+            reader = new BufferedReader(new FileReader(buildPath(year, filename, testResource)));
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -33,5 +26,12 @@ public class FileReaderService {
 
     public static String getFirstLineFromFile(int year, String filename, boolean testResource){
         return streamLinesFromFile(year, filename, testResource).findFirst().orElseThrow();
+    private static String buildPath(int year, String filename, boolean testResource){
+        return "src/" +
+                (testResource ? "test/" : "main/") +
+                "resources/" +
+                year +
+                "/" +
+                filename;
     }
 }

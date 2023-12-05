@@ -23,7 +23,7 @@ public class BufferStreamDecoderTest {
 
     @Test
     void testStartOfPacketActualStream() {
-        var input = FileReaderService.getFirstLineFromFile(2022, "BufferInput.txt", false);
+        var input = FileReaderService.getFileAsString(2022, "BufferInput.txt", false);
         int startOfPacket = new BufferStreamDecoder().findStartOfPacket(input, 4);
         assertEquals(1300, startOfPacket);
     }
@@ -42,7 +42,7 @@ public class BufferStreamDecoderTest {
 
     @Test
     void testStartOfMessageActualStream() {
-        var input = FileReaderService.getFirstLineFromFile(2022, "BufferInput.txt", false);
+        var input = FileReaderService.getFileAsString(2022, "BufferInput.txt", false);
 
         int startOfPacket = new BufferStreamDecoder().findStartOfPacket(input, 14);
         assertEquals(3986, startOfPacket);

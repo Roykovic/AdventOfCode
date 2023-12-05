@@ -14,6 +14,29 @@ public class RangeMap extends HashMap<Range, Range> {
         return super.get(key);
     }
 
+    public Range getRelevantRange(Range range){
+        long start = 0;
+        long end = 0;
+        for(Range key : this.keySet()){
+            if(key.isInRange(range.getStart()) || key.isInRange(range.getEnd())) {
+                if (key.isInRange(range.getStart())) {
+                    start = this.get(key).getStart() + (range.getStart() - key.getStart());
+                }
+                else{
+                    start = this.get(range.getStart());
+                }
+                if (key.isInRange(range.getEnd())) {
+                    end = this.get(key).getStart() + (range.getEnd() - key.getStart());
+                }
+                else{
+                    end = this.get(range.getEnd());
+                }
+            }
+        }
+
+        return new Range(start, end);
+    }
+
     public Long get(Long x) {
 
         for(Range key : this.keySet()){

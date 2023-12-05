@@ -12,7 +12,7 @@ public class GardenFactoryTest {
     @ParameterizedTest
     @CsvSource({
             "GardenTestinput.txt,true,35",
-            "GardenInput.txt,false,0"
+            "GardenInput.txt,false,600279879"
     })
     public void testGardenClosesLocation(String filename, boolean test, int expected){
         var input = FileReaderService.getFileAsString(2023, filename, test);
@@ -37,5 +37,42 @@ public class GardenFactoryTest {
         }
 
         assertEquals(expected, Collections.min(dests));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "GardenTestinput.txt,true,35",
+            "GardenInput.txt,false,600279879"
+    })
+    public void testGardenClosesLocationFromRange(String filename, boolean test, int expected){
+        var input = FileReaderService.getFileAsString(2023, filename, test);
+
+        String[] result = input.split("\\r\\n[\\r\\n]+");
+        String[] seedStrings = result[0].trim().split(" ");
+        String[] seeds = Arrays.copyOfRange(seedStrings, 1, seedStrings.length);
+
+        Map<String, RangeMap> maps = new GardenFactory().generate(input);
+
+        List<Range> seedRanges = new ArrayList<>();
+
+        for(int i = 0; i < seeds.length; i++){
+            if(i % 2 == 0 && i > 0){
+                seedRanges.add(new Range(Long.parseLong(seeds[i-1]), Long.parseLong(seeds[i])));
+            }
+        }
+
+        List<Range> dests = new ArrayList<>();
+        for(Range seedRange : seedRanges){
+            Range soil = maps.get("seed-to-soil map").getRelevantRange(seedRange);
+            Range fertilizer = maps.get("soil-to-fertilizer map").getRelevantRange(soil);
+            Range water = maps.get("fertilizer-to-water map").getRelevantRange(fertilizer);
+            Range light = maps.get("water-to-light map").getRelevantRange(water);
+            Range temperature = maps.get("light-to-temperature map").getRelevantRange(light);
+            Range humidity = maps.get("temperature-to-humidity map").getRelevantRange(temperature);
+            Range location = maps.get("humidity-to-location map").getRelevantRange(humidity);
+            dests.add(location);
+        }
+
+        assertEquals(expected, dests.stream().mapToLong(Range::getStart).min().orElseThrow());
     }
 }

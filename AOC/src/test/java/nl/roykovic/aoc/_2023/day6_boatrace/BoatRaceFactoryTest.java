@@ -21,7 +21,7 @@ public class BoatRaceFactoryTest {
     @ParameterizedTest
     @CsvSource({
             "BoatRaceTestInput.txt,true,71503",
-            "BoatRaceInput.txt,false,741000"
+            "BoatRaceInput.txt,false,38220708"
     })
     public void testNumberOfRecordPossibilitiesOneRace(String filename, boolean test, int expected){
         var input = FileReaderService.streamLinesFromFile(2023, filename, test);

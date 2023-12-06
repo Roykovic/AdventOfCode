@@ -9,14 +9,14 @@ import java.util.stream.Stream;
 
 public class BoatRaceFactory {
 
-    public long generate(Stream<String> input, boolean splitDistance){
+    public long generate(Stream<String> input, boolean oneRace){
 
         List<BoatRace> races = new ArrayList<>();
 
         var numbers = input
                 .map(it -> it.split(":")[1])
                 .map(it -> {
-                    if(splitDistance){
+                    if(oneRace){
                         return (new String[]{StringUtils.deleteWhitespace(it)});
                     }
                     return it.trim().split(" ");

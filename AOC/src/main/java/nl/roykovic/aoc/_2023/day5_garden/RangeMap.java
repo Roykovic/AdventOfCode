@@ -1,6 +1,8 @@
 package nl.roykovic.aoc._2023.day5_garden;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class RangeMap extends HashMap<Range, Range> {
@@ -9,36 +11,7 @@ public class RangeMap extends HashMap<Range, Range> {
         super(result);
     }
 
-    @Override
-    public Range get(Object key) {
-        return super.get(key);
-    }
-
-    public Range getRelevantRange(Range range){
-        long start = 0;
-        long end = 0;
-        for(Range key : this.keySet()){
-            if(key.isInRange(range.getStart()) || key.isInRange(range.getEnd())) {
-                if (key.isInRange(range.getStart())) {
-                    start = this.get(key).getStart() + (range.getStart() - key.getStart());
-                }
-                else{
-                    start = this.get(range.getStart());
-                }
-                if (key.isInRange(range.getEnd())) {
-                    end = this.get(key).getStart() + (range.getEnd() - key.getStart());
-                }
-                else{
-                    end = this.get(range.getEnd());
-                }
-            }
-        }
-
-        return new Range(start, end);
-    }
-
     public Long get(Long x) {
-
         for(Range key : this.keySet()){
             if(key.isInRange(x)){
                 return this.get(key).getStart() + (x - key.getStart());
@@ -46,5 +19,53 @@ public class RangeMap extends HashMap<Range, Range> {
         }
 
         return x;
+    }
+
+    public Range getRange(Long x) {
+        for(Range key : this.keySet()){
+            if(key.isInRange(x)){
+                return key;
+            }
+        }
+
+        return null;
+    }
+
+    public List<Range> getMappedRanges(Range input){
+       return getSubLists(input).stream().map(it -> this.getOrDefault(it, it)).toList();
+    }
+
+    private List<Range> getSubLists(Range input){
+        List<Range> foundInputRanges = new ArrayList<>();
+
+        long startOffset = 0;
+        long endOffset = 0;
+
+        long lowest =  this.keySet().stream().mapToLong(Range::getStart).min().orElseThrow();
+        long highest =  this.keySet().stream().mapToLong(Range::getStart).max().orElseThrow();
+
+        if(input.getStart() < lowest){
+            foundInputRanges.add(new Range(input.getStart(), lowest));
+            input.setStart(lowest);
+        }
+
+        if(input.getEnd() > highest){
+            foundInputRanges.add(new Range(highest, input.getEnd()));
+            input.setEnd(highest);
+        }
+        for(Range key : this.keySet()){
+            if(key.isInRange(input.getStart())){
+                startOffset = input.getStart() - key.getStart() ;
+                foundInputRanges.add(key);
+
+                if(!key.isInRange(input.getEnd())){
+                    foundInputRanges.addAll(getSubLists(new Range(key.getStart(), input.getEnd())));
+                }
+                else{
+                    endOffset = key.getEnd() - input.getEnd();
+                }
+            }
+        }
+        return foundInputRanges;
     }
 }

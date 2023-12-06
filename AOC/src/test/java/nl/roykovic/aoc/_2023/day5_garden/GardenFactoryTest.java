@@ -51,28 +51,38 @@ public class GardenFactoryTest {
         String[] seedStrings = result[0].trim().split(" ");
         String[] seeds = Arrays.copyOfRange(seedStrings, 1, seedStrings.length);
 
-        Map<String, RangeMap> maps = new GardenFactory().generate(input);
-
         List<Range> seedRanges = new ArrayList<>();
 
         for(int i = 0; i < seeds.length; i++){
-            if(i % 2 == 0 && i > 0){
-                seedRanges.add(new Range(Long.parseLong(seeds[i-1]), Long.parseLong(seeds[i])));
+            if(i % 2 != 0){
+                long start = Long.parseLong(seeds[i-1]);
+                long end = Long.parseLong(seeds[i])+start;
+
+                seedRanges.add(new Range(start, end));
             }
         }
 
+        Map<String, RangeMap> maps = new GardenFactory().generate(input);
+
         List<Range> dests = new ArrayList<>();
         for(Range seedRange : seedRanges){
-            Range soil = maps.get("seed-to-soil map").getRelevantRange(seedRange);
-            Range fertilizer = maps.get("soil-to-fertilizer map").getRelevantRange(soil);
-            Range water = maps.get("fertilizer-to-water map").getRelevantRange(fertilizer);
-            Range light = maps.get("water-to-light map").getRelevantRange(water);
-            Range temperature = maps.get("light-to-temperature map").getRelevantRange(light);
-            Range humidity = maps.get("temperature-to-humidity map").getRelevantRange(temperature);
-            Range location = maps.get("humidity-to-location map").getRelevantRange(humidity);
-            dests.add(location);
+            dests.addAll(maps.get("seed-to-soil map").getMappedRanges(seedRange).stream()
+                    .map(it -> maps.get("seed-to-soil map").getMappedRanges(it))
+                    .flatMap(Collection::stream)
+                    .map(it -> maps.get("soil-to-fertilizer map").getMappedRanges(it))
+                    .flatMap(Collection::stream)
+                    .map(it -> maps.get("fertilizer-to-water map").getMappedRanges(it))
+                    .flatMap(Collection::stream)
+                    .map(it -> maps.get("water-to-light map").getMappedRanges(it))
+                    .flatMap(Collection::stream)
+                    .map(it -> maps.get("light-to-temperature map").getMappedRanges(it))
+                    .flatMap(Collection::stream)
+                    .map(it -> maps.get("temperature-to-humidity map").getMappedRanges(it))
+                    .flatMap(Collection::stream)
+                    .map(it -> maps.get("humidity-to-location map").getMappedRanges(it))
+                    .flatMap(Collection::stream)
+                    .toList());
         }
-
         assertEquals(expected, dests.stream().mapToLong(Range::getStart).min().orElseThrow());
     }
 }

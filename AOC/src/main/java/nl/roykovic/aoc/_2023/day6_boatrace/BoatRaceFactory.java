@@ -9,14 +9,19 @@ import java.util.stream.Stream;
 
 public class BoatRaceFactory {
 
-    public int generate(Stream<String> input){
+    public long generate(Stream<String> input, boolean splitDistance){
 
         List<BoatRace> races = new ArrayList<>();
 
         var numbers = input
                 .map(it -> it.split(":")[1])
-                .map(it -> it.trim().split(" "))
-                .map(it -> Arrays.stream(it).filter(StringUtils::isNotBlank).map(Integer::parseInt).toList())
+                .map(it -> {
+                    if(splitDistance){
+                        return (new String[]{StringUtils.deleteWhitespace(it)});
+                    }
+                    return it.trim().split(" ");
+                })
+                .map(it -> Arrays.stream(it).filter(StringUtils::isNotBlank).map(Long::parseLong).toList())
                 .toList();
 
         var times = numbers.get(0);
@@ -30,23 +35,23 @@ public class BoatRaceFactory {
     }
 
     private class BoatRace{
-        private int time;
-        private int distance;
+        private long time;
+        private long distance;
 
-        public BoatRace(int time, int distance) {
+        public BoatRace(long time, long distance) {
             this.time = time;
             this.distance = distance;
         }
 
-        public int getTime() {
+        public long getTime() {
             return time;
         }
 
-        public void setTime(int time) {
+        public void setTime(long time) {
             this.time = time;
         }
 
-        public int getDistance() {
+        public long getDistance() {
             return distance;
         }
 
@@ -54,8 +59,8 @@ public class BoatRaceFactory {
             this.distance = distance;
         }
 
-        public int getNumberOfPossibilities(){
-            int counter = 0;
+        public long getNumberOfPossibilities(){
+            long counter = 0;
 
             for(int i = 1; i <= time; i++){
                 if((i * (time -i)) > distance){

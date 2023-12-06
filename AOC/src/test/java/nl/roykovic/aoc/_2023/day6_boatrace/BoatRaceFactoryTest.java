@@ -15,6 +15,16 @@ public class BoatRaceFactoryTest {
     })
     public void testNumberOfRecordPossibilities(String filename, boolean test, int expected){
         var input = FileReaderService.streamLinesFromFile(2023, filename, test);
-        assertEquals(expected, new BoatRaceFactory().generate(input));
+        assertEquals(expected, new BoatRaceFactory().generate(input, false));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "BoatRaceTestInput.txt,true,71503",
+            "BoatRaceInput.txt,false,741000"
+    })
+    public void testNumberOfRecordPossibilitiesOneRace(String filename, boolean test, int expected){
+        var input = FileReaderService.streamLinesFromFile(2023, filename, test);
+        assertEquals(expected, new BoatRaceFactory().generate(input, true));
     }
 }

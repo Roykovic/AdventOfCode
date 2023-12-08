@@ -9,14 +9,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class MapsFactoryTest {
     @ParameterizedTest
     @CsvSource({
-            "MapsTestInputOne.txt,true,6440",
-            "MapsTestInputTwo.txt,true,252656917",
-            "MapsInput.txt,false,252656917"
+            "MapsTestInputOne.txt,true,2",
+            "MapsTestInputTwo.txt,true,6",
+            "MapsInput.txt,false,20513"
     })
-    public void testWinnings(String filename, boolean test, int expected){
+    public void testRouteToEnd(String filename, boolean test, int expected){
         var input = FileReaderService.getLinesFromFile(2023, filename, test);
-        var output = new MapsFactory().generate(input);
 
-        assertEquals(expected, expected);
+        assertEquals(expected, new MapsFactory().generate(input));
     }
 }

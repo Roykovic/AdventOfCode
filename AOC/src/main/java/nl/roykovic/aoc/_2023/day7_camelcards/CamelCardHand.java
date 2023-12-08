@@ -1,6 +1,7 @@
 package nl.roykovic.aoc._2023.day7_camelcards;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -10,33 +11,41 @@ public class CamelCardHand{
     private int bid;
     private CardHand cardHand;
 
-    public CamelCardHand(String hand, int bid) {
+    public CamelCardHand(String hand, int bid, boolean useJoker) {
         this.hand = hand;
         this.bid = bid;
-        this.cardHand = this.calculateCardHand();
+        this.cardHand = this.calculateCardHand(useJoker);
     }
 
-    private CardHand calculateCardHand(){
-        Map<Character, Long> occurences = hand.chars()
+    private CardHand calculateCardHand(boolean useJoker){
+
+        Map<Character,Long> occurencesMap = hand.chars()
                 .mapToObj(c -> (char) c)
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 
-        if(occurences.containsValue(5L)){
-            return CardHand.FIVE_OF_A_KIND;
+        Long jokerValue = 0L;
+        if(useJoker){
+            jokerValue = occurencesMap.remove('J');
         }
-        if(occurences.containsValue(4L)){
-            return CardHand.FOUR_OF_A_KIND;
-        }
-        if(occurences.containsValue(3L)){
-            if(occurences.containsValue(2L)){
-                return CardHand.FULL_HOUSE;
-            }
-            return CardHand.THREE_OF_A_KIND;
-        }
-        if(occurences.containsValue(2L)){
-            return Collections.frequency(occurences.values(),2L) > 1? CardHand.TWO_PAIR: CardHand.ONE_PAIR;
-        }
-        return CardHand.HIGH_CARD;
+
+        List<Integer> occurences = new java.util.ArrayList<>(occurencesMap.values().stream().map(Math::toIntExact).toList());
+        occurences.sort(Collections.reverseOrder());
+       if(useJoker && jokerValue != null){
+           int highestValue = 0;
+           if(!occurences.isEmpty()){
+               highestValue = occurences.get(0);
+               occurences.remove(0);
+           }
+               occurences.add(0, (int) (highestValue + jokerValue));
+       }
+
+        return switch (occurences.get(0)) {
+            case 5 -> CardHand.FIVE_OF_A_KIND;
+            case 4 -> CardHand.FOUR_OF_A_KIND;
+            case 3 -> occurences.contains(2) ? CardHand.FULL_HOUSE : CardHand.THREE_OF_A_KIND;
+            case 2 -> Collections.frequency(occurences, 2) > 1 ? CardHand.TWO_PAIR : CardHand.ONE_PAIR;
+            default -> CardHand.HIGH_CARD;
+        };
     }
 
     public String getHand() {

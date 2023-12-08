@@ -14,10 +14,25 @@ public class CamelCardsFactoryTest {
     })
     public void testWinnings(String filename, boolean test, int expected){
         var input = FileReaderService.streamLinesFromFile(2023, filename, test);
-        var hans = new CamelCardsFactory().generate(input);
+        var output = new CamelCardsFactory().generate(input, false);
         int sum = 0;
-        for(int i = 0; i <hans.size(); i++){
-            sum += (hans.get(i).getBid() * (i+1));
+        for(int i = 0; i <output.size(); i++){
+            sum += (output.get(i).getBid() * (i+1));
+        }
+        assertEquals(expected, sum);
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "CamelCardsTestInput.txt,true,5905",
+            "CamelCardsInput.txt,false,253499763"
+    })
+    public void testWinningsWithJoker(String filename, boolean test, int expected){
+        var input = FileReaderService.streamLinesFromFile(2023, filename, test);
+        var output = new CamelCardsFactory().generate(input, true);
+        int sum = 0;
+        for(int i = 0; i <output.size(); i++){
+            sum += (output.get(i).getBid() * (i+1));
         }
         assertEquals(expected, sum);
     }

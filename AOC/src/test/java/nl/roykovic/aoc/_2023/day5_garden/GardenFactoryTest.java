@@ -41,8 +41,8 @@ public class GardenFactoryTest {
 
     @ParameterizedTest
     @CsvSource({
-            "GardenTestinput.txt,true,35",
-            "GardenInput.txt,false,600279879"
+            "GardenTestinput.txt,true,46",
+            "GardenInput.txt,false,504868904"
     })
     public void testGardenClosesLocationFromRange(String filename, boolean test, int expected){
         var input = FileReaderService.getFileAsString(2023, filename, test);
@@ -56,7 +56,7 @@ public class GardenFactoryTest {
         for(int i = 0; i < seeds.length; i++){
             if(i % 2 != 0){
                 long start = Long.parseLong(seeds[i-1]);
-                long end = Long.parseLong(seeds[i])+start;
+                long end = (Long.parseLong(seeds[i])+start);
 
                 seedRanges.add(new Range(start, end));
             }
@@ -67,8 +67,6 @@ public class GardenFactoryTest {
         List<Range> dests = new ArrayList<>();
         for(Range seedRange : seedRanges){
             dests.addAll(maps.get("seed-to-soil map").getMappedRanges(seedRange).stream()
-                    .map(it -> maps.get("seed-to-soil map").getMappedRanges(it))
-                    .flatMap(Collection::stream)
                     .map(it -> maps.get("soil-to-fertilizer map").getMappedRanges(it))
                     .flatMap(Collection::stream)
                     .map(it -> maps.get("fertilizer-to-water map").getMappedRanges(it))
@@ -83,6 +81,8 @@ public class GardenFactoryTest {
                     .flatMap(Collection::stream)
                     .toList());
         }
-        assertEquals(expected, dests.stream().mapToLong(Range::getStart).min().orElseThrow());
+        long lowest = dests.stream().mapToLong(Range::getStart).min().orElseThrow();
+
+        assertEquals(expected, lowest);
     }
 }

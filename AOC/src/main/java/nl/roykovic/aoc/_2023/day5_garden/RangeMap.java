@@ -32,7 +32,8 @@ public class RangeMap extends HashMap<Range, Range> {
     }
 
     public List<Range> getMappedRanges(Range input){
-       return getSubLists(input).stream().map(it -> this.getOrDefault(it, it)).toList();
+        List<Range> subset = getSubLists(input);
+       return subset;
     }
 
     private List<Range> getSubLists(Range input){
@@ -42,7 +43,11 @@ public class RangeMap extends HashMap<Range, Range> {
         long endOffset = 0;
 
         long lowest =  this.keySet().stream().mapToLong(Range::getStart).min().orElseThrow();
-        long highest =  this.keySet().stream().mapToLong(Range::getStart).max().orElseThrow();
+        long highest =  this.keySet().stream().mapToLong(Range::getEnd).max().orElseThrow();
+
+        if(input.getStart() > highest || input.getEnd() < lowest){
+            return List.of(input);
+        }
 
         if(input.getStart() < lowest){
             foundInputRanges.add(new Range(input.getStart(), lowest));
@@ -56,14 +61,18 @@ public class RangeMap extends HashMap<Range, Range> {
         for(Range key : this.keySet()){
             if(key.isInRange(input.getStart())){
                 startOffset = input.getStart() - key.getStart() ;
-                foundInputRanges.add(key);
+
+                Range outputRange = this.get(key);
+                outputRange.setStart(outputRange.getStart()+startOffset);
 
                 if(!key.isInRange(input.getEnd())){
-                    foundInputRanges.addAll(getSubLists(new Range(key.getStart(), input.getEnd())));
+                    foundInputRanges.addAll(getSubLists(new Range(key.getEnd(), input.getEnd())));
                 }
                 else{
                     endOffset = key.getEnd() - input.getEnd();
+                    outputRange.setEnd(outputRange.getEnd() -endOffset);
                 }
+                foundInputRanges.add(outputRange);
             }
         }
         return foundInputRanges;

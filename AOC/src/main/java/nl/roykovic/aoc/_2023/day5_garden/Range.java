@@ -12,7 +12,7 @@ public class Range {
     }
 
     public boolean isInRange(long x){
-        return start < x && x < end;
+        return (start == end && start == x) || start <= x && x < end;
     }
 
     public void setEnd(long end) {

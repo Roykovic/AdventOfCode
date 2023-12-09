@@ -42,7 +42,7 @@ public class GardenFactoryTest {
     @ParameterizedTest
     @CsvSource({
             "GardenTestinput.txt,true,46",
-            "GardenInput.txt,false,504868904"
+            "GardenInput.txt,false,20191102"
     })
     public void testGardenClosesLocationFromRange(String filename, boolean test, int expected){
         var input = FileReaderService.getFileAsString(2023, filename, test);
@@ -56,7 +56,7 @@ public class GardenFactoryTest {
         for(int i = 0; i < seeds.length; i++){
             if(i % 2 != 0){
                 long start = Long.parseLong(seeds[i-1]);
-                long end = (Long.parseLong(seeds[i])+start);
+                long end = Long.parseLong(seeds[i])+start-1;
 
                 seedRanges.add(new Range(start, end));
             }
@@ -66,20 +66,21 @@ public class GardenFactoryTest {
 
         List<Range> dests = new ArrayList<>();
         for(Range seedRange : seedRanges){
-            dests.addAll(maps.get("seed-to-soil map").getMappedRanges(seedRange).stream()
-                    .map(it -> maps.get("soil-to-fertilizer map").getMappedRanges(it))
+           var bla = maps.get("seed-to-soil map").getMappedRanges(seedRange, "seed-to-soil map").stream()
+                    .map(it -> maps.get("soil-to-fertilizer map").getMappedRanges(it, "soil-to-fertilizer map"))
                     .flatMap(Collection::stream)
-                    .map(it -> maps.get("fertilizer-to-water map").getMappedRanges(it))
+                    .map(it -> maps.get("fertilizer-to-water map").getMappedRanges(it, "fertilizer-to-water map"))
                     .flatMap(Collection::stream)
-                    .map(it -> maps.get("water-to-light map").getMappedRanges(it))
+                    .map(it -> maps.get("water-to-light map").getMappedRanges(it, "water-to-light map"))
                     .flatMap(Collection::stream)
-                    .map(it -> maps.get("light-to-temperature map").getMappedRanges(it))
+                    .map(it -> maps.get("light-to-temperature map").getMappedRanges(it, "light-to-temperature map"))
                     .flatMap(Collection::stream)
-                    .map(it -> maps.get("temperature-to-humidity map").getMappedRanges(it))
+                    .map(it -> maps.get("temperature-to-humidity map").getMappedRanges(it, "temperature-to-humidity map"))
                     .flatMap(Collection::stream)
-                    .map(it -> maps.get("humidity-to-location map").getMappedRanges(it))
+                    .map(it -> maps.get("humidity-to-location map").getMappedRanges(it, "humidity-to-location map"))
                     .flatMap(Collection::stream)
-                    .toList());
+                    .toList();
+            dests.addAll(bla);
         }
         long lowest = dests.stream().mapToLong(Range::getStart).min().orElseThrow();
 

@@ -23,7 +23,7 @@ public class GardenFactory {
                 .map(nums -> {
                     long source = Long.parseLong(nums[1]);
                     long destination = Long.parseLong(nums[0]);
-                    long size =  Long.parseLong(nums[2]);
+                    long size =  Long.parseLong(nums[2]) -1;
                     return Map.of(new Range(source, source+size), new Range(destination, destination+size));
                 })
                 .map(Map::entrySet)

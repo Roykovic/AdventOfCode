@@ -21,19 +21,9 @@ public class RangeMap extends HashMap<Range, Range> {
         return x;
     }
 
-    public Range getRange(Long x) {
-        for(Range key : this.keySet()){
-            if(key.isInRange(x)){
-                return key;
-            }
-        }
-
-        return null;
-    }
-
-    public List<Range> getMappedRanges(Range input){
+    public List<Range> getMappedRanges(Range input, String hans){
         List<Range> subset = getSubLists(input);
-       return subset;
+        return subset;
     }
 
     private List<Range> getSubLists(Range input){
@@ -62,11 +52,11 @@ public class RangeMap extends HashMap<Range, Range> {
             if(key.isInRange(input.getStart())){
                 startOffset = input.getStart() - key.getStart() ;
 
-                Range outputRange = this.get(key);
+                Range outputRange = new Range(this.get(key).getStart(), this.get(key).getEnd());
                 outputRange.setStart(outputRange.getStart()+startOffset);
 
                 if(!key.isInRange(input.getEnd())){
-                    foundInputRanges.addAll(getSubLists(new Range(key.getEnd(), input.getEnd())));
+                    foundInputRanges.addAll(getSubLists(new Range(key.getEnd()+1, input.getEnd())));
                 }
                 else{
                     endOffset = key.getEnd() - input.getEnd();

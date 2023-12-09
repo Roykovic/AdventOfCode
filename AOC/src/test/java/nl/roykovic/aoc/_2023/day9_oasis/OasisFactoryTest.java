@@ -41,11 +41,23 @@ public class OasisFactoryTest {
     @ParameterizedTest
     @CsvSource({
             "OasisTestInput.txt,true,114",
-            "OasisInput.txt,false,0"
+            "OasisInput.txt,false,1762065988"
     })
     public void testExtrapolatedValues(String filename, boolean test, int expected) {
         var input = FileReaderService.streamLinesFromFile(2023, filename, test);
         var output = new OasisFactory().generate(input).stream().mapToLong(OasisList::getNextValue).sum();
+
+        assertEquals(expected, output);
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "OasisTestInput.txt,true,2",
+            "OasisInput.txt,false,1066"
+    })
+    public void testExtrapolatedPreviousValues(String filename, boolean test, int expected) {
+        var input = FileReaderService.streamLinesFromFile(2023, filename, test);
+        var output = new OasisFactory().generate(input).stream().mapToLong(OasisList::getPreviousValue).sum();
 
         assertEquals(expected, output);
     }

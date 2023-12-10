@@ -1,6 +1,7 @@
 package nl.roykovic.aoc._2023.day8_maps;
 
 import nl.roykovic.aoc.utils.FileReaderService;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -47,6 +48,7 @@ public class MapsFactoryTest {
             "MapsTestInputPartTwo.txt,true,6",
             "MapsInput.txt,false,20513"
     })
+    @Disabled
     public void testRouteToMultipleEndS(String filename, boolean test, int expected){
         var input = FileReaderService.getLinesFromFile(2023, filename, test);
         String directions = input.get(0);

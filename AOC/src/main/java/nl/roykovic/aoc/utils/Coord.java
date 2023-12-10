@@ -82,6 +82,10 @@ public class Coord{
         this.y = this.y + direction.getAdditionalY();
     }
 
+    public Coord moveAndGet(Direction direction){
+        return new Coord(this.getX() + direction.getAdditionalX(), this.getY() + direction.getAdditionalY(), this.getZ());
+    }
+
     public List<Coord> getNeighbours(){
         List<Coord> neighbours = new ArrayList<>();
 

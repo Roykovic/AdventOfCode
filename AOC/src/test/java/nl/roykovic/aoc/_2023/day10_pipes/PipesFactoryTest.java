@@ -13,7 +13,7 @@ public class PipesFactoryTest {
             "PipesTestInputTwo.txt,true,4",
             "PipesTestInputThree.txt,true,8",
             "PipesTestInputFour.txt,true,8",
-            "PipesInput.txt,false,-1"
+            "PipesInput.txt,false,6947"
     })
     public void testStepsToFurthestPoint(String filename, boolean test, int expected){
         var input = FileReaderService.getLinesFromFile(2023, filename, test);

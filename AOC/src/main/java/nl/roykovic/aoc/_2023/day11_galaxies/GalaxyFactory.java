@@ -1,18 +1,16 @@
 package nl.roykovic.aoc._2023.day11_galaxies;
 
-import nl.roykovic.aoc._2022.day12_hillclimb.Node;
 import nl.roykovic.aoc.utils.Coord;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class GalaxyFactory {
-    public long generate(List<String> input){
-
-        input = expand(input);
+    public long generate(List<String> input, int growth){
 
         List<Coord> galaxies = new ArrayList<>();
         for(int y = 0; y< input.size(); y++){
@@ -22,6 +20,32 @@ public class GalaxyFactory {
                 }
             }
         }
+
+        List<Integer> expandedRows = IntStream.range(0, input.size())
+                .filter(i -> !input.get(i).contains("#"))
+                .boxed()
+                .toList();
+
+        List<Integer> expandedColumns = getExpandedColumns(input);
+
+
+
+        expandedRows.stream()
+                .map(
+                        it -> galaxies.stream().filter(g -> g.getY() > it)
+                                .toList())
+                .flatMap(Collection::stream)
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
+                .forEach((key, value) -> key.setY(key.getY() + (value * (growth - 1))));
+
+        expandedColumns.stream()
+                .map(
+                        it -> galaxies.stream().filter(g -> g.getX() > it)
+                                .toList())
+                .flatMap(Collection::stream)
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
+                .forEach((key, value) -> key.setX(key.getX() + (value * (growth - 1))));
+
         long sum = 0;
 
         for(Coord c : galaxies){
@@ -31,59 +55,20 @@ public class GalaxyFactory {
         return sum/2;
     }
 
-    private List<String> expand(List<String> input){
-        List<String> expandedRows = new ArrayList<>();
-        for(int i = 0; i< input.size(); i++){
-            String currentRow = input.get(i);
-
-            expandedRows.add(currentRow);
-            if(!input.get(i).contains("#")){
-                expandedRows.add(currentRow);
-            }
-        }
-
-        List<Integer> emptyColumns = new ArrayList<>();
-        int length = expandedRows.get(0).length();
-        for(int i =0 ; i<length; i++){
+    private List<Integer> getExpandedColumns(List<String> input){
+        List<Integer> expandedColumns = new ArrayList<>();
+        for(int i =0 ; i<input.get(0).length(); i++){
             boolean containsGalaxies = false;
-            for(String s : expandedRows){
+            for(String s : input){
                 if (s.charAt(i) == '#') {
                     containsGalaxies = true;
                     break;
                 }
             }
             if(!containsGalaxies){
-                emptyColumns.add(i);
+                expandedColumns.add(i);
             }
         }
-
-        for(int i =0; i < expandedRows.size(); i++){
-            for(int j = 0; j< emptyColumns.size(); j++){
-                expandedRows.set(i, new StringBuilder(expandedRows.get(i)).insert(emptyColumns.get(j) +j, ".").toString());
-            }
-        }
-
-        return expandedRows;
-    }
-
-    private void setNeighbours(List<Node> nodeList) {
-        for (Node node : nodeList) {
-            int curX = node.getX();
-            int curY = node.getY();
-            int curElevation = node.getElevation();
-
-            Map<Node, Integer> neighbours = nodeList.stream().filter(n -> {
-                int dX = Math.abs(n.getX() - curX);
-                int dY = Math.abs(n.getY() - curY);
-
-                int dXY = Math.abs(dX - dY);
-
-                int dElevation = n.getElevation() - curElevation;
-
-                return dX <= 1 && dY <= 1 && dXY > 0 && dElevation <= 1; //if x and y are 1 or less away, but not both, and elevation is 1 higher or (any amount) lower, this is a neighbour
-            }).collect((Collectors.toMap(Function.identity(), it -> 1)));
-
-            node.setAdjacentNodes(neighbours);
-        }
+        return expandedColumns;
     }
 }

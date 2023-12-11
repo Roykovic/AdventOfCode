@@ -14,7 +14,7 @@ public class GalaxyFactoryTest {
     })
     public void testShortstPath(String filename, boolean test, int expected) {
         var input = FileReaderService.getLinesFromFile(2023, filename, test);
-        var output = new GalaxyFactory().generate(input);
+        var output = new GalaxyFactory().generate(input, 2);
 
         assertEquals(expected, output);
     }

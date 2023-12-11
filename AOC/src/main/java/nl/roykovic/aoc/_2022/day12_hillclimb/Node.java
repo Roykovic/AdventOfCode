@@ -1,11 +1,14 @@
 package nl.roykovic.aoc._2022.day12_hillclimb;
 
-import java.util.*;
+import nl.roykovic.aoc.utils.Coord;
+
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 public class Node {
-    private final int x;
-    private final int y;
-
+    private final Coord coord;
     private Integer distance = Integer.MAX_VALUE;
     private final int elevation;
     private final boolean isStart;
@@ -15,20 +18,34 @@ public class Node {
 
     private Map<Node, Integer> adjacentNodes = new HashMap<>();
 
+    public Node(int x, int y) {
+        this(new Coord(x, y));
+    }
+
+    public Node(Coord coord) {
+        this.coord = coord;
+        this.elevation =0;
+        this.isStart = false;
+        this.isEnd = false;
+    }
+
     public Node(int x, int y, int elevation, boolean isStart, boolean isEnd) {
-        this.x = x;
-        this.y = y;
+        this.coord = new Coord(x, y);
         this.elevation = elevation;
         this.isStart = isStart;
         this.isEnd = isEnd;
     }
 
     public int getX() {
-        return x;
+        return coord.getX().intValue();
     }
 
     public int getY() {
-        return y;
+        return coord.getY().intValue();
+    }
+
+    public Coord getCoord() {
+        return coord;
     }
 
     public int getElevation() {

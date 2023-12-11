@@ -9,11 +9,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class GalaxyFactoryTest {
     @ParameterizedTest
     @CsvSource({
-            "GalaxyTestInput.txt,true,-1",
-            "GalaxyInput.txt,true,-1",
+            "GalaxyTestInput.txt,true,374",
+            "GalaxyInput.txt,false,9556712",
     })
     public void testShortstPath(String filename, boolean test, int expected) {
-        var input = FileReaderService.streamLinesFromFile(2023, filename, test);
+        var input = FileReaderService.getLinesFromFile(2023, filename, test);
         var output = new GalaxyFactory().generate(input);
 
         assertEquals(expected, output);

@@ -1,7 +1,7 @@
 package nl.roykovic.aoc._2023.day11_galaxies;
 
 import nl.roykovic.aoc._2022.day12_hillclimb.Node;
-import nl.roykovic.aoc.utils.DijkstraService;
+import nl.roykovic.aoc.utils.Coord;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,40 +10,30 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class GalaxyFactory {
-    public int generate(List<String> input){
-
-        List<Node> nodes = new ArrayList<>();
-        List<Node> galaxies = new ArrayList<>();
+    public long generate(List<String> input){
 
         input = expand(input);
 
+        List<Coord> galaxies = new ArrayList<>();
         for(int y = 0; y< input.size(); y++){
             for(int x =0; x< input.get(y).length(); x++){
-                Node n = new Node(x, y);
-                nodes.add(n);
-
                 if(input.get(y).charAt(x) == '#'){
-                    galaxies.add(n);
+                    galaxies.add(new Coord(x,y));
                 }
             }
         }
+        long sum = 0;
 
-        setNeighbours(nodes);
+        for(Coord c : galaxies){
+            sum += galaxies.stream().filter(it -> !it.equals(c)).mapToLong(it -> {
+                long dx = Math.abs(it.getX() - c.getX());
+                long dy = Math.abs(it.getY()-c.getY());
 
-        int sum = 0;
-
-        for(int i = 0; i < galaxies.size(); i++){
-            nodes.forEach(it -> {
-                it.setShortestPath(new ArrayList<>());
-                it.setDistance(Integer.MAX_VALUE);
-            });
-
-            DijkstraService.calculateShortestPathFromSource(galaxies.get(i));
-
-            sum += galaxies.stream().skip(i).map(Node::getShortestPath).mapToInt(List::size).sum();
+                return dx+dy;
+            }).sum();
         }
 
-        return sum;
+        return sum/2;
     }
 
     private List<String> expand(List<String> input){

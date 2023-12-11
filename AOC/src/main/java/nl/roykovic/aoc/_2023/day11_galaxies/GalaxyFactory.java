@@ -25,12 +25,7 @@ public class GalaxyFactory {
         long sum = 0;
 
         for(Coord c : galaxies){
-            sum += galaxies.stream().filter(it -> !it.equals(c)).mapToLong(it -> {
-                long dx = Math.abs(it.getX() - c.getX());
-                long dy = Math.abs(it.getY()-c.getY());
-
-                return dx+dy;
-            }).sum();
+            sum += galaxies.stream().filter(it -> !it.equals(c)).mapToLong(c::manhattanDistance).sum();
         }
 
         return sum/2;

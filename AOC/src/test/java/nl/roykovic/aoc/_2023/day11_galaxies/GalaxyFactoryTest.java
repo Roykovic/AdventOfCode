@@ -9,12 +9,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class GalaxyFactoryTest {
     @ParameterizedTest
     @CsvSource({
-            "GalaxyTestInput.txt,true,374",
-            "GalaxyInput.txt,false,9556712",
+            "GalaxyTestInput.txt,true,374,2",
+            "GalaxyInput.txt,false,9556712,2",
+            "GalaxyTestInput.txt,true,1030,10",
+            "GalaxyTestInput.txt,true,8410,100",
+            "GalaxyInput.txt,false,9556712,678626199476",
     })
-    public void testShortstPath(String filename, boolean test, int expected) {
+    public void testShortstPath(String filename, boolean test, int expected, int growth) {
         var input = FileReaderService.getLinesFromFile(2023, filename, test);
-        var output = new GalaxyFactory().generate(input, 2);
+        var output = new GalaxyFactory().generate(input, growth);
 
         assertEquals(expected, output);
     }

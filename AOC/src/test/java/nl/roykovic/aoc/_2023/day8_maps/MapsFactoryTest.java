@@ -1,11 +1,11 @@
 package nl.roykovic.aoc._2023.day8_maps;
 
 import nl.roykovic.aoc.utils.FileReaderService;
+import nl.roykovic.aoc.utils.Utils;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -46,10 +46,10 @@ public class MapsFactoryTest {
     @ParameterizedTest
     @CsvSource({
             "MapsTestInputPartTwo.txt,true,6",
-            "MapsInput.txt,false,20513"
+            "MapsInput.txt,false,15995167053923"
     })
     @Disabled
-    public void testRouteToMultipleEndS(String filename, boolean test, int expected){
+    public void testRouteToMultipleEnds(String filename, boolean test, long expected){
         var input = FileReaderService.getLinesFromFile(2023, filename, test);
         String directions = input.get(0);
 
@@ -57,25 +57,25 @@ public class MapsFactoryTest {
 
         List<String> currentNodes = nodes.keySet().stream().filter(it1 -> it1.endsWith("A")).toList();
 
-        long step = 0;
-        while(currentNodes.stream().anyMatch(it -> !it.endsWith("Z"))){
-            char currentDirection = directions.charAt((int) (step % directions.length()));
-            List<String> newNodes = new ArrayList<>();
-            for(String startnode : currentNodes){
-                String currentNode;
+        long currentLCM = 1L;
+
+        for(String currentNode : currentNodes){
+            int step = 0;
+            while(!currentNode.endsWith("Z")){
+                char currentDirection = directions.charAt(step % directions.length());
                 if(currentDirection == 'L'){
-                    currentNode = nodes.get(startnode).left();
+                    currentNode = nodes.get(currentNode).left();
                 }
                 else{
-                    currentNode = nodes.get(startnode).right();
+                    currentNode = nodes.get(currentNode).right();
                 }
-
-                newNodes.add(currentNode);
+                step++;
             }
-            currentNodes = newNodes;
-            step++;
+
+            //Apparently LCM works, although it shouldnt.
+            currentLCM = Utils.lcm(Long.valueOf(step), currentLCM);
         }
 
-        assertEquals(expected, step);
+        assertEquals(expected, currentLCM);
     }
 }

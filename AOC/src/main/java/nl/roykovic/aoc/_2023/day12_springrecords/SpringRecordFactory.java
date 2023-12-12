@@ -29,9 +29,6 @@ public class SpringRecordFactory {
 
 
             if(input.substring(0, groupEnd).length() == configuration[0]){
-                System.out.println(input + " fits " + configuration[0]);
-                System.out.println("now checking in " + input.substring(configuration[0]) + " for " + Arrays.toString(Arrays.copyOfRange(configuration, 1, configuration.length)));
-                System.out.println();
                 return calculateWays(input.substring(configuration[0]), Arrays.copyOfRange(configuration, 1, configuration.length));
             }
             if(input.substring(0,groupEnd).length() > configuration[0]){

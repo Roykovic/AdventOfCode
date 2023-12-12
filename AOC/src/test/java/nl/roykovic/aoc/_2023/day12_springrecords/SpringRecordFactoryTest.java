@@ -18,6 +18,7 @@ public class SpringRecordFactoryTest {
             "????.#...#...,1,411",
             "????.######..#####.,4,165",
             "?###????????,10,321",
+            ".##.?#??.#.?#,1,2111",
     })
     public void testCalculateWays(String input, int expected, String configuration) {
 

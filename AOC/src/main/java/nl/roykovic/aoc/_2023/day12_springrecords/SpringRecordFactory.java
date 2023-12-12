@@ -5,7 +5,17 @@ import java.util.stream.Stream;
 
 public class SpringRecordFactory {
     public int generate(Stream<String> input){
-        return 0;
+        return input
+                .map(it -> it.split(" "))
+                .mapToInt(it ->
+                        calculateWays(
+                                it[0],
+                                Arrays.stream(
+                                        it[1]
+                                                .split(","))
+                                        .mapToInt(Integer::parseInt)
+                                        .toArray())).
+                sum();
     }
 
     public int calculateWays(String input, int[] configuration){

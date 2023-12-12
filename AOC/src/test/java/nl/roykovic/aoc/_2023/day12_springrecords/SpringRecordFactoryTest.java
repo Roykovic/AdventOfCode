@@ -36,9 +36,21 @@ public class SpringRecordFactoryTest {
     })
     public void testMissingRecords(String filename, boolean test, int expected) {
         var input = FileReaderService.streamLinesFromFile(2023, filename, test);
-        var output = new SpringRecordFactory().generate(input);
+        var output = new SpringRecordFactory().generate(input, false);
 
         assert(output < 7506);
+        assertEquals(expected, output);
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "SpringRecordTestInput.txt,true,525152",
+            "SpringRecordInput.txt,false,7110",
+    })
+    public void testMissingRecordsUnfolded(String filename, boolean test, int expected) {
+        var input = FileReaderService.streamLinesFromFile(2023, filename, test);
+        var output = new SpringRecordFactory().generate(input, true);
+
         assertEquals(expected, output);
     }
 }

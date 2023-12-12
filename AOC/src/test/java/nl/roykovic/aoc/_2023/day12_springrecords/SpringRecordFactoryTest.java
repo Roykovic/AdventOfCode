@@ -22,7 +22,7 @@ public class SpringRecordFactoryTest {
     })
     public void testCalculateWays(String input, int expected, String configuration) {
 
-        var configurationArr = Arrays.stream(configuration.split("")).mapToInt(Integer::parseInt).toArray();
+        var configurationArr = Arrays.stream(configuration.split("")).mapToInt(Integer::parseInt).boxed().toList();
 
         var output = new SpringRecordFactory().calculateWays(input, configurationArr);
 

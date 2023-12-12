@@ -4,9 +4,30 @@ import nl.roykovic.aoc.utils.FileReaderService;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SpringRecordFactoryTest {
+
+    @ParameterizedTest
+    @CsvSource({
+            "???.###,1,113",
+            ".??..??...?##.,4,113",
+            "?#?#?#?#?#?#?#?.,1,1316",
+            "????.#...#...,1,411",
+            "????.######..#####.,4,165",
+            "?###????????,10,321",
+    })
+    public void testCalculateWays(String input, int expected, String configuration) {
+
+        var configurationArr = Arrays.stream(configuration.split("")).mapToInt(Integer::parseInt).toArray();
+
+        var output = new SpringRecordFactory().calculateWays(input, configurationArr);
+
+        assertEquals(expected, output);
+    }
+
     @ParameterizedTest
     @CsvSource({
             "SpringRecordTestInput.txt,true,-1",

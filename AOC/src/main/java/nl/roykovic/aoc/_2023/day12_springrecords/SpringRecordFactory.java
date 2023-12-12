@@ -11,8 +11,11 @@ public class SpringRecordFactory {
     public int calculateWays(String input, int[] configuration){
 
 
-        if(input.isEmpty() || configuration.length == 0){
-            return configuration.length > 0? 0:1;
+        if(configuration.length == 0){
+            return input.contains("#")? 0:1;
+        }
+        if(input.isEmpty()){
+            return 0;
         }
 
         if(input.startsWith(".")){

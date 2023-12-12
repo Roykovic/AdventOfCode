@@ -31,13 +31,14 @@ public class SpringRecordFactoryTest {
 
     @ParameterizedTest
     @CsvSource({
-            "SpringRecordTestInput.txt,true,-1",
-            "SpringRecordInput.txt,false,-1",
+            "SpringRecordTestInput.txt,true,21",
+            "SpringRecordInput.txt,false,7110",
     })
     public void testMissingRecords(String filename, boolean test, int expected) {
         var input = FileReaderService.streamLinesFromFile(2023, filename, test);
         var output = new SpringRecordFactory().generate(input);
 
+        assert(output < 7506);
         assertEquals(expected, output);
     }
 }

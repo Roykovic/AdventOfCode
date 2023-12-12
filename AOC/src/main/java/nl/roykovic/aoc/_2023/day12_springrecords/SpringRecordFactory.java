@@ -33,7 +33,7 @@ public class SpringRecordFactory {
         } else if (input.startsWith("?")) {
             return calculateWays("#"+input.substring(1),configuration) + calculateWays("."+input.substring(1),configuration);
         }
-        else if(input.startsWith("#")){
+        else{
 
             int groupEnd = !input.contains(".") ? input.length() : input.indexOf(".");
 
@@ -47,9 +47,6 @@ public class SpringRecordFactory {
                 }
             }
             return 0;
-        }
-        else{
-            throw new RuntimeException();
         }
     }
 }

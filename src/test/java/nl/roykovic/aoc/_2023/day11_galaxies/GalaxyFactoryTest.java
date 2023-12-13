@@ -13,9 +13,9 @@ public class GalaxyFactoryTest {
             "GalaxyInput.txt,false,9556712,2",
             "GalaxyTestInput.txt,true,1030,10",
             "GalaxyTestInput.txt,true,8410,100",
-            "GalaxyInput.txt,false,9556712,678626199476",
+            "GalaxyInput.txt,false,678626199476,1000000",
     })
-    public void testShortstPath(String filename, boolean test, int expected, int growth) {
+    public void testShortstPath(String filename, boolean test, long expected, int growth) {
         var input = FileReaderService.getLinesFromFile(2023, filename, test);
         var output = new GalaxyFactory().generate(input, growth);
 

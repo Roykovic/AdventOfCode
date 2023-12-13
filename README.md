@@ -1,22 +1,54 @@
-# AdventOfCode
-AdventOfCode Solutions
-
-| Day | Test                                                                                                       | Code                                                                                                |
-|-----|------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------|
-| 1   | [ElfFactoryTest](AOC/src/test/java/nl/roykovic/aoc/_2022/elf/ElfFactoryTest.java)                          | [ElfFactory](AOC/src/main/java/nl/roykovic/aoc/_2022/elf/ElfFactory.java)                           |
-| 2   | [RockPaperScissorsTest](AOC/src/test/java/nl/roykovic/aoc/_2022/rockpaperscissors/RPSGameFactoryTest.java) | [RockPaperScissors](AOC/src/main/java/nl/roykovic/aoc/_2022/rockpaperscissors/RPSGameFactory.java)  |
-| 3   | [RucksackTest](AOC/src/test/java/nl/roykovic/aoc/_2022/rucksack/RucksackFactoryTest.java)                  | [Rucksack](AOC/src/main/java/nl/roykovic/aoc/_2022/rucksack/RucksackFactory.java)                   |
-| 4   | [CleanupTest](AOC/src/test/java/nl/roykovic/aoc/_2022/cleanup/CleanupRangeFactoryTest.java)                | [Cleanup](AOC/src/main/java/nl/roykovic/aoc/_2022/cleanup/CleanupRangeFactory.java)                 |
-| 5   | [SupplyStacksTest](AOC/src/test/java/nl/roykovic/aoc/_2022/supplystacks/CraneFactoryTest.java)             | [SupplyStacks](AOC/src/main/java/nl/roykovic/aoc/_2022/supplystacks/CraneFactory.java)              |
-| 6   | [BufferStreamTest](AOC/src/test/java/nl/roykovic/aoc/_2022/bufferstream/BufferStreamDecoderTest.java)      | [BufferStream](AOC/src/main/java/nl/roykovic/aoc/_2022/bufferstream/BufferStreamDecoder.java)       |
-| 7   | [FileSystemTest](AOC/src/test/java/nl/roykovic/aoc/_2022/filesystem/FileSystemFactoryTest.java)            | [FileSystem](AOC/src/main/java/nl/roykovic/aoc/_2022/filesystem/FileSystemFactory.java)             |
-| 8   | [TreeFactoryTest](AOC/src/test/java/nl/roykovic/aoc/_2022/trees/TreeFactoryTest.java)                      | [TreeFactory](AOC/src/main/java/nl/roykovic/aoc/_2022/trees/TreeFactory.java)                       |
-| 9   | [RopeBridgeTest](AOC/src/test/java/nl/roykovic/aoc/_2022/ropebridge/RopeBridgeFactoryTest.java)            | [RopeBridge](AOC/src/main/java/nl/roykovic/aoc/_2022/ropebridge/RopeBridgeFactory.java)             |
-| 10  | [SignalStrengthTest](AOC/src/test/java/nl/roykovic/aoc/_2022/signalstrength/CycleFactoryTest.java)         | [SignalStrength](AOC/src/main/java/nl/roykovic/aoc/_2022/signalstrength/CycleFactory.java)          |
-| 11  | [MonkeyTest](AOC/src/test/java/nl/roykovic/aoc/_2022/monkey/MonkeyFactoryTest.java)                        | [MonkeyFactory](AOC/src/main/java/nl/roykovic/aoc/_2022/monkey/MonkeyFactory.java)                  |
-| 12  | [HillClimbTest](AOC/src/test/java/nl/roykovic/aoc/_2022/hillclimb/NodeFactoryTest.java)                    | [HillClimb](AOC/src/main/java/nl/roykovic/aoc/_2022/hillclimb/NodeFactory.java)                     |
-| 13  | [DistressSignalTest](AOC/src/test/java/nl/roykovic/aoc/_2022/distresssignal/PacketFactoryTest.java)        | [DistressSignal](AOC/src/main/java/nl/roykovic/aoc/_2022/distresssignal/PacketFactory.java)         |
-| 14  | [FallingSandTest](AOC/src/test/java/nl/roykovic/aoc/_2022/fallingsand/FallingSandFactoryTest.java)         | [FallingSand](AOC/src/main/java/nl/roykovic/aoc/_2022/fallingsand/FallingSandFactory.java)          |
-| 15  | [BeaconTest](AOC/src/test/java/nl/roykovic/aoc/_2022/beacon/SensorFactoryTest.java)                        | [Beacon](AOC/src/main/java/nl/roykovic/aoc/_2022/beacon/SensorFactory.java)                         |
-| 16  | [VolcanoTest](AOC/src/test/java/nl/roykovic/aoc/_2022/volcano/VolcanoFactoryTest.java)                     | [Volcano](AOC/src/main/java/nl/roykovic/aoc/_2022/volcano/VolcanoFactory.java)                      |
-| 17  | [TetrisTest](AOC/src/test/java/nl/roykovic/aoc/_2022/tetris/TetrisFactoryTest.java)                        | [Tetris](AOC/src/main/java/nl/roykovic/aoc/_2022/tetris/TetrisFactory.java)                         |
+| Year | Day | Class Name | Number of Tests | Number of Failures | Number of Skipped Tests | Total Runtime (s) |
+|------|-----|-------------|------------------|---------------------|--------------------------|---------------------|
+| 2015 | 1 | ApartmentFactoryTest |  |  |  | s |
+| 2015 | 2 | WrappingPaperFactoryTest |  |  |  | s |
+| 2015 | 3 | HouseFactoryTest |  |  |  | s |
+| 2015 | 4 | MD5EncoderTest |  |  |  | s |
+| 2015 | 5 | NaughtyOrNiceFactoryTest |  |  |  | s |
+| 2015 | 6 | LightFactoryTest |  |  |  | s |
+| 2015 | 7 | LogicGateFactoryTest |  |  |  | s |
+| 2015 | 8 | MemoryUsageFactoryTest |  |  |  | s |
+| 2015 | 9 | TSPFactoryTest |  |  |  | s |
+| 2015 | 10 | LookAndSayFactoryTest |  |  |  | s |
+| 2015 | 11 | PasswordPolicyFactoryTest |  |  |  | s |
+| 2015 | 12 | JsonNumbersFactoryTest |  |  |  | s |
+| 2015 | 13 | TableHappinessFactoryTest |  |  |  | s |
+| 2015 | 14 | ReindeerFactoryTest |  |  |  | s |
+| 2015 | 16 | AuntSueFactoryTest |  |  |  | s |
+| 2015 | 17 | EggnogContainerFactoryTest |  |  |  | s |
+| 2015 | 18 | LightFactoryTest |  |  |  | s |
+| 2015 | 19 | MoleculeFactoryTest |  |  |  | s |
+| 2022 | 1 | ElfFactoryTest |  |  |  | s |
+| 2022 | 2 | RPSGameFactoryTest |  |  |  | s |
+| 2022 | 3 | RucksackFactoryTest |  |  |  | s |
+| 2022 | 4 | CleanupRangeFactoryTest |  |  |  | s |
+| 2022 | 5 | CraneFactoryTest |  |  |  | s |
+| 2022 | 6 | BufferStreamDecoderTest |  |  |  | s |
+| 2022 | 7 | FileSystemFactoryTest |  |  |  | s |
+| 2022 | 8 | TreeFactoryTest |  |  |  | s |
+| 2022 | 9 | RopeBridgeFactoryTest |  |  |  | s |
+| 2022 | 10 | CycleFactoryTest |  |  |  | s |
+| 2022 | 11 | MonkeyFactoryTest |  |  |  | s |
+| 2022 | 12 | NodeFactoryTest |  |  |  | s |
+| 2022 | 13 | PacketFactoryTest |  |  |  | s |
+| 2022 | 14 | FallingSandFactoryTest |  |  |  | s |
+| 2022 | 15 | SensorFactoryTest |  |  |  | s |
+| 2022 | 16 | VolcanoFactoryTest |  |  |  | s |
+| 2022 | 17 | TetrisFactoryTest |  |  |  | s |
+| 2022 | 18 | LavaDropletsFactoryTest |  |  |  | s |
+| 2022 | 20 | EncryptedNumbersFactoryTest |  |  |  | s |
+| 2022 | 21 | MonkeyMathFactoryTest |  |  |  | s |
+| 2022 | 22 | MonkeyMapFactoryTest |  |  |  | s |
+| 2023 | 1 | TrebuchetFactoryTest |  |  |  | s |
+| 2023 | 2 | CubeGameFactoryTest |  |  |  | s |
+| 2023 | 3 | PartNumbersFactoryTest |  |  |  | s |
+| 2023 | 4 | ScratchCardFactoryTest |  |  |  | s |
+| 2023 | 5 | GardenFactoryTest |  |  |  | s |
+| 2023 | 6 | BoatRaceFactoryTest |  |  |  | s |
+| 2023 | 7 | CamelCardsFactoryTest |  |  |  | s |
+| 2023 | 8 | MapsFactoryTest |  |  |  | s |
+| 2023 | 9 | OasisFactoryTest |  |  |  | s |
+| 2023 | 10 | PipesFactoryTest |  |  |  | s |
+| 2023 | 11 | GalaxyFactoryTest |  |  |  | s |
+| 2023 | 12 | SpringRecordFactoryTest |  |  |  | s |
+| 2023 | 13 | MirrorFactoryTest |  |  |  | s |

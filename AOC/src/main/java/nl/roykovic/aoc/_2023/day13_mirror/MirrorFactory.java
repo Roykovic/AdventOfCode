@@ -1,6 +1,7 @@
 package nl.roykovic.aoc._2023.day13_mirror;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.text.similarity.LevenshteinDistance;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -30,7 +31,7 @@ public class MirrorFactory {
             String previousRow = input[(int) (i-1)];
 
             if((currentRow.equals(previousRow) ||
-                    StringUtils.getLevenshteinDistance(currentRow, previousRow) ==1) &&
+                    LevenshteinDistance.getDefaultInstance().apply(currentRow, previousRow) ==1) &&
                     checkSymmetryHorizontal(input, (int) i)){
                 horizontalLine = i;
                 break;
@@ -52,7 +53,7 @@ public class MirrorFactory {
             }
             if(StringUtils.isNotBlank(previousString)){
                 if((currentString.toString().equals(previousString) ||
-                        StringUtils.getLevenshteinDistance(currentString, previousString) ==1) &&
+                        LevenshteinDistance.getDefaultInstance().apply(currentString, previousString) ==1) &&
                                 checkSymmetryVertical(input, i)){
                     verticalLine = i;
                     break;
@@ -75,7 +76,7 @@ public class MirrorFactory {
             String bottomString = input[down];
 
             if(!Objects.equals(topString, bottomString)){
-                smudges += StringUtils.getLevenshteinDistance(topString, bottomString);
+                smudges += LevenshteinDistance.getDefaultInstance().apply(topString, bottomString);
             }
             up--;
             down++;
@@ -101,7 +102,7 @@ public class MirrorFactory {
             }
 
             if(leftString.compareTo(righString) != 0){
-                smudges += StringUtils.getLevenshteinDistance(leftString, righString);
+                smudges += LevenshteinDistance.getDefaultInstance().apply(leftString, righString);
             }
             left--;
             right++;

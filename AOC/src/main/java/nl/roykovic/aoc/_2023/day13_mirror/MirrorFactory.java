@@ -7,8 +7,13 @@ import java.util.Map;
 import java.util.Objects;
 
 public class MirrorFactory {
-    public long generate(String input) {
 
+    private final int smudges;
+    public MirrorFactory(int smudges) {
+        this.smudges = smudges;
+    }
+
+    public long generate(String input) {
         return Arrays
                 .stream(input.split("\\r\\n[\\r\\n]+"))
                 .map(it -> it.split("\\r\\n"))
@@ -24,12 +29,13 @@ public class MirrorFactory {
             String currentRow = input[(int) i];
             String previousRow = input[(int) (i-1)];
 
-            if(currentRow.equals(previousRow) && checkSymmetryHorizontal(input, (int) i)){
+            if((currentRow.equals(previousRow) ||
+                    StringUtils.getLevenshteinDistance(currentRow, previousRow) ==1) &&
+                    checkSymmetryHorizontal(input, (int) i)){
                 horizontalLine = i;
                 break;
             }
         }
-        System.out.print(horizontalLine + " ");
         return horizontalLine;
     }
 
@@ -45,14 +51,15 @@ public class MirrorFactory {
                 currentString.append(s.charAt(i));
             }
             if(StringUtils.isNotBlank(previousString)){
-                if(currentString.toString().equals(previousString) && checkSymmetryVertical(input, i)){
+                if((currentString.toString().equals(previousString) ||
+                        StringUtils.getLevenshteinDistance(currentString, previousString) ==1) &&
+                                checkSymmetryVertical(input, i)){
                     verticalLine = i;
                     break;
                 }
             }
             previousString = currentString.toString();
         }
-        System.out.println(verticalLine);
         return verticalLine;
     }
 
@@ -61,25 +68,28 @@ public class MirrorFactory {
         int up = index-1;
         int down = index;
 
+        int smudges = 0;
+
         while(up >= 0 && down < input.length){
             String topString = input[up];
             String bottomString = input[down];
 
             if(!Objects.equals(topString, bottomString)){
-                return false;
+                smudges += StringUtils.getLevenshteinDistance(topString, bottomString);
             }
             up--;
             down++;
         }
 
-
-        return true;
+        return smudges == this.smudges;
     }
 
     private boolean checkSymmetryVertical(String[] input, int index){
 
         int left = index-1;
         int right = index;
+
+        int smudges = 0;
 
         while(left >= 0 && right < input[0].length()){
             StringBuilder leftString = new StringBuilder();
@@ -91,13 +101,13 @@ public class MirrorFactory {
             }
 
             if(leftString.compareTo(righString) != 0){
-                return false;
+                smudges += StringUtils.getLevenshteinDistance(leftString, righString);
             }
             left--;
             right++;
         }
 
 
-        return true;
+        return smudges == this.smudges;
     }
 }

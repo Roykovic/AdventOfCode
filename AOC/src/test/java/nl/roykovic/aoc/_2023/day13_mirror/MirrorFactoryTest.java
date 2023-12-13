@@ -9,12 +9,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class MirrorFactoryTest {
 @ParameterizedTest
     @CsvSource({
-//            "MirrorTestInput.txt,true,405",
-            "MirrorInput.txt,false,-1",
+            "MirrorTestInput.txt,true,405,0",
+            "MirrorInput.txt,false,28895,0",
+            "MirrorTestInput.txt,true,400,1",
+            "MirrorInput.txt,false,31603,1",
     })
-    public void test(String filename, boolean test, int expected) {
+    public void test(String filename, boolean test, int expected, int smudges) {
         var input = FileReaderService.getFileAsString(2023, filename, test);
-        var output = new MirrorFactory().generate(input);
+        var output = new MirrorFactory(smudges).generate(input);
 
         assertEquals(expected, output);
-    }}
+    }
+}

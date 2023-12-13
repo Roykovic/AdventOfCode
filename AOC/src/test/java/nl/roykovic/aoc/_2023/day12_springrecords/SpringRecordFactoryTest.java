@@ -21,35 +21,21 @@ public class SpringRecordFactoryTest {
             ".##.?#??.#.?#,1,2111",
     })
     public void testCalculateWays(String input, int expected, String configuration) {
-
         var configurationArr = Arrays.stream(configuration.split("")).mapToInt(Integer::parseInt).boxed().toList();
-
         var output = new SpringRecordFactory().calculateWays(input, configurationArr);
-
         assertEquals(expected, output);
     }
 
     @ParameterizedTest
     @CsvSource({
-            "SpringRecordTestInput.txt,true,21",
-            "SpringRecordInput.txt,false,7110",
+            "SpringRecordTestInput.txt,true,21,false",
+            "SpringRecordInput.txt,false,7110,false",
+            "SpringRecordTestInput.txt,true,525152,true",
+            "SpringRecordInput.txt,false,1566786613613,true",
     })
-    public void testMissingRecords(String filename, boolean test, int expected) {
+    public void testMissingRecords(String filename, boolean test, long expected,boolean unfold) {
         var input = FileReaderService.streamLinesFromFile(2023, filename, test);
-        var output = new SpringRecordFactory().generate(input, false);
-
-        assert(output < 7506);
-        assertEquals(expected, output);
-    }
-
-    @ParameterizedTest
-    @CsvSource({
-            "SpringRecordTestInput.txt,true,525152",
-            "SpringRecordInput.txt,false,7110",
-    })
-    public void testMissingRecordsUnfolded(String filename, boolean test, int expected) {
-        var input = FileReaderService.streamLinesFromFile(2023, filename, test);
-        var output = new SpringRecordFactory().generate(input, true);
+        var output = new SpringRecordFactory().generate(input, unfold);
 
         assertEquals(expected, output);
     }

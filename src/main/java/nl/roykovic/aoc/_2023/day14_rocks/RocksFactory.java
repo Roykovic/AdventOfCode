@@ -13,22 +13,12 @@ public class RocksFactory {
                 .stream(input.split("\\r\\n+"))
                 .map(String::toCharArray).toArray(char[][]::new);
 
-
-        //We rotate the array anti-clockwise, so we can look by row instead of by column
-        var rotatedGrid = rotateGridAntiClockwise(inputGrid);
-
-
-        var tiltedGrid = tiltGrid(rotatedGrid);
-
-
-        //After doing the tilt, we rotate the array back
-        var target = rotateGridClockwise(tiltedGrid);
-
+        inputGrid = tiltGrid(inputGrid);
 
         long sum = 0;
         //count all the O's in a row, adding the amount of matches * the row+1
-        for (int i = 0; i < target.length; i++) {
-            String currentString = Arrays.toString(target[target.length - 1 - i]);
+        for (int i = 0; i < inputGrid.length; i++) {
+            String currentString = Arrays.toString(inputGrid[inputGrid.length - 1 - i]);
             sum += (long) StringUtils.countMatches(currentString, 'O') * (i + 1);
         }
 
@@ -36,7 +26,10 @@ public class RocksFactory {
     }
 
     private char[][] tiltGrid(char[][] grid) {
-        return Arrays.stream(grid).map(line -> {
+        //We rotate the array anti-clockwise, so we can look by row instead of by column
+        var rotatedGrid = rotateGridAntiClockwise(grid);
+
+        var tiltedGrid =  Arrays.stream(rotatedGrid).map(line -> {
             String verticalString = new String(line);
 
             var movedRocks = Arrays.stream(verticalString.split("#")).map(it -> {
@@ -53,6 +46,9 @@ public class RocksFactory {
 
             return out.toCharArray();
         }).toArray(char[][]::new);
+
+        //After doing the tilt, we rotate the array back
+        return  rotateGridClockwise(tiltedGrid);
     }
 
     private char[][] rotateGridClockwise(char[][] input) {

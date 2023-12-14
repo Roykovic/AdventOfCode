@@ -8,11 +8,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class RocksFactoryTest {
 @ParameterizedTest
     @CsvSource({
-            "RocksTestInput.txt,true,-1",
-            "RocksInput.txt,false,-1",
+            "RocksTestInput.txt,true,136",
+            "RocksInput.txt,false,109385",
     })
     public void test(String filename, boolean test, int expected) {
-        var input = FileReaderService.streamLinesFromFile(2023, filename, test);
+        var input = FileReaderService.getFileAsString(2023, filename, test);
         var output = new RocksFactory().generate(input);
 
         assertEquals(expected, output);

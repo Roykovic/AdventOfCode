@@ -13,7 +13,7 @@ public class RocksFactoryTest {
     })
     public void test(String filename, boolean test, int expected) {
         var input = FileReaderService.getFileAsString(2023, filename, test);
-        var output = new RocksFactory().generate(input);
+        var output = new RocksFactory().generate(input,true);
 
         assertEquals(expected, output);
     }}

@@ -11,7 +11,7 @@ public class Memoizer<T, U> {
     private Memoizer() {}
 
     private Function<T, U> doMemoize(final Function<T, U> function) {
-        return input -> cache.computeIfAbsent(input, function::apply);
+        return input -> cache.computeIfAbsent(input, function);
     }
 
     public static <T, U> Function<T, U> memoize(final Function<T, U> function) {

@@ -11,7 +11,7 @@ import java.util.Locale;
 public class ClassGenerator {
 
     public static void main(String[] args) {
-        args = new String[]{"13", "mirror"};
+        args = new String[]{"14", "rocks"};
 
         
         if (args.length < 2 || args.length > 3) {
@@ -33,17 +33,17 @@ public class ClassGenerator {
 
         // Generate Factory
         String class1Content = generateFactoryContent(year, day, name,name + "Factory");
-        writeToFile("AOC/src/main/java/" + classPackage.replace(".", "/") + "/" + name + "Factory.java", class1Content);
+        writeToFile("src/main/java/" + classPackage.replace(".", "/") + "/" + name + "Factory.java", class1Content);
 
         // Generate Test
         String class2Content = generateFactoryTestContent(year, day, name,name + "FactoryTest");
-        writeToFile("AOC/src/test/java/" + classPackage.replace(".", "/") + "/" + name + "FactoryTest.java", class2Content);
+        writeToFile("src/test/java/" + classPackage.replace(".", "/") + "/" + name + "FactoryTest.java", class2Content);
 
         // Generate Test Input
-        writeToFile("AOC/src/test/resources/" + year + "/" + name + "TestInput.txt", "");
+        writeToFile("src/test/resources/" + year + "/" + name + "TestInput.txt", "");
 
         // Generate Actual Input
-        writeToFile("AOC/src/main/resources/" + year + "/" + name + "Input.txt", "");
+        writeToFile("src/main/resources/" + year + "/" + name + "Input.txt", "");
 
         System.out.println("Classes and text files created successfully!");
     }

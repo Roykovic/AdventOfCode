@@ -1,7 +1,10 @@
 package nl.roykovic.aoc._2022.day12_hillclimb;
 
 import nl.roykovic.aoc.utils.DijkstraService;
+import nl.roykovic.aoc.utils.FileReaderService;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.core.io.ClassPathResource;
 
 import java.io.File;
@@ -12,9 +15,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class NodeFactoryTest {
 
-    @Test
-    void testExampleShortestPath() throws IOException {
-        File input = new File("src/test/resources/2022/HillClimbTestInput.txt");
+    @ParameterizedTest
+    @CsvSource({
+            "HillClimbTestInput.txt,true,31",
+            "HillClimbInput.txt,false,468"
+    })
+    void testShortestPath(String filename, boolean test, long expected){
+        var input = FileReaderService.getLinesFromFile(2022, filename, test);
         List<Node> list = new NodeFactory().generateFromFile(input, false);
 
         Node startNode = list.stream().filter(Node::isStart).findFirst().orElseThrow(IllegalArgumentException::new);
@@ -22,45 +29,23 @@ public class NodeFactoryTest {
 
         DijkstraService.calculateShortestPathFromSource(startNode);
 
-        assertEquals(31, endNode.getShortestPath().size());
+        assertEquals(expected, endNode.getShortestPath().size());
     }
 
-    @Test
-    void testActualShortestPath() throws IOException {
-        File input = new ClassPathResource("2022/HillClimbInput.txt").getFile();
-        List<Node> list = new NodeFactory().generateFromFile(input, false);
-
-        Node startNode = list.stream().filter(Node::isStart).findFirst().orElseThrow(IllegalArgumentException::new);
-        Node endNode = list.stream().filter(Node::isEnd).findFirst().orElseThrow(IllegalArgumentException::new);
-
-        DijkstraService.calculateShortestPathFromSource(startNode);
-
-        assertEquals(468, endNode.getShortestPath().size());
-    }
-
-    @Test
-    void testExampleShortestPathFromLowestPoints() throws IOException {
-        File input = new File("src/test/resources/2022/HillClimbTestInput.txt");
+    @ParameterizedTest
+    @CsvSource({
+            "HillClimbTestInput.txt,true,29",
+            "HillClimbInput.txt,false,459"
+    })
+    void testShortestPathFromLowestPoints(String filename, boolean test, long expected){
+        var input = FileReaderService.getLinesFromFile(2022, filename, test);
         List<Node> list = new NodeFactory().generateFromFile(input, true);
 
         Node endNode = list.stream().filter(Node::isEnd).findFirst().orElseThrow(IllegalArgumentException::new);
 
         DijkstraService.calculateShortestPathFromSource(endNode);
 
-        assertEquals(29, list.stream().filter(it -> it.getElevation() == 0).mapToInt(it -> it.getShortestPath().size()).filter(it -> it > 0).sorted().findFirst().orElseThrow(IllegalArgumentException::new)); //get the lowest (non 0) value from the paths from nodes with elevation == 0
-
-    }
-
-    @Test
-    void testActualShortestPathFromLowestPoints() throws IOException {
-        File input = new ClassPathResource("2022/HillClimbInput.txt").getFile();
-        List<Node> list = new NodeFactory().generateFromFile(input, true);
-
-        Node endNode = list.stream().filter(Node::isEnd).findFirst().orElseThrow(IllegalArgumentException::new);
-
-        DijkstraService.calculateShortestPathFromSource(endNode);
-
-        assertEquals(459, list.stream().filter(it -> it.getElevation() == 0).mapToInt(it -> it.getShortestPath().size()).filter(it -> it > 0).sorted().findFirst().orElseThrow(IllegalArgumentException::new)); //get the lowest (non 0) value from the paths from nodes with elevation == 0 
+        assertEquals(expected, list.stream().filter(it -> it.getElevation() == 0).mapToInt(it -> it.getShortestPath().size()).filter(it -> it > 0).sorted().findFirst().orElseThrow(IllegalArgumentException::new)); //get the lowest (non 0) value from the paths from nodes with elevation == 0
 
     }
 }

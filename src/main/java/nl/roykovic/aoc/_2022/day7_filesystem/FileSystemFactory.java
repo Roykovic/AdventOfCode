@@ -9,12 +9,7 @@ import java.io.FileReader;
 import java.util.List;
 
 public class FileSystemFactory {
-    public Directory generateFromFile(File file) throws FileNotFoundException {
-
-        BufferedReader reader = new BufferedReader(new FileReader(file));
-
-        List<String> lines = reader.lines().toList();
-
+    public Directory generateFromFile(List<String> lines){
         Directory root = new Directory("root");
 
         lines = lines.subList(2, lines.size()); //remove cd / and ls, since we already created the root

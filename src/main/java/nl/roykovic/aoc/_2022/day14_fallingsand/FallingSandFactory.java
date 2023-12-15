@@ -14,12 +14,9 @@ import java.util.stream.Stream;
 public class FallingSandFactory {
 
     private Long highestY = Long.MIN_VALUE;
-    public Cave generateFromFile(File file) throws FileNotFoundException {
-
-        BufferedReader reader = new BufferedReader(new FileReader(file));
-
+    public Cave generateFromFile(Stream<String> lines){
         HashMap<Coord, IParticle> particles = new HashMap<>(
-                reader.lines().distinct()
+                lines.distinct()
                         .map(it -> it.split(" -> "))
                         .flatMap(coordinates -> connectRocks(
                                 Arrays.stream(coordinates)

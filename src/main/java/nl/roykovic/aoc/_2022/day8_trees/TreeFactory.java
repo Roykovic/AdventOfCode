@@ -7,12 +7,7 @@ import java.io.FileReader;
 import java.util.List;
 
 public class TreeFactory {
-    public TreePatch generateFromFile(File file) throws FileNotFoundException {
-
-        BufferedReader reader = new BufferedReader(new FileReader(file));
-
-        List<String> lines = reader.lines().toList();
-
+    public TreePatch generateFromFile(List<String> lines){
         int x = lines.get(0).length();
         int y = lines.size();
 

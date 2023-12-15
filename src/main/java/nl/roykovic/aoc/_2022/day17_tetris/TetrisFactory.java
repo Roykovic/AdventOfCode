@@ -8,15 +8,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.*;
+import java.util.stream.Stream;
 
 public class TetrisFactory {
-    public Long generateFromFile(File file, long rounds) throws FileNotFoundException {
+    public Long generateFromFile(Stream<String>lines, long rounds){
 
         List<TetrisRockType> pieces = List.of(TetrisRockType.LINE, TetrisRockType.PLUS, TetrisRockType.L, TetrisRockType.COLUMN, TetrisRockType.SQUARE);
 
-        BufferedReader reader = new BufferedReader(new FileReader(file));
-
-        char[] instructions = reader.lines().findFirst().orElseThrow(IllegalArgumentException::new).toCharArray();
+        char[] instructions = lines.findFirst().orElseThrow(IllegalArgumentException::new).toCharArray();
 
         long highestBlock = 0;
 

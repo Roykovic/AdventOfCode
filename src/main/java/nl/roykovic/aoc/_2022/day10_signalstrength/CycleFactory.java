@@ -10,11 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CycleFactory {
-    public Program generateFromFile(File file) throws FileNotFoundException {
-
-        BufferedReader reader = new BufferedReader(new FileReader(file));
-
-        List<String> lines = reader.lines().toList();
+    public Program generateFromFile(List<String> lines){
 
         List<CPUInstruction> instructions = new ArrayList<>();
 

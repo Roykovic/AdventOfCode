@@ -12,12 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 public class RopeBridgeFactory {
-    public List<Map.Entry<Integer, Integer>> generateFromFile(File file, int amountOfTails) throws FileNotFoundException {
-
-        BufferedReader reader = new BufferedReader(new FileReader(file));
-
-        List<String> lines = reader.lines().toList();
-
+    public List<Map.Entry<Integer, Integer>> generateFromFile(List<String> lines, int amountOfTails){
         Head head = new Head(0,0);
 
         List<Tail> tails = new ArrayList<>();

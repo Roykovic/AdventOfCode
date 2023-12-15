@@ -14,11 +14,7 @@ import java.util.regex.Pattern;
 public class MonkeyFactory {
     private final List<Monkey> monkeyList = new ArrayList<>();
 
-    public List<Monkey> generateFromFile(File file) throws FileNotFoundException {
-
-        BufferedReader reader = new BufferedReader(new FileReader(file));
-
-        List<String> lines = reader.lines().toList();
+    public List<Monkey> generateFromFile(List<String> lines){
 
         Monkey curMonkey = null;
 

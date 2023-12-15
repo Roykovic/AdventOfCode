@@ -13,12 +13,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class SensorFactory {
-    public List<Sensor> generateFromFile(File file) throws FileNotFoundException {
-
-        BufferedReader reader = new BufferedReader(new FileReader(file));
-
-        List<String> lines = reader.lines().toList();
-
+    public List<Sensor> generateFromFile(List<String> lines){
         List<Sensor> sensors = new ArrayList<>();
 
         for(String line: lines){

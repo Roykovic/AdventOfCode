@@ -4,10 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EncryptedNumbersList {
-    private final List<EncryptedNumber> numberList = new ArrayList<>();
+    private final List<EncryptedNumber> numberList;
 
     public void addToList(EncryptedNumber  number){
         numberList.add(number);
+    }
+
+    public EncryptedNumbersList(List<EncryptedNumber> numberList) {
+        this.numberList = numberList;
     }
 
     public void decrypt(int times){

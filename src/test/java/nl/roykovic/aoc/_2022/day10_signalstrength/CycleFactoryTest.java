@@ -1,7 +1,10 @@
 package nl.roykovic.aoc._2022.day10_signalstrength;
 
+import nl.roykovic.aoc.utils.FileReaderService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.core.io.ClassPathResource;
 
 import java.io.ByteArrayOutputStream;
@@ -17,81 +20,64 @@ public class CycleFactoryTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
     @BeforeEach
-    public void setUpStreams(){
+    public void setUpStreams() {
         System.setOut(new PrintStream(outContent));
     }
-    @Test
-    void testSmallExampleRegisterIncrease() throws IOException {
-        File input = new File("src/test/resources/2022/SignalStrengthSmallProgramInput.txt");
-        Program program = new CycleFactory().generateFromFile(input);
-
-       Map<Integer, Integer> steps = program.run();
-
-
-       assertEquals(6, steps.size());   //the test should have 6 steps
-       assertEquals(-1, steps.get(6));  //X should be -1 on step 6
-    }
 
     @Test
-    void testLargeExampleSignalStrength() throws IOException {
-        File input = new File("src/test/resources/2022/SignalStrengthLargeProgramInput.txt");
+    void testSmallExampleRegisterIncrease() {
+        var input = FileReaderService.getLinesFromFile(2022, "SignalStrengthSmallProgramInput.txt", true);
         Program program = new CycleFactory().generateFromFile(input);
 
         Map<Integer, Integer> steps = program.run();
 
-        assertEquals(21, steps.get(20)); //X is 21 on step 20 etc
-        assertEquals(19, steps.get(60));
-        assertEquals(18, steps.get(100));
-        assertEquals(21, steps.get(140));
-        assertEquals(16, steps.get(180));
-        assertEquals(18, steps.get(220));
-
-        assertEquals(13140,program.getSignalStrengthByCycles(20,60,100,140,180,220)); //sum of signalstrengths should be 13140
+        assertEquals(6, steps.size());   //the test should have 6 steps
+        assertEquals(-1, steps.get(6));  //X should be -1 on step 6
     }
 
-    @Test
-    void testActualSignalStrength() throws IOException {
-        File input = new ClassPathResource("2022/SignalStrengthInput.txt").getFile();
+    @ParameterizedTest
+    @CsvSource({
+            "SignalStrengthLargeProgramInput.txt,true,13140",
+            "SignalStrengthInput.txt,false,13760"
+    })
+    void testSignalStrength(String filename, boolean test, int expected) {
+        var input = FileReaderService.getLinesFromFile(2022, filename, test);
         Program program = new CycleFactory().generateFromFile(input);
 
         program.run(); //run the program to fill the steps array
-        int sum = program.getSignalStrengthByCycles(20,60,100,140,180,220); //get (and sum) the signalstrengths from these cycles
+        int sum = program.getSignalStrengthByCycles(20, 60, 100, 140, 180, 220); //get (and sum) the signalstrengths from these cycles
 
-        assertEquals(13760, sum);   //answer to day10 part 1
+        assertEquals(expected, sum);
     }
 
-    @Test
-    void testLargeExampleCRTOutput() throws IOException {
-        File input = new File("src/test/resources/2022/SignalStrengthLargeProgramInput.txt");
-        Program program = new CycleFactory().generateFromFile(input);
+    @ParameterizedTest
+    @CsvSource({
+            "SignalStrengthLargeProgramInput.txt,true,0",
+            "SignalStrengthInput.txt,false,1"
+    })
+    void testCRTOutput(String filename, boolean test, int expected) {
 
-        program.run(); //run the program to print CRT output
-        assertEquals(
-                """
+        String[] expectedAnswers = new String[]{"""
                         ##..##..##..##..##..##..##..##..##..##..\r
                         ###...###...###...###...###...###...###.\r
                         ####....####....####....####....####....\r
                         #####.....#####.....#####.....#####.....\r
                         ######......######......######......####\r
                         #######.......#######.......#######.....\r
-                        """, outContent.toString()); //this is the output the example should give
-    }
-
-    @Test
-    void testActualCRTOutput() throws IOException {
-        File input = new ClassPathResource("2022/SignalStrengthInput.txt").getFile();
-        Program program = new CycleFactory().generateFromFile(input);
-
-        program.run(); //run the program to print CRT output
-        assertEquals(
-                """
+                        """, """
                         ###..####.#..#.####..##..###..####.####.\r
                         #..#.#....#.#.....#.#..#.#..#.#....#....\r
                         #..#.###..##.....#..#....#..#.###..###..\r
                         ###..#....#.#...#...#....###..#....#....\r
                         #.#..#....#.#..#....#..#.#....#....#....\r
                         #..#.#....#..#.####..##..#....####.#....\r
-                        """, outContent.toString()); //this is the output the example should give (reading RFKZCPEF)
+                        """};
+
+        var input = FileReaderService.getLinesFromFile(2022, filename, test);
+        Program program = new CycleFactory().generateFromFile(input);
+
+        program.run(); //run the program to print CRT output
+        assertEquals(expectedAnswers[expected], outContent.toString()); //this is the output the example should give
     }
 
 }

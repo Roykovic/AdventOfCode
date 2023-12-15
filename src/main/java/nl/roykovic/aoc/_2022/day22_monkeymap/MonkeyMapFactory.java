@@ -8,12 +8,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class MonkeyMapFactory {
-    public MonkeyMap generateFromFile(File file) throws FileNotFoundException {
-
-        BufferedReader reader = new BufferedReader(new FileReader(file));
-
-        List<String> lines = reader.lines().toList();
-
+    public MonkeyMap generateFromFile(List<String> lines){
         String[] instructions = lines.get(lines.size() -1).split("(?<=\\D)(?=\\d)|(?<=\\d)(?=\\D)");
 
         lines = lines.subList(0, lines.size() -2);

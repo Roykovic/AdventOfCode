@@ -12,21 +12,19 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class LavaDropletsFactory {
-    public List<Face> generateFromFile(File file) throws FileNotFoundException {
-
-        BufferedReader reader = new BufferedReader(new FileReader(file));
-
-        List<String> lines = reader.lines().toList();
-
-        List<Face> faces = new ArrayList<>();
-
-        for(String line: lines){
-
-            LavaDroplet droplet = new LavaDroplet(new Coord(line));
-
-            faces.addAll(Arrays.asList(droplet.getFaces()));
-        }
-
-    return faces.stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting())).entrySet().stream().filter(x -> x.getValue() == 1).map(Map.Entry::getKey).toList();
+    public List<Face> generateFromFile(List<String> lines){
+        return lines.stream()
+                .map(Coord::new)
+                .map(LavaDroplet::new)
+                .map(LavaDroplet::getFaces)
+                .flatMap(Arrays::stream)
+                .collect(
+                        Collectors.groupingBy(
+                                Function.identity(),
+                                Collectors.counting()))
+                .entrySet().stream()
+                .filter(x -> x.getValue() == 1)
+                .map(Map.Entry::getKey)
+                .toList();
     }
 }

@@ -12,12 +12,7 @@ import java.util.stream.Collectors;
 
 public class NodeFactory {
 
-    public List<Node> generateFromFile(File file, boolean reverse) throws FileNotFoundException {
-
-        BufferedReader reader = new BufferedReader(new FileReader(file));
-
-        List<String> lines = reader.lines().toList();
-
+    public List<Node> generateFromFile(List<String> lines, boolean reverse) {
         List<Node> nodeList = new ArrayList<>();
 
         for(int y = 0; y < lines.size(); y++){

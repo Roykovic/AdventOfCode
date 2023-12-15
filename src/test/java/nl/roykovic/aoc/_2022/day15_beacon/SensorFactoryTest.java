@@ -1,7 +1,10 @@
 package nl.roykovic.aoc._2022.day15_beacon;
 
 import nl.roykovic.aoc.utils.Coord;
+import nl.roykovic.aoc.utils.FileReaderService;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.core.io.ClassPathResource;
 
 import java.io.File;
@@ -15,40 +18,14 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class SensorFactoryTest {
     @SuppressWarnings("NewObjectEquality")
-    @Test
-    void testExampleLineNotBeaconIndices() throws IOException {
-        File input = new File("src/test/resources/2022/BeaconTestInput.txt");
+    @ParameterizedTest
+    @CsvSource({
+            "BeaconTestInput.txt,true,10,26",
+            "BeaconInput.txt,false,2000000,5181556"
+    })
+    void testLineNotBeaconIndices(String filename, boolean test, long yToCheck, long expected){
+        var input = FileReaderService.getLinesFromFile(2022, filename, test);
         List<Sensor> list = new SensorFactory().generateFromFile(input);
-
-        long yToCheck = 10;
-
-        List<Coord> notBeaconIndicesOnY = new ArrayList<>();
-
-        for(Sensor sensor : list){
-            long manhattanDistanceToY = sensor.getCoord().manhattanDistance(new Coord(sensor.getCoord().getX(), yToCheck));
-
-            long dDistance = sensor.getManhattanDistanceToBeacon() - manhattanDistanceToY;
-
-            for(long i = -dDistance; i < dDistance; i++){
-
-                Coord coord = new Coord(sensor.getCoord().getX() - i, yToCheck);
-                if(sensor.getClosestBeacon().coord() != coord) {
-                    notBeaconIndicesOnY.add(coord);
-                }
-            }
-        }
-
-        assertEquals(26, notBeaconIndicesOnY.stream().distinct().count());
-
-    }
-
-    @SuppressWarnings("NewObjectEquality")
-    @Test
-    void testActualLineNotBeaconIndices() throws IOException {
-        File input = new ClassPathResource("2022/BeaconInput.txt").getFile();
-        List<Sensor> list = new SensorFactory().generateFromFile(input);
-
-        long yToCheck = 2000000;
 
         HashSet<Coord> notBeaconIndicesOnY = new HashSet<>();
 
@@ -56,8 +33,8 @@ public class SensorFactoryTest {
             long manhattanDistanceToY = sensor.getCoord().manhattanDistance(new Coord(sensor.getCoord().getX(), yToCheck)); //check the manhattan distance to the y coord
 
             long dDistance = sensor.getManhattanDistanceToBeacon() - manhattanDistanceToY; //the dDistance is the distance the beacon can still be away -> manhattan distance is just the dX + dY in absolute numbers.
-                                                                                        // so if the closest y coord is 10 away, and the beacon is 12 away.
-                                                                                        // That means that left and right from the closest y coord 2 (12-10=2) indices cannot contain beacons
+            // so if the closest y coord is 10 away, and the beacon is 12 away.
+            // That means that left and right from the closest y coord 2 (12-10=2) indices cannot contain beacons
 
             for(long i = -dDistance; i < dDistance; i++){
 
@@ -67,15 +44,19 @@ public class SensorFactoryTest {
                 }
             }
         }
-        assertEquals(5181556, notBeaconIndicesOnY.size());
+
+        assertEquals(expected, notBeaconIndicesOnY.stream().distinct().count());
+
     }
 
-    @Test
-    void testExampleTuningFrequency() throws IOException {
-        File input = new File("src/test/resources/2022/BeaconTestInput.txt");
+    @ParameterizedTest
+    @CsvSource({
+            "BeaconTestInput.txt,true,20,56000011",
+            "BeaconInput.txt,false,4000000,12817603219131"
+    })
+    void testTuningFrequency(String filename, boolean test, long maxCoord, long expected){
+        var input = FileReaderService.getLinesFromFile(2022, filename, test);
         List<Sensor> list = new SensorFactory().generateFromFile(input);
-
-        long maxCoord = 20;
 
         Coord beaconCoord = null;
         outerLoop: for(Sensor sensor : list){
@@ -91,38 +72,6 @@ public class SensorFactoryTest {
         }
 
         assertNotNull(beaconCoord);
-        assertEquals(new Coord(14L,11L), beaconCoord);
-        assertEquals(56000011, beaconCoord.getX() * 4000000 + beaconCoord.getY());
-    }
-
-    @Test
-    void testActualTuningFrequency() throws IOException {
-        File input = new ClassPathResource("2022/BeaconInput.txt").getFile();
-        List<Sensor> list = new SensorFactory().generateFromFile(input);
-
-        long maxCoord = 4000000;
-
-        Coord beaconCoord = null;
-        outerLoop: for(Sensor sensor : list){
-            for (Coord coord : sensor.signalRangePerimeter(maxCoord, maxCoord)) {
-
-                boolean found = true;
-                for(Sensor otherSensor: list){
-                    if(otherSensor.isInSignalRange(coord)){
-                        found = false;
-                        break;
-                    }
-                }
-
-                if(found){
-                    beaconCoord = coord;
-                    break outerLoop;
-                }
-            }
-        }
-
-        assertNotNull(beaconCoord);
-        assertEquals(new Coord(3204400L,3219131L), beaconCoord);
-        assertEquals(12817603219131L, beaconCoord.getX() * 4000000 + beaconCoord.getY());
+        assertEquals(expected, beaconCoord.getX() * 4000000 + beaconCoord.getY());
     }
 }

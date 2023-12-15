@@ -5,20 +5,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class EncryptedNumbersFactory {
-    public EncryptedNumbersList generateFromFile(File file, int key) throws FileNotFoundException {
-
-        BufferedReader reader = new BufferedReader(new FileReader(file));
-
-        List<String> lines = reader.lines().toList();
-
-        EncryptedNumbersList list = new EncryptedNumbersList();
-
-        for (String line : lines) {
-            list.addToList(new EncryptedNumber(Long.parseLong(line) * key));
-        }
-
-        return list;
+    public EncryptedNumbersList generateFromFile(Stream<String> lines, int key){
+        return new EncryptedNumbersList(lines.map(it -> new EncryptedNumber(Long.parseLong(it) * key)).collect(Collectors.toList()));
     }
 }

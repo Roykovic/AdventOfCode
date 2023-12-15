@@ -12,12 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class VolcanoFactory {
-    public Volcano generateFromFile(File file) throws FileNotFoundException {
-
-        BufferedReader reader = new BufferedReader(new FileReader(file));
-
-        List<String> lines = reader.lines().toList();
-
+    public Volcano generateFromFile(List<String> lines){
         Volcano volcano = new Volcano();
 
         List<Valve> valves = new ArrayList<>();

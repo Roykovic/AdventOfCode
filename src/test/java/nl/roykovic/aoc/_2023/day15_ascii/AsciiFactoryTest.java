@@ -6,14 +6,25 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 public class AsciiFactoryTest {
-@ParameterizedTest
+    @ParameterizedTest
     @CsvSource({
-            "AsciiTestInput.txt,true,-1",
-            "AsciiInput.txt,false,-1",
+            "AsciiTestInput.txt,true,1320",
+            "AsciiInput.txt,false,515495",
     })
     public void test(String filename, boolean test, int expected) {
-        var input = FileReaderService.streamLinesFromFile(2023, filename, test);
+        var input = FileReaderService.getFileAsString(2023, filename, test);
         var output = new AsciiFactory().generate(input);
 
         assertEquals(expected, output);
-    }}
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "HASH,52",
+            "rn=1,30",
+            "cm-,253",
+    })
+    public void testAlgorithm(String input, int expected) {
+        assertEquals(expected, new AsciiFactory().getHashAlgorithmValue(input));
+    }
+}

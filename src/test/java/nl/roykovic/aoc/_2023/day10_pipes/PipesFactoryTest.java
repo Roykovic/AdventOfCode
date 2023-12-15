@@ -59,7 +59,7 @@ public class PipesFactoryTest {
         //
         //We have the boundary points, which is simply all the points from the closed loop so output.size()
         //We only need the area. We can calculate this, by using the shoelace theorem. This needs the points in a clockwise manner,
-        //Luckily we already did that in the pipes-factory, so:
+        //luckily we already did that in the pipes-factory, so:
         var area = Utils.shoelaceArea(output.keySet().stream().toList());
 
         //So now the interiorPoints can be calculated as:
@@ -67,6 +67,7 @@ public class PipesFactoryTest {
         //                   |                   boundaryPoints/2  -1 -area|
         var interiorPoints = Math.abs(((double) output.size() /2) -1 -area);
 
+        //et voila
         assertEquals(expected,interiorPoints);
     }
 }

@@ -56,7 +56,7 @@ public class Pipe{
     }
 
     public void setStepsFromStart(Long stepsFromStart) {
-        this.stepsFromStart = Long.min(stepsFromStart, this.stepsFromStart);
+        this.stepsFromStart = stepsFromStart;
     }
 
     public Coord[] getNeighbours() {

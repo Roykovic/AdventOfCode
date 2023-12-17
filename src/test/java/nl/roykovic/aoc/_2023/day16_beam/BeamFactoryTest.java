@@ -14,7 +14,7 @@ public class BeamFactoryTest {
             "BeamTestInputInfiniteLoop.txt,true,16",
             "BeamTestInputMultipleLoops.txt,true,41",
             "BeamTestInputForTypo.txt,true,89",
-            "BeamInput.txt,false,-1", //7232 is too low
+            "BeamInput.txt,false,7623", //7232 is too low
     })
     public void test(String filename, boolean test, int expected) {
         var input = FileReaderService.getFileAsString(2023, filename, test);

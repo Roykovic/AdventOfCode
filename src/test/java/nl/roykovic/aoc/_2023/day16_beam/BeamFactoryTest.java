@@ -59,8 +59,6 @@ public class BeamFactoryTest {
             startPoints.add(Map.entry(bottomBorder,Direction.U));
         }
 
-        BeamFactory beamFactory = new BeamFactory();
-
         var output = startPoints.stream().mapToInt(it -> new BeamFactory().generate(inputGrid,it.getKey(), it.getValue())).max().orElseThrow();
 
         assertEquals(expected, output);

@@ -17,12 +17,13 @@ public class BeamFactory {
         inputGrid = Arrays
                 .stream(input.split("\\r\\n+"))
                 .map(String::toCharArray).toArray(char[][]::new);
+        return generate(inputGrid, new Coord(-1,0), Direction.R);
+    }
 
+    public int generate(char[][] inputGrid, Coord start, Direction startDirection) {
         List<Map.Entry<Coord, Direction>> visitedCoords = new ArrayList<>();
 
-        Coord oldCoord = new Coord(-1,0);
-
-        List<Map.Entry<Coord, Direction>> coordsToCheck = List.of(Map.entry(oldCoord.moveAndGet(Direction.R), Direction.R));
+        List<Map.Entry<Coord, Direction>> coordsToCheck = List.of(Map.entry(start.moveAndGet(startDirection), startDirection));
         List<Map.Entry<Coord, Direction>> currentCoords;
         while(!coordsToCheck.isEmpty()){
             currentCoords = new ArrayList<>();
@@ -53,49 +54,50 @@ public class BeamFactory {
             coordsToCheck = currentCoords;
         }
 
-        drawGrid(visitedCoords);
         return visitedCoords.stream().map(Map.Entry::getKey).distinct().toList().size();
     }
-
-    public void drawGrid(List<Map.Entry<Coord, Direction>> lissie){
-        for(int y = 0; y< inputGrid.length; y++){
-            for(int x = 0; x< inputGrid[y].length; x++){
-                int finalX = x;
-                int finalY = y;
-                var foundCoords = lissie.stream().filter(it -> it.getKey().getX() == finalX && it.getKey().getY() == finalY).toList();
-
-                if(foundCoords.size() > 0 && inputGrid[y][x] == '.'){
-                    if(foundCoords.size() > 1){
-                        System.out.print(foundCoords.size());
-                    }
-                    else{
-                        System.out.print(getCharFromDir(foundCoords.get(0).getValue()));
-                    }
-                }
-                else {
-                    System.out.print(inputGrid[y][x]);;
-                }
-
-            }
-            System.out.println();
-        }
-    }
-
-    private char getCharFromDir(Direction d){
-        switch (d){
-            case R -> {
-                return '>';
-            }
-            case L -> {
-                return '<';
-            }
-            case U -> {
-                return '^';
-            }
-            case D -> {
-                return 'v';
-            }
-        }
-        return 0;
-    }
+//
+//
+//
+//    public void drawGrid(List<Map.Entry<Coord, Direction>> lissie){
+//        for(int y = 0; y< inputGrid.length; y++){
+//            for(int x = 0; x< inputGrid[y].length; x++){
+//                int finalX = x;
+//                int finalY = y;
+//                var foundCoords = lissie.stream().filter(it -> it.getKey().getX() == finalX && it.getKey().getY() == finalY).toList();
+//
+//                if(foundCoords.size() > 0 && inputGrid[y][x] == '.'){
+//                    if(foundCoords.size() > 1){
+//                        System.out.print(foundCoords.size());
+//                    }
+//                    else{
+//                        System.out.print(getCharFromDir(foundCoords.get(0).getValue()));
+//                    }
+//                }
+//                else {
+//                    System.out.print(inputGrid[y][x]);;
+//                }
+//
+//            }
+//            System.out.println();
+//        }
+//    }
+//
+//    private char getCharFromDir(Direction d){
+//        switch (d){
+//            case R -> {
+//                return '>';
+//            }
+//            case L -> {
+//                return '<';
+//            }
+//            case U -> {
+//                return '^';
+//            }
+//            case D -> {
+//                return 'v';
+//            }
+//        }
+//        return 0;
+//    }
 }

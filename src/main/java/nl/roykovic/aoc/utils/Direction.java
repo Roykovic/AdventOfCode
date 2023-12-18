@@ -3,10 +3,10 @@ package nl.roykovic.aoc.utils;
 import java.util.Map;
 
 public enum Direction {
-    U(0,-1),
+    R(1,0),
     D(0,1),
     L(-1,0),
-    R(1,0),
+    U(0,-1),
     UL(-1,-1),
     UR(1,-1),
     DL(-1,1),

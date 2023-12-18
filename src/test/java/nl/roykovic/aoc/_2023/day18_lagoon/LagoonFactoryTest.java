@@ -8,8 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class LagoonFactoryTest {
 @ParameterizedTest
     @CsvSource({
-            "LagoonTestInput.txt,true,-1",
-            "LagoonInput.txt,false,-1",
+            "LagoonTestInput.txt,true,62",
+            "LagoonInput.txt,false,62573",
     })
     public void test(String filename, boolean test, int expected) {
         var input = FileReaderService.streamLinesFromFile(2023, filename, test);

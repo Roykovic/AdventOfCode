@@ -24,7 +24,7 @@ public class LagoonFactoryTest {
     @ParameterizedTest
     @CsvSource({
             "LagoonTestInput.txt,true,952408144115",
-            "LagoonInput.txt,false,-1",
+            "LagoonInput.txt,false,54662804037719",
     })
     public void testLagoonCapacityHexNumbers(String filename, boolean test, BigInteger expected) {
         var input = FileReaderService.streamLinesFromFile(2023, filename, test);

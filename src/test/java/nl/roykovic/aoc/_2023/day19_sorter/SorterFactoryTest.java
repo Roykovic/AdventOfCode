@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class SorterFactoryTest {
 @ParameterizedTest
     @CsvSource({
-            "SorterTestInput.txt,true,-1",
+            "SorterTestInput.txt,true,19114",
             "SorterInput.txt,false,-1",
     })
     public void test(String filename, boolean test, int expected) {

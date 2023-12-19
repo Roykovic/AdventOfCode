@@ -1,27 +1,34 @@
 package nl.roykovic.aoc._2023.day19_sorter;
 
-public class Constraint {
-    private final String property;
-    private final char operator;
-    private final int number;
+import java.util.Optional;
 
+public class Constraint {
+    private final Character property;
+    private final Character operator;
+    private final Integer number;
     private final String followup;
 
-    public Constraint(String property, char operator, int number, String followup) {
+    public Constraint(Character property, Character operator, Integer number, String followup) {
         this.property = property;
         this.operator = operator;
         this.number = number;
         this.followup = followup;
     }
 
-    public boolean passes(int otherNumber){
+    public Optional<String> next(int otherNumber){
+        Boolean passes;
+
         if(operator == '>'){
-            return otherNumber > number;
+            passes = otherNumber > number;
         }
-        return otherNumber < number;
+        else {
+            passes = otherNumber < number;
+        }
+        Boolean finalPasses = passes;
+        return Optional.of(followup).filter(it -> finalPasses);
     }
 
-    public String getProperty() {
+    public Character getProperty() {
         return property;
     }
 

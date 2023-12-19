@@ -66,7 +66,7 @@ public class ClassGenerator {
                 "\n" +
                 "import static org.junit.jupiter.api.Assertions.assertEquals;\n"+
                 "public class " + className + " {\n" +
-                    "@ParameterizedTest\n" +
+                    "    @ParameterizedTest\n" +
                     "    @CsvSource({\n" +
                     "            \""+name+"TestInput.txt,true,-1\",\n" +
                     "            \""+name+"Input.txt,false,-1\",\n" +

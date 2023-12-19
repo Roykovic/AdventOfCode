@@ -6,10 +6,10 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 public class SorterFactoryTest {
-@ParameterizedTest
+    @ParameterizedTest
     @CsvSource({
             "SorterTestInput.txt,true,19114",
-            "SorterInput.txt,false,-1",
+            "SorterInput.txt,false,398527",
     })
     public void test(String filename, boolean test, int expected) {
         var input = FileReaderService.getLinesFromFile(2023, filename, test);

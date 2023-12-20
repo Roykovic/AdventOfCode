@@ -24,7 +24,7 @@ public class SorterFactoryTest {
     @ParameterizedTest
     @CsvSource({
             "SorterTestInput.txt,true,167409079868000",
-            "SorterInput.txt,false,398527",
+            "SorterInput.txt,false,133973513090020",
     })
     public void testAllPossibilities(String filename, boolean test, BigInteger expected) {
         var input = FileReaderService.getLinesFromFile(2023, filename, test);

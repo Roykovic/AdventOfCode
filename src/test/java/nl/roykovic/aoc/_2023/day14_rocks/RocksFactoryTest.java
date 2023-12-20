@@ -23,8 +23,8 @@ public class RocksFactoryTest {
     @Disabled
     @ParameterizedTest
     @CsvSource({
-            "RocksTestInput.txt,true,136",
-            "RocksInput.txt,false,109385",
+            "RocksTestInput.txt,true,64",
+            "RocksInput.txt,false,93102",
     })
     public void testCycles(String filename, boolean test, int expected) {
         var input = FileReaderService.getFileAsString(2023, filename, test);

@@ -28,6 +28,14 @@ public class Constraint {
         return Optional.of(followup).filter(it -> finalPasses);
     }
 
+    public Character getOperator() {
+        return operator;
+    }
+
+    public Integer getNumber() {
+        return number;
+    }
+
     public Character getProperty() {
         return property;
     }

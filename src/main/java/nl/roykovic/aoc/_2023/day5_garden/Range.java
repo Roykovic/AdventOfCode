@@ -1,10 +1,11 @@
 package nl.roykovic.aoc._2023.day5_garden;
 
-public class Range {
+import java.io.Serializable;
+import java.util.Objects;
+
+public class Range implements Serializable {
     private long start;
     private long end;
-
-    private String operation;
 
     public Range(long start, long end) {
         this.start = start;
@@ -31,11 +32,20 @@ public class Range {
         return end;
     }
 
-    public String getOperation() {
-        return operation;
+    public long getLength(){
+        return end-start+1;
     }
 
-    public void setOperation(String operation) {
-        this.operation = operation;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Range range = (Range) o;
+        return start == range.start && end == range.end;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(start, end);
     }
 }

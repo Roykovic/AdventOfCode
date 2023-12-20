@@ -83,9 +83,9 @@ public class RocksFactory {
     private char[][] rotateGridClockwise(char[][] input) {
         char[][] output = new char[input[0].length][input.length];
 
-        for (int i = 0; i < output.length; i++) {
-            for (int j = 0; j < output[i].length; j++) {
-                output[i][j] = input[(output[i].length - 1) - j][i];
+        for (int y = 0; y < output.length; y++) {
+            for (int x = 0; x < output[y].length; x++) {
+                output[y][x] = input[(output[y].length - 1) - x][y];
             }
         }
 
@@ -95,9 +95,9 @@ public class RocksFactory {
     private char[][] rotateGridAntiClockwise(char[][] input) {
         char[][] output = new char[input[0].length][input.length];
 
-        for (int i = 0; i < input[0].length; i++) {
-            for (int j = input.length - 1; j >= 0; j--) {
-                output[i][j] = input[j][i];
+        for (int y = 0; y < input[0].length; y++) {
+            for (int x = input.length - 1; x >= 0; x--) {
+                output[y][x] = input[x][(output[y].length - 1) - y];
             }
         }
         return output;

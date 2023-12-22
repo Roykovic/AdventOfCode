@@ -1,51 +1,59 @@
 package nl.roykovic.aoc._2023.day20_pulse;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-public class Module {
-    private List<Module> inputs;
-    private List<Module> outputs;
+public class Module implements Serializable {
+    private final List<Module> outputs;
 
-    private List<Boolean> sendOutputs;
+    private String name;
+
+    private final List<Boolean> receivedPulses;
 
     boolean rememberedState = false;
 
+    public Module(String name) {
+        this.outputs = new ArrayList<>();
+        this.receivedPulses = new ArrayList<>();
+        this.name = name;
+    }
+
     public void receive(Module sender, Boolean in){
-        return;
+        receivedPulses.add(in);
     }
-    public void send(){
-        return;
-    }
+    public List<Map.Entry<Module, Boolean>> send(){
+        List<Map.Entry<Module, Boolean>> toSend = new ArrayList<>();
 
-    public List<Module> getInputs() {
-        return inputs;
-    }
-
-    public void setInputs(List<Module> inputs) {
-        this.inputs = inputs;
+        for(Module m : getOutputs()){
+            toSend.add(Map.entry(m, rememberedState));
+        }
+        return toSend;
     }
 
     public List<Module> getOutputs() {
         return outputs;
     }
 
-    public void setOutputs(List<Module> outputs) {
-        this.outputs = outputs;
+    public List<Boolean> getReceivedPulses() {
+        return receivedPulses;
     }
 
-    public List<Boolean> getSendOutputs() {
-        return sendOutputs;
+    public String getName() {
+        return name;
     }
 
-    public void setSendOutputs(List<Boolean> sendOutputs) {
-        this.sendOutputs = sendOutputs;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public boolean isRememberedState() {
         return rememberedState;
     }
 
-    public void setRememberedState(boolean rememberedState) {
-        this.rememberedState = rememberedState;
+    @Override
+    public String toString() {
+        return name;
     }
 }

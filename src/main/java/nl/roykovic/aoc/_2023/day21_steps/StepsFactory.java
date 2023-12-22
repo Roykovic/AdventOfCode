@@ -3,7 +3,6 @@ package nl.roykovic.aoc._2023.day21_steps;
 import nl.roykovic.aoc.utils.Coord;
 
 import java.util.*;
-import java.util.stream.Stream;
 public class StepsFactory {
     public int generate(List<String> input, int steps) {
 
@@ -17,7 +16,7 @@ public class StepsFactory {
                 char ch = input.get(y).charAt(x);
 
                 if(ch == 'S'){
-                    start = c;
+                    start = new Coord(c);
                 }
 
                 characterMap.put(c, ch);
@@ -26,16 +25,21 @@ public class StepsFactory {
 
         assert start != null;
         Set<Coord> currentCoords = new HashSet<>(List.of(start));
+
+        List<String> cachedStates = new ArrayList<>();
+
         for(int step = 0; step< steps; step++){
             Set<Coord> nextCoords = new HashSet<>();
 
             for(Coord currentCoord : currentCoords){
-                nextCoords.addAll(currentCoord.getNeighboursStraight().stream().filter(it -> !characterMap.get(it).equals('#')).toList());
+
+                nextCoords.addAll(
+                        currentCoord.getNeighboursStraight().stream()
+                                .filter(it -> !characterMap.get(it.wrapAround(input.get(0).length() - 1, input.size() - 1)).equals('#')).toList());
             }
 
             currentCoords = nextCoords;
         }
-
         return currentCoords.size();
     }
 }

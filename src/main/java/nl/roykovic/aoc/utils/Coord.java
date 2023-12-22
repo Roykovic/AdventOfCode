@@ -112,6 +112,20 @@ public class Coord{
         return neighbours;
     }
 
+    public Coord wrapAround(long screenW, long screenH){
+        Coord newCoord = new Coord(this);
+
+        newCoord.setX(newCoord.getX()%(screenW+1));
+        newCoord.setY(newCoord.getY()%(screenH+1));
+
+        if (newCoord.getX() < 0)
+            newCoord.setX(newCoord.getX()+screenW+1);
+        if (newCoord.getY() < 0)
+            newCoord.setY(newCoord.getY()+screenH+1);
+
+        return newCoord;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -44,4 +44,12 @@ public enum Direction {
         }
         throw new IllegalArgumentException(x + " " + y);
     }
+
+    public static Direction getByCoords(Coord a, Coord b){
+
+        int x = (int) (b.getX() -a.getX());
+        int y = (int) (b.getY() - a.getY());
+
+        return getByCoords(x,y);
+    }
 }

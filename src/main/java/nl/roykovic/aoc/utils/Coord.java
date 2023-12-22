@@ -89,23 +89,25 @@ public class Coord{
     public List<Coord> getNeighbours(){
         List<Coord> neighbours = new ArrayList<>();
 
-        this.move(Direction.UL);
-        neighbours.add(new Coord(this));
-        this.move(Direction.R);
-        neighbours.add(new Coord(this));
-        this.move(Direction.R);
-        neighbours.add(new Coord(this));
-        this.move(Direction.D);
-        neighbours.add(new Coord(this));
-        this.move(Direction.D);
-        neighbours.add(new Coord(this));
-        this.move(Direction.L);
-        neighbours.add(new Coord(this));
-        this.move(Direction.L);
-        neighbours.add(new Coord(this));
-        this.move(Direction.U);
-        neighbours.add(new Coord(this));
-        this.move(Direction.R);
+        neighbours.add(this.moveAndGet(Direction.UL));
+        neighbours.add(this.moveAndGet(Direction.U));
+        neighbours.add(this.moveAndGet(Direction.UR));
+        neighbours.add(this.moveAndGet(Direction.R));
+        neighbours.add(this.moveAndGet(Direction.DR));
+        neighbours.add(this.moveAndGet(Direction.D));
+        neighbours.add(this.moveAndGet(Direction.DL));
+        neighbours.add(this.moveAndGet(Direction.L));
+
+        return neighbours;
+    }
+
+    public List<Coord> getNeighboursStraight(){
+        List<Coord> neighbours = new ArrayList<>();
+
+        neighbours.add(this.moveAndGet(Direction.R));
+        neighbours.add(this.moveAndGet(Direction.L));
+        neighbours.add(this.moveAndGet(Direction.U));
+        neighbours.add(this.moveAndGet(Direction.D));
 
         return neighbours;
     }

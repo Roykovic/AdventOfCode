@@ -18,53 +18,28 @@ public class IngredientsFactoryTest {
     })
     public void test(String filename, boolean test, int expected) {
         var input = FileReaderService.streamLinesFromFile(2015, filename, test);
-        var output = new IngredientsFactory().generate(input);
 
-        int max = 0;
-        int teaspoons = 100;
+        IngredientsFactory factory = new IngredientsFactory();
 
-        List<int[]> combinations = findAllCombinations(teaspoons, output.size());
-
-        for(var combination : combinations){
-
-            int capacity =0;
-            int durability =0;
-            int flavor = 0;
-            int texture =0;
-
-            for(int i = 0; i< combination.length; i++){
-                capacity += combination[i] * output.get(i).getCapacity();
-                durability += combination[i] * output.get(i).getDurability();
-                flavor += combination[i] * output.get(i).getFlavor();
-                texture += combination[i] * output.get(i).getTexture();
-            }
-
-            int result = Integer.max(0,capacity) * Integer.max(0,durability) *  Integer.max(0,flavor) *  Integer.max(0,texture);
-
-            if(result > max){
-                max = result;
-            }
-        }
+        var output = factory.generate(input);
+        int max = factory.calculateBestCookieScore(100, Integer.MAX_VALUE, output);
 
         assertEquals(expected, max);
     }
 
-    private List<int[]> findAllCombinations(int target, int numbers) {
-        List<int[]> results = new ArrayList<>();
-        generateCombinations(results, new int[numbers], target, 0);
-        return results;
-    }
+    @ParameterizedTest
+    @CsvSource({
+            "IngredientsTestInput.txt,true,57600000",
+            "IngredientsInput.txt,false,15862900",
+    })
+    public void testWithCalories(String filename, boolean test, int expected) {
+        var input = FileReaderService.streamLinesFromFile(2015, filename, test);
 
-    private void generateCombinations(List<int[]> results, int[] combination, int target, int index) {
-        if (index == combination.length - 1) {
-            combination[index] = target;
-            results.add(combination.clone());
-            return;
-        }
+        IngredientsFactory factory = new IngredientsFactory();
 
-        for (int i = 1; i <= target; i++) {
-            combination[index] = i;
-            generateCombinations(results, combination, target - i, index + 1);
-        }
+        var output = factory.generate(input);
+        int max = factory.calculateBestCookieScore(100, 500, output);
+
+        assertEquals(expected, max);
     }
 }

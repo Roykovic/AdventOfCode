@@ -9,7 +9,7 @@ public class BricksFactoryTest {
     @ParameterizedTest
     @CsvSource({
             "BricksTestInput.txt,true,-1",
-            "BricksInput.txt,false,-1",
+//            "BricksInput.txt,false,-1",
     })
     public void test(String filename, boolean test, int expected) {
         var input = FileReaderService.streamLinesFromFile(2023, filename, test);

@@ -5,6 +5,12 @@ public class Player {
     private int damage;
     private int armor;
 
+    public Player(int hitPoints, int damage, int armor) {
+        this.hitPoints = hitPoints;
+        this.damage = damage;
+        this.armor = armor;
+    }
+
     public int getHitPoints() {
         return hitPoints;
     }

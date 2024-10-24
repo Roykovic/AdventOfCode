@@ -43,7 +43,7 @@ public class MoleculeFactory {
                     lastIndex = molecule.indexOf(entry.getKey(), lastIndex);
 
                     if (lastIndex != -1) {
-                        possibleMolecules.add(molecule.substring(0,lastIndex) + mutation + molecule.substring(lastIndex +1));
+                        possibleMolecules.add(molecule.substring(0,lastIndex) + mutation + molecule.substring(lastIndex +entry.getKey().length()));
 
                         lastIndex++;
                     }

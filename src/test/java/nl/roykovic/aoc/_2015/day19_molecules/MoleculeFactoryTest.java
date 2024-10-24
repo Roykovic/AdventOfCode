@@ -27,11 +27,12 @@ public class MoleculeFactoryTest {
     }
 
     @Test
-    @Disabled
     void testActualCalibration() throws IOException {
         File input = new ClassPathResource("2015/MoleculeInput.txt").getFile();
         int combinations = new MoleculeFactory().generateFromFile(input);
 
-        assertEquals(4, combinations);
+        assert(combinations < 603); //603 is wrong; answer is too high
+        assert(combinations < 581); //581 is wrong; answer is too high
+        assertEquals(509, combinations);
     }
 }

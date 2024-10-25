@@ -3,11 +3,26 @@ package nl.roykovic.aoc.utils;
 import nl.roykovic.aoc._2023.day18_lagoon.CoordRange;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 public class Utils {
 
+    public static Stream<List<Object>> cartesianProduct(List<List<Object>> sets, int index) {
+        if (index == sets.size()) {
+            List<Object> emptyList = new ArrayList<>();
+            return Stream.of(emptyList);
+        }
+        List<Object> currentSet = sets.get(index);
+        return currentSet.stream().flatMap(element -> cartesianProduct(sets, index+1)
+                .map(list -> {
+                    List<Object> newList = new ArrayList<>(list);
+                    newList.add(0, element);
+                    return newList;
+                }));
+    }
     public static Long lcm(Long long1, Long long2) {
         BigInteger number1 = BigInteger.valueOf(long1);
         BigInteger number2 = BigInteger.valueOf(long2);

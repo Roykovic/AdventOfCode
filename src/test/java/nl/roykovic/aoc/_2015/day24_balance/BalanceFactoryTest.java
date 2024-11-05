@@ -8,12 +8,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class BalanceFactoryTest {
     @ParameterizedTest
     @CsvSource({
-            "BalanceTestInput.txt,true,99",
-            "BalanceInput.txt,false,10439961859",
+            "BalanceTestInput.txt,true,99, 3",
+            "BalanceTestInput.txt,true,44, 4",
+            "BalanceInput.txt,false,10439961859, 3",
+            "BalanceInput.txt,false,72050269, 4",
     })
-    public void test(String filename, boolean test, Long expected) {
+    public void test(String filename, boolean test, Long expected, int compartments) {
         var input = FileReaderService.streamLinesFromFile(2015, filename, test);
-        var output = new BalanceFactory().generate(input);
+        var output = new BalanceFactory().generate(input, compartments);
         assert(output < 341786451067L);
         assertEquals(expected, output);
     }}

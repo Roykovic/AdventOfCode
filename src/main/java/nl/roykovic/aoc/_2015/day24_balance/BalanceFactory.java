@@ -7,11 +7,11 @@ public class BalanceFactory {
  List<Integer> values = new ArrayList<>();
  Long QE = Long.MAX_VALUE;
 
-    public Long generate(Stream<String> input) {
+    public Long generate(Stream<String> input, int compartments) {
         List<Integer> inputArr = input.mapToInt(Integer::valueOf).boxed().toList();
 
         int total = inputArr.stream().mapToInt(it->it).sum();
-        int partTotal = total/3;
+        int partTotal = total/compartments;
         Vector<Integer> A
                 = new Vector<>(inputArr);
 

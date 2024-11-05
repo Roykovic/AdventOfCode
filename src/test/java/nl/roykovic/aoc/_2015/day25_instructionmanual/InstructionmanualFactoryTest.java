@@ -10,7 +10,7 @@ public class InstructionmanualFactoryTest {
     @ParameterizedTest
     @CsvSource({
             "2,1,31916031",
-            "2947,3029,-1",
+            "2947,3029,19980801",
     })
     public void test(int row, int col, int expected) {
         InstructionmanualFactory factory = new InstructionmanualFactory();

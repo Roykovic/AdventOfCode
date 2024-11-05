@@ -4,9 +4,9 @@ import java.util.stream.Stream;
 public class InstructionmanualFactory {
     public Long generate(int ordinal) {
 
-        Long lastVal = 20151125L;
+        long lastVal = 20151125L;
         for(int i = 1; i < ordinal; i++){
-            Long curVal = lastVal * 252533;
+            long curVal = lastVal * 252533;
             lastVal = curVal % 33554393;
         }
 
@@ -15,9 +15,8 @@ public class InstructionmanualFactory {
 
 
     public int findOrdinalByRowAndCol(int row, int col){
-        int ordinalOfFirstInCol = (col+1) * col /2;
 
-        int val = ordinalOfFirstInCol;
+        int val = (col+1) * col /2;
         for(int i = 2; i <= row; i++){
             val += col + i-2;
         }

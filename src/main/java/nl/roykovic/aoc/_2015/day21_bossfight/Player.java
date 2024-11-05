@@ -5,6 +5,13 @@ public class Player {
     private int damage;
     private int armor;
 
+    private int mana;
+
+    public Player(int hitPoints,int mana) {
+        this.hitPoints = hitPoints;
+        this.mana = mana;
+        this.armor = 0;
+    }
     public Player(int hitPoints, int damage, int armor) {
         this.hitPoints = hitPoints;
         this.damage = damage;
@@ -33,5 +40,13 @@ public class Player {
 
     public void setArmor(int armor) {
         this.armor = armor;
+    }
+
+    public int getMana() {
+        return mana;
+    }
+
+    public void setMana(int mana) {
+        this.mana = mana;
     }
 }

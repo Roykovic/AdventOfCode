@@ -52,4 +52,26 @@ public enum Direction {
 
         return getByCoords(x,y);
     }
+
+    public static Direction getFromViewingDirection(Direction viewingDirection, Direction original){
+        return switch (viewingDirection){
+            case D -> OPPOSITE.get(original);
+            case U -> original;
+            case R -> {
+                int newOrdinal = original.ordinal() +1;
+                if(newOrdinal > 3){
+                    newOrdinal = 1;
+                }
+                yield Direction.values()[newOrdinal];
+            }
+            case L -> {
+                int newOrdinal = original.ordinal() -1;
+                if(newOrdinal < 0){
+                    newOrdinal = 3;
+                }
+                yield Direction.values()[newOrdinal];
+            }
+            default -> throw new RuntimeException();
+        };
+    }
 }

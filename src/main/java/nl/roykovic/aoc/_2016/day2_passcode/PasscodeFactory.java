@@ -6,21 +6,7 @@ import nl.roykovic.aoc.utils.Direction;
 import java.util.List;
 import java.util.stream.Stream;
 public class PasscodeFactory {
-
-    List<Coord> passCodeCoords = List.of(
-            new Coord(100000, 1000), //stuffing to make it 1-indexed so the indexes are the same as the number on the pad
-            new Coord(0,0),
-            new Coord(1,0),
-            new Coord(2,0),
-            new Coord(0,1),
-            new Coord(1,1),
-            new Coord(2,1),
-            new Coord(0,2),
-            new Coord(1,2),
-            new Coord(2,2)
-            );
-
-    public int generate(Stream<String> input) {
+    public String generate(Stream<String> input, List<Coord> passCodeCoords) {
         var digitInstructions = input.map(String::toCharArray).toList();
 
         StringBuilder passcode = new StringBuilder();
@@ -34,9 +20,14 @@ public class PasscodeFactory {
                     curCoord.move(direction);
                 }
             }
-            passcode.append(passCodeCoords.indexOf(new Coord(curCoord)));
+            int valueToAdd = passCodeCoords.indexOf(new Coord(curCoord));
+            String stringValueToAdd = String.valueOf(valueToAdd);
+            if(valueToAdd > 9){
+                stringValueToAdd = String.valueOf((char)(valueToAdd-9 + 64));
+            }
+            passcode.append(stringValueToAdd);
         }
 
-        return Integer.parseInt(passcode.toString());
+        return passcode.toString();
     }
 }

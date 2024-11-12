@@ -11,7 +11,7 @@ import java.util.Locale;
 public class ClassGenerator {
 
     public static void main(String[] args) {
-        args = new String[]{"2016","2", "passcode"};
+        args = new String[]{"2016","3", "triangles"};
 
         
         if (args.length < 2 || args.length > 3) {
@@ -76,7 +76,7 @@ public class ClassGenerator {
                     "        var output = new "+name+"Factory().generate(input);\n" +
                     "\n" +
                     "        assertEquals(expected, output);\n" +
-                    "    }"+
+                    "    }\n"+
                 "}\n";
     }
 

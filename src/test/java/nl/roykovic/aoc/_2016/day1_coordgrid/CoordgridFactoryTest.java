@@ -13,7 +13,19 @@ public class CoordgridFactoryTest {
     })
     public void test(String filename, boolean test, int expected) {
         var input = FileReaderService.getFileAsString(2016, filename, test);
-        var output = new CoordgridFactory().generate(input);
+        var output = new CoordgridFactory().generate(input, false);
+
+        assertEquals(expected, output);
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "CoordgridTestInput.txt,true,5",
+            "CoordgridInput.txt,false,163",
+    })
+    public void testSameLocTwice(String filename, boolean test, int expected) {
+        var input = FileReaderService.getFileAsString(2016, filename, test);
+        var output = new CoordgridFactory().generate(input, true);
 
         assertEquals(expected, output);
     }}

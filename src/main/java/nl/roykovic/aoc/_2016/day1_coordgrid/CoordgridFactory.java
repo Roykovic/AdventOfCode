@@ -1,15 +1,22 @@
 package nl.roykovic.aoc._2016.day1_coordgrid;
 
+import nl.roykovic.aoc._2022.day16_volcano.Volcano;
 import nl.roykovic.aoc.utils.Coord;
 import nl.roykovic.aoc.utils.Direction;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Stream;
 public class CoordgridFactory {
-    public int generate(String input) {
+    public int generate(String input, boolean stopAtSameLocation) {
         var directions = input.split(" ");
 
+        List<Coord> visited = new ArrayList<>();
+
         Coord start = new Coord(0,0);
+
+        visited.add(new Coord(start));
         Direction startDir = Direction.U;
 
         for(String d : directions){
@@ -21,6 +28,10 @@ public class CoordgridFactory {
 
             for(int i = 0; i < times; i++){
                 start.move(relativeDir);
+                if(visited.contains(start) && stopAtSameLocation){
+                    return Math.toIntExact(start.manhattanDistance(new Coord(0, 0)));
+                }
+                visited.add(new Coord(start));
             }
             startDir = relativeDir;
         }

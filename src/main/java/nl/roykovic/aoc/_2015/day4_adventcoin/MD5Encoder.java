@@ -9,13 +9,19 @@ import java.security.NoSuchAlgorithmException;
 
 public class MD5Encoder {
 
-    public static String encode(String input) throws NoSuchAlgorithmException {
-        return StringUtils.leftPad
-                (new BigInteger(1,
-                                MessageDigest.getInstance("MD5")
-                                        .digest(input.getBytes(StandardCharsets.UTF_8)))
-                                .toString(16),
-                        32,
-                        '0');
+    public static String encode(String input){
+        try {
+            return StringUtils.leftPad
+                    (new BigInteger(1,
+                                    MessageDigest.getInstance("MD5")
+                                            .digest(input.getBytes(StandardCharsets.UTF_8)))
+                                    .toString(16),
+                            32,
+                            '0');
+        }
+        catch (NoSuchAlgorithmException e){
+            System.err.println("Problem creating MD5 algorithm"+e);
+        }
+        return "";
     }
 }

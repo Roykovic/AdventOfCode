@@ -8,12 +8,39 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class AbbaFactoryTest {
     @ParameterizedTest
     @CsvSource({
-            "AbbaTestInput.txt,true,-1",
-            "AbbaInput.txt,false,-1",
+            "AbbaTestInput.txt,true,2",
+            "AbbaInput.txt,false,105",
     })
     public void test(String filename, boolean test, int expected) {
         var input = FileReaderService.streamLinesFromFile(2016, filename, test);
         var output = new AbbaFactory().generate(input);
+
+        assertEquals(expected, output);
+    }
+
+
+    @ParameterizedTest
+    @CsvSource({
+            "abba[mnop]qrst,true",
+            "abcd[bddb]xyyx,false",
+            "ioxxoj[asdfgh]zxcvbn,true",
+            "aaaa[qwer]tyui,false",
+    })
+    public void testTLS(String address, boolean expected) {
+        var output = new AbbaFactory().supportsTLS(address);
+
+        assertEquals(expected, output);
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "abba,true",
+            "[bddb],true",
+            "[mnop],false",
+            "tyui,false",
+    })
+    public void testABBA(String address, boolean expected) {
+        var output = new AbbaFactory().hasABBA(address);
 
         assertEquals(expected, output);
     }

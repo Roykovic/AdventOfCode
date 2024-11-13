@@ -82,14 +82,14 @@ public class AbbaFactory {
         return false;
     }
 
-    private Map<String, List<String>> divideStrings(String input){
+    public Map<String, List<String>> divideStrings(String input){
         List<String> bracketed = List.of(StringUtils.substringsBetween(input, "[", "]"));;
 
         List<String> unBracketed = new ArrayList<>();
 
         for(String bracketedString : bracketed){
             unBracketed.add(input.substring(0, input.indexOf('[')));
-            input = input.substring(input.indexOf(']'));
+            input = input.substring(Integer.min(input.indexOf(']')+1, input.length()-1));
         }
 
         unBracketed.add(input.substring(input.indexOf(']') +1));

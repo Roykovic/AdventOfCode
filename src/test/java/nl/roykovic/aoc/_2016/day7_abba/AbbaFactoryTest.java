@@ -4,7 +4,11 @@ import nl.roykovic.aoc.utils.FileReaderService;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 public class AbbaFactoryTest {
     @ParameterizedTest
     @CsvSource({
@@ -20,7 +24,7 @@ public class AbbaFactoryTest {
 
     @ParameterizedTest
     @CsvSource({
-            "AbbaInput.txt,false,105",
+            "AbbaInput.txt,false,258",
     })
     public void testSSL(String filename, boolean test, int expected) {
         var input = FileReaderService.streamLinesFromFile(2016, filename, test);
@@ -70,4 +74,6 @@ public class AbbaFactoryTest {
 
         assertEquals(expected, output);
     }
+
+
 }

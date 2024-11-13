@@ -76,7 +76,6 @@ public class Room {
     }
 
     public boolean isValid(){
-        var hans = calculateChecksum();
         return calculateChecksum().equals(checksum);
     }
 

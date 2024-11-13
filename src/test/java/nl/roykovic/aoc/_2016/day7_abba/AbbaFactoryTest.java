@@ -11,13 +11,39 @@ public class AbbaFactoryTest {
             "AbbaTestInput.txt,true,2",
             "AbbaInput.txt,false,105",
     })
-    public void test(String filename, boolean test, int expected) {
+    public void testTLS(String filename, boolean test, int expected) {
         var input = FileReaderService.streamLinesFromFile(2016, filename, test);
-        var output = new AbbaFactory().generate(input);
+        var output = new AbbaFactory().countTLS(input);
 
         assertEquals(expected, output);
     }
 
+    @ParameterizedTest
+    @CsvSource({
+            "AbbaInput.txt,false,105",
+    })
+    public void testSSL(String filename, boolean test, int expected) {
+        var input = FileReaderService.streamLinesFromFile(2016, filename, test);
+        var output = new AbbaFactory().countSSL(input);
+
+        assert(output < 329);
+        assertEquals(expected, output);
+    }
+
+
+
+    @ParameterizedTest
+    @CsvSource({
+            "aba[bab]xyz,true",
+            "xyx[xyx]xyx,false",
+            "aaa[kek]eke,true",
+            "zazbz[bzb]cdb,true",
+    })
+    public void testSSL(String address, boolean expected) {
+        var output = new AbbaFactory().supportsSSL(address);
+
+        assertEquals(expected, output);
+    }
 
     @ParameterizedTest
     @CsvSource({

@@ -23,7 +23,9 @@ public class Room {
         Set<Character> uniqueChars = new HashSet<>();
 
         for(char c : name.toCharArray()){
-            uniqueChars.add(c);
+            if(c != '-') {
+                uniqueChars.add(c);
+            }
         }
 
         Map<Character, Integer> occurences =  uniqueChars.stream().collect(Collectors.toMap(it -> it, it -> StringUtils.countMatches(name, it)));
@@ -62,7 +64,7 @@ public class Room {
                 int i = c + rotations;
 
                 if (i > 122) {
-                    i -= 25;
+                    i -= 26;
                 }
 
                 decipheredName += (char) i;

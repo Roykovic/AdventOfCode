@@ -14,7 +14,7 @@ public class RealroomsFactory {
             String rest = it.substring(0,checksumIndex);
 
             String id = StringUtils.getDigits(rest);
-            String name = rest.replaceAll("[^a-zA-Z]+", "");
+            String name = rest.replaceAll("[^a-zA-Z-]+", "");
 
             return new Room(Integer.parseInt(id), name, checksum);
         }).toList();

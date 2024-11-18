@@ -17,4 +17,15 @@ public class MazeFactoryTest {
 
         assertEquals(expected, output -1);
     }
+
+    @ParameterizedTest
+    @CsvSource({
+            "MazeInput.txt,false,127",
+    })
+    public void test(String filename, boolean test, int expected) {
+        var input = FileReaderService.getFileAsString(2016, filename, test);
+        var output = new MazeFactory().generateMaxDepth(input, 50);
+
+        assertEquals(expected, output);
+    }
 }

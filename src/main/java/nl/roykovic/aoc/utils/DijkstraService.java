@@ -8,6 +8,34 @@ import java.util.Map;
 import java.util.Set;
 
 public class DijkstraService {
+
+    public static Set<Node> calculateNodesInReach(Node source, int reach){
+        source.setDistance(0);
+
+        Set<Node> settledNodes = new HashSet<>();
+        Set<Node> unsettledNodes = new HashSet<>();
+
+        unsettledNodes.add(source);
+
+        while (!unsettledNodes.isEmpty()) {
+            Node currentNode = getLowestDistanceNode(unsettledNodes);
+            if(currentNode.getDistance() > reach){
+                break;
+            }
+            unsettledNodes.remove(currentNode);
+            for (Map.Entry< Node, Integer> adjacencyPair:
+                    currentNode.getAdjacentNodes().entrySet()) {
+                Node adjacentNode = adjacencyPair.getKey();
+                Integer edgeWeight = adjacencyPair.getValue();
+                if (!settledNodes.contains(adjacentNode)) {
+                    calculateMinimumDistance(adjacentNode, edgeWeight, currentNode);
+                    unsettledNodes.add(adjacentNode);
+                }
+            }
+            settledNodes.add(currentNode);
+        }
+        return settledNodes;
+    }
     public static void calculateShortestPathFromSource(Node source) {
         source.setDistance(0);
 

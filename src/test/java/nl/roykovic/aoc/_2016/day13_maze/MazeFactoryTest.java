@@ -8,13 +8,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class MazeFactoryTest {
     @ParameterizedTest
     @CsvSource({
-            "MazeTestInput.txt,true,-1",
-            "MazeInput.txt,false,-1",
+            "MazeTestInput.txt,true,11,7,4",
+            "MazeInput.txt,false,-1,86,39",
     })
-    public void test(String filename, boolean test, int expected) {
+    public void test(String filename, boolean test, int expected, int endX, int endY) {
         var input = FileReaderService.getFileAsString(2016, filename, test);
-        var output = new MazeFactory().generate(input);
+        var output = new MazeFactory().generate(input, endX, endY);
 
-        assertEquals(expected, output);
+        assertEquals(expected, output -1);
     }
 }

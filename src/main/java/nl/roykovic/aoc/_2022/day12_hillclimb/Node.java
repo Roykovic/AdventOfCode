@@ -2,17 +2,14 @@ package nl.roykovic.aoc._2022.day12_hillclimb;
 
 import nl.roykovic.aoc.utils.Coord;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Node {
     private final Coord coord;
     private Integer distance = Integer.MAX_VALUE;
     private final int elevation;
     private final boolean isStart;
-    private final boolean isEnd;
+    protected final boolean isEnd;
 
     private List<Node> shortestPath = new LinkedList<>();
 
@@ -83,4 +80,19 @@ public class Node {
     public boolean isEnd() {
         return isEnd;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Coord coord = ((Node) o).getCoord();
+        Coord thisCoord = this.coord;
+        return Objects.equals(thisCoord.getX(), coord.getX()) && Objects.equals(thisCoord.getY(), coord.getY()) && Objects.equals(thisCoord.getZ(), coord.getZ());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.getX(), this.getY());
+    }
+
 }

@@ -1,54 +1,45 @@
 package nl.roykovic.aoc.utils;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import nl.roykovic.aoc._2022.day12_hillclimb.Node;
 
 import java.util.*;
 
-public class BreadthFirstSearch{
+public class BreadthFirstSearch {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(BreadthFirstSearch.class);
+    public static List<Node> search(Node startNode, Node endNode) {
 
-    public static <T> Optional<Tree<T>> search(T value, Tree<T> root) {
-        Queue<Tree<T>> queue = new ArrayDeque<>();
-        queue.add(root);
+        Map<Node, Node> parents = new HashMap<>();
+        Queue<Node> queue = new LinkedList<>();
+        Set<Node> visited = new HashSet<>();
 
-        Tree<T> currentNode;
-        while (!queue.isEmpty()) {
-            currentNode = queue.remove();
-            LOGGER.debug("Visited node with value: {}", currentNode.getValue());
-
-            if (currentNode.getValue().equals(value)) {
-                return Optional.of(currentNode);
-            } else {
-                queue.addAll(currentNode.getChildren());
-            }
-        }
-
-        return Optional.empty();
-    }
-
-    public static <T> Optional<Node<T>> search(T value, Node<T> start) {
-        Queue<Node<T>> queue = new ArrayDeque<>();
-        queue.add(start);
-
-        Node<T> currentNode;
-        Set<Node<T>> alreadyVisited = new HashSet<>();
+        parents.put(startNode, null);
+        queue.offer(startNode);
+        visited.add(startNode);
 
         while (!queue.isEmpty()) {
-            currentNode = queue.remove();
-            LOGGER.debug("Visited node with value: {}", currentNode.getValue());
+            Node current = queue.poll();
 
-            if (currentNode.getValue().equals(value)) {
-                return Optional.of(currentNode);
+            if (current.equals(endNode)) {
+                List<Node> path = new ArrayList<>();
+
+                while(current != null){
+                    path.add(current);
+                    current = parents.get(current);
+                }
+
+                return path;
+
             } else {
-                alreadyVisited.add(currentNode);
-                queue.addAll(currentNode.getNeighbors());
-                queue.removeAll(alreadyVisited);
+                for (Node neighbour : current.getAdjacentNodes().keySet()) {
+                    if (!visited.contains(neighbour)) {
+                        visited.add(neighbour);
+                        parents.put(neighbour, current);
+                        queue.offer(neighbour);
+                    }
+                }
             }
         }
-
-        return Optional.empty();
+        return null;
     }
 
 }

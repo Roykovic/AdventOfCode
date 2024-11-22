@@ -8,12 +8,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class DragonCurveFactoryTest {
     @ParameterizedTest
     @CsvSource({
-            "DragonCurveTestInput.txt,true,-1",
-            "DragonCurveInput.txt,false,-1",
+            "DragonCurveTestInput.txt,true,20,01100",
+            "DragonCurveInput.txt,false,272,10011010010010010",
+            "DragonCurveInput.txt,false,35651584,10011010010010010",
     })
-    public void test(String filename, boolean test, int expected) {
-        var input = FileReaderService.streamLinesFromFile(2016, filename, test);
-        var output = new DragonCurveFactory().generate(input);
+    public void test(String filename, boolean test, int filesize, String expected) {
+        var input = FileReaderService.getFileAsString(2016, filename, test);
+        var output = new DragonCurveFactory().generate(input, filesize);
 
         assertEquals(expected, output);
     }

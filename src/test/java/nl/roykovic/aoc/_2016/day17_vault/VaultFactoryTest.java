@@ -13,7 +13,7 @@ public class VaultFactoryTest {
             "ulqzkmiv,DRURDRUDDLLDLUURRDULRLDUUDDDRR",
             "dmypynyp,-1",
     })
-    public void test(String input, boolean test, int expected) {
+    public void test(String input, int expected) {
         var output = new VaultFactory().generate(input);
 
         assertEquals(expected, output);

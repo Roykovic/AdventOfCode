@@ -11,7 +11,7 @@ import java.util.Locale;
 public class ClassGenerator {
 
     public static void main(String[] args) {
-        args = new String[]{"2016","13", "maze"};
+        args = new String[]{"2016","14", "OTPKey"};
 
         
         if (args.length < 2 || args.length > 3) {
@@ -96,6 +96,18 @@ public class ClassGenerator {
 
         } catch (IOException e) {
             System.out.println("Error creating " + fileName + ": " + e.getMessage());
+        }
+
+        openInIntelliJ(fileName);
+    }
+
+    private static void openInIntelliJ(String fileName) {
+        try {
+            Process process = new ProcessBuilder("idea", fileName)
+                    .start();
+            process.waitFor(); // Wait for the command to complete
+        } catch (IOException | InterruptedException e) {
+            System.out.println("Error opening file in IntelliJ: " + e.getMessage());
         }
     }
 }

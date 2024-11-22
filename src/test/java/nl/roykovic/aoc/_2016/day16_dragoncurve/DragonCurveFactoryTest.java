@@ -10,7 +10,7 @@ public class DragonCurveFactoryTest {
     @CsvSource({
             "DragonCurveTestInput.txt,true,20,01100",
             "DragonCurveInput.txt,false,272,10011010010010010",
-            "DragonCurveInput.txt,false,35651584,10011010010010010",
+            "DragonCurveInput.txt,false,35651584,10101011110100011",
     })
     public void test(String filename, boolean test, int filesize, String expected) {
         var input = FileReaderService.getFileAsString(2016, filename, test);

@@ -8,11 +8,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class VaultFactoryTest {
     @ParameterizedTest
     @CsvSource({
-            "VaultTestInput.txt,true,-1",
-            "VaultInput.txt,false,-1",
+            "ihgpwlah,DDRRRD",
+            "kglvqrro,DDUDRLRRUDRD",
+            "ulqzkmiv,DRURDRUDDLLDLUURRDULRLDUUDDDRR",
+            "dmypynyp,-1",
     })
-    public void test(String filename, boolean test, int expected) {
-        var input = FileReaderService.streamLinesFromFile(2016, filename, test);
+    public void test(String input, boolean test, int expected) {
         var output = new VaultFactory().generate(input);
 
         assertEquals(expected, output);

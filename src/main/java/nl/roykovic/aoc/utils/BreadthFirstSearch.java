@@ -42,4 +42,35 @@ public class BreadthFirstSearch {
         return null;
     }
 
+    public static List<Node> searchCircular(Node startNode, Node endNode) {
+
+        Map<Node, Node> parents = new HashMap<>();
+        Queue<Node> queue = new LinkedList<>();
+
+        parents.put(startNode, null);
+        queue.offer(startNode);
+
+        while (!queue.isEmpty()) {
+            Node current = queue.poll();
+
+            if (current.equals(endNode)) {
+                List<Node> path = new ArrayList<>();
+
+                while(current != null){
+                    path.add(current);
+                    current = parents.get(current);
+                }
+
+                return path;
+
+            } else {
+                for (Node neighbour : current.getAdjacentNodes().keySet()) {
+                        parents.put(neighbour, current);
+                        queue.offer(neighbour);
+                }
+            }
+        }
+        return null;
+    }
+
 }

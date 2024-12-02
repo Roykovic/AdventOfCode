@@ -16,6 +16,9 @@ public class VaultFactoryTest {
     public void test(String input, int expected) {
         var output = new VaultFactory().generate(input);
 
+
+
+
         assertEquals(expected, output);
     }
 }

@@ -8,26 +8,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class UnusualDataFactoryTest {
     @ParameterizedTest
     @CsvSource({
-            "UnusualDataTestInput.txt,true,2",
-            "UnusualDataInput.txt,false,356",
+            "UnusualDataTestInput.txt,true,false,2",
+            "UnusualDataInput.txt,false,false,356",
+            "UnusualDataTestInput.txt,true,true,4",
+            "UnusualDataInput.txt,false,true,413",
     })
-    public void test(String filename, boolean test, int expected) {
+    public void test(String filename, boolean test, boolean dampening, int expected) {
         var input = FileReaderService.streamLinesFromFile(2024, filename, test);
-        var output = new UnusualDataFactory().countSafe(input);
+        var output = new UnusualDataFactory().countSafe(input, dampening);
 
-        assertEquals(expected, output);
-    }
-
-    @ParameterizedTest
-    @CsvSource({
-            "UnusualDataTestInput.txt,true,4",
-            "UnusualDataInput.txt,false,413",
-    })
-    public void testp2(String filename, boolean test, int expected) {
-        var input = FileReaderService.streamLinesFromFile(2024, filename, test);
-        var output = new UnusualDataFactory().countSafeWithDampener(input);
-
-        assert(test || output > 409);
         assertEquals(expected, output);
     }
 }

@@ -11,7 +11,7 @@ import java.util.Locale;
 public class ClassGenerator {
 
     public static void main(String[] args) {
-        args = new String[]{"2024","4", "WordSearch"};
+        args = new String[]{"2016","18", "SafeTiles"};
 
         
         if (args.length < 2 || args.length > 3) {
@@ -103,7 +103,7 @@ public class ClassGenerator {
 
     private static void openInIntelliJ(String fileName) {
         try {
-            Process process = new ProcessBuilder("idea", fileName)
+            Process process = new ProcessBuilder("C:\\Users\\roy_i\\AppData\\Local\\JetBrains\\Toolbox\\scripts\\idea.cmd", fileName)
                     .start();
             process.waitFor(); // Wait for the command to complete
         } catch (IOException | InterruptedException e) {

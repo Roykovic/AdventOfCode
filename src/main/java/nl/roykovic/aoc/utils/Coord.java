@@ -112,6 +112,17 @@ public class Coord{
         return neighbours;
     }
 
+    public List<Coord> getNeighboursDiagonal(){
+        List<Coord> neighbours = new ArrayList<>();
+
+        neighbours.add(this.moveAndGet(Direction.UR));
+        neighbours.add(this.moveAndGet(Direction.UL));
+        neighbours.add(this.moveAndGet(Direction.DR));
+        neighbours.add(this.moveAndGet(Direction.DL));
+
+        return neighbours;
+    }
+
     public Coord wrapAround(long screenW, long screenH){
         Coord newCoord = new Coord(this);
 

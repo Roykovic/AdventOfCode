@@ -10,6 +10,30 @@ import java.util.stream.Stream;
 
 public class Utils {
 
+
+    public static char[][] rotateGridClockwise(char[][] input) {
+        char[][] output = new char[input[0].length][input.length];
+
+        for (int y = 0; y < output.length; y++) {
+            for (int x = 0; x < output[y].length; x++) {
+                output[y][x] = input[(output[y].length - 1) - x][y];
+            }
+        }
+
+        return output;
+    }
+
+    public static char[][] rotateGridAntiClockwise(char[][] input) {
+        char[][] output = new char[input[0].length][input.length];
+
+        for (int y = 0; y < input[0].length; y++) {
+            for (int x = input.length - 1; x >= 0; x--) {
+                output[y][x] = input[x][(output[y].length - 1) - y];
+            }
+        }
+        return output;
+    }
+
     public static Stream<List<Object>> cartesianProduct(List<List<Object>> sets, int index) {
         if (index == sets.size()) {
             List<Object> emptyList = new ArrayList<>();

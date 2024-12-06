@@ -11,7 +11,7 @@ import java.util.Locale;
 public class ClassGenerator {
 
     public static void main(String[] args) {
-        args = new String[]{"2016","18", "SafeTiles"};
+        args = new String[]{"2024","6", "GuardPath"};
 
         
         if (args.length < 2 || args.length > 3) {

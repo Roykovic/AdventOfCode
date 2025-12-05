@@ -8,12 +8,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class InvalidIdsFactoryTest {
     @ParameterizedTest
     @CsvSource({
-            "InvalidIdsTestInput.txt,true,-1",
-            "InvalidIdsInput.txt,false,-1",
+            "InvalidIdsTestInput.txt,true,1227775554, false",
+            "InvalidIdsInput.txt,false,44854383294, false",
+            "InvalidIdsTestInput.txt,true,4174379265, true",
+            "InvalidIdsInput.txt,false,55647141923, true",
     })
-    public void test(String filename, boolean test, int expected) {
-        var input = FileReaderService.streamLinesFromFile(2025, filename, test);
-        var output = new InvalidIdsFactory().generate(input);
+    public void test(String filename, boolean test, long expected, boolean p2) {
+        var input = FileReaderService.getFileAsString(2025, filename, test);
+        var output = new InvalidIdsFactory().generate(input, p2);
 
         assertEquals(expected, output);
     }
